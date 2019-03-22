@@ -6,7 +6,13 @@ from utils import get_layer_outs, percent_str
 from collections import defaultdict
 
 
-def measure_neuron_cov(model, test_inputs, scaler, threshold=0, skip_layers=None, outs=None):
+def scale(intermediate_layer_output, rmax=1, rmin=0):
+    X_std = (intermediate_layer_output - intermediate_layer_output.min()) / (
+        intermediate_layer_output.max() - intermediate_layer_output.min())
+    X_scaled = X_std * (rmax - rmin) + rmin
+    return X_scaled
+
+def measure_neuron_cov(model, test_inputs, scaler=scale, threshold=0, skip_layers=None, outs=None):
     if outs is None:
         outs = get_layer_outs(model, test_inputs, skip_layers)
 
@@ -24,9 +30,3 @@ def measure_neuron_cov(model, test_inputs, scaler, threshold=0, skip_layers=None
     total = len(activation_table.keys())
 
     return percent_str(covered, total), covered, total, outs
-
-def scale(intermediate_layer_output, rmax=1, rmin=0):
-    X_std = (intermediate_layer_output - intermediate_layer_output.min()) / (
-        intermediate_layer_output.max() - intermediate_layer_output.min())
-    X_scaled = X_std * (rmax - rmin) + rmin
-    return X_scaled
