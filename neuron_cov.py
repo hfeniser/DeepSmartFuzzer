@@ -25,8 +25,14 @@ def measure_neuron_cov(model, test_inputs, scaler=scale, threshold=0, skip_layer
             for neuron_index in range(out_for_input.shape[-1]):
                 activation_table[(layer_index, neuron_index)] = activation_table[(layer_index, neuron_index)] or\
                                                                 np.mean(out_for_input[..., neuron_index]) > threshold
-
     covered = len([1 for c in activation_table.values() if c])
     total = len(activation_table.keys())
+    
+    coverage_state = np.zeros(total)
+    for i,c in enumerate(activation_table.values()):
+        if c:
+            coverage_state[i] = 1
+        else:
+            coverage_state[i] = 0
 
-    return percent_str(covered, total), covered, total, outs
+    return percent_str(covered, total), covered, total, outs, coverage_state 

@@ -99,11 +99,9 @@ def get_layer_outs(model, test_input, skip=None):
 def calc_major_func_regions(model, train_inputs, skip=None):
     if skip is None:
         skip = []
-
     outs = get_layer_outs(model, train_inputs, skip)
 
     major_regions = []
-
     for layer_index, layer_out in enumerate(outs):  # layer_out is output of layer for all inputs
         layer_out = layer_out[0].mean(axis=tuple(i for i in range(1, layer_out[0].ndim - 1)))
 
