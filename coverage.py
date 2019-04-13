@@ -18,16 +18,22 @@ class AbstractCoverage(ABC):
     def get_current_coverage(self):
         return self.coverage
     
-    def step(self, test_inputs, *argv, **kwargs):
+    def step(self, test_inputs, update_state=True, coverage_state=None, *argv, **kwargs):
         # calculates new coverage using test_input, 
         # sets self.state, self.coverage accordingly
         # and returns reward (new coverage - old coverage)
-        coverage_state = self._calc_coverage(test_inputs, *argv, **kwargs)
-        self.state = np.maximum(coverage_state, self.state)
-        new_coverage = np.sum(self.state) / self.state_len
+        if coverage_state is None:
+            coverage_state = self._calc_coverage(test_inputs, *argv, **kwargs)
+        
+        new_state = np.maximum(coverage_state, self.state)
+        new_coverage = np.sum(new_state) / self.state_len
         reward = new_coverage - self.coverage
-        self.coverage = new_coverage
-        return reward
+        if update_state:
+            self.state = new_state
+            self.coverage = new_coverage
+            return reward
+        else:
+            return coverage_state, reward
     
     @abstractmethod
     def _calc_state_len(self, test_inputs, *argv, **kwargs):

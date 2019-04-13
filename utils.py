@@ -96,6 +96,28 @@ def get_layer_outs(model, test_input, skip=None):
     return layer_outs
 
 
+# https://stackoverflow.com/questions/41711190/keras-how-to-get-the-output-of-each-layer
+def get_layer_outs_optimized_compatible(model, test_input, skip=[]):
+    inp = model.input                                           # input placeholder
+    outputs = [layer.output for index, layer in enumerate(model.layers)
+               if (index not in skip and 'input' not in layer.name)]  # all layer outputs (except input for functionals)
+    functor = K.function([inp, K.learning_phase()], outputs )   # evaluation function
+
+    layer_outs = functor([test_input, 1.])
+    layer_outs = [[layer_out] for layer_out in layer_outs]
+    return layer_outs
+
+# https://stackoverflow.com/questions/41711190/keras-how-to-get-the-output-of-each-layer
+def get_layer_outs_optimized(model, test_input, skip=[]):
+    inp = model.input                                           # input placeholder
+    outputs = [layer.output for index, layer in enumerate(model.layers)
+               if (index not in skip and 'input' not in layer.name)]  # all layer outputs (except input for functionals)
+    functor = K.function([inp, K.learning_phase()], outputs )   # evaluation function
+
+    layer_outs = functor([test_input, 1.])
+    return layer_outs
+
+
 def calc_major_func_regions(model, train_inputs, skip=None):
     if skip is None:
         skip = []

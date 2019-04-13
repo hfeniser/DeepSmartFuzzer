@@ -2,16 +2,17 @@ import sys
 sys.path.append('../')
 
 import numpy as np
-from utils import get_layer_outs, calc_major_func_regions, percent_str
+from utils import get_layer_outs_optimized, calc_major_func_regions, percent_str
 from math import floor
 
+import time
 
 def measure_k_multisection_cov(model, test_inputs, k, train_inputs=None, major_func_regions=None, skip=None, outs=None):
     if skip is None:
         skip = []
 
     if outs is None:
-        outs = get_layer_outs(model, test_inputs, skip=skip)
+        outs = get_layer_outs_optimized(model, test_inputs, skip=skip)
 
     if major_func_regions is None:
         if train_inputs is None:
@@ -22,8 +23,10 @@ def measure_k_multisection_cov(model, test_inputs, k, train_inputs=None, major_f
     activation_table_by_section, upper_activation_table, lower_activation_table = {}, {}, {}
     neuron_set = set()
 
+    t = time.time()
+
     for layer_index, layer_out in enumerate(outs):  # layer_out is output of layer for all inputs
-        for out_for_input in layer_out[0]:  # out_for_input is output of layer for single input
+        for out_for_input in layer_out:  # out_for_input is output of layer for single input
             for neuron_index in range(out_for_input.shape[-1]):
                 neuron_out = np.mean(out_for_input[..., neuron_index])
                 global_neuron_index = (layer_index, neuron_index)
