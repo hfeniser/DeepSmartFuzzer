@@ -9,7 +9,12 @@ git clone --recursive https://github.com/hasanferit/RLforDL.git
 ```
 
 
-### 2) Install All
+### 2) Install Gym Environments
+```
+pip install -e gym_dnn_test/
+```
+
+### 3) Install Dependecies
 ```
 pip install -r requirements.txt
 ```

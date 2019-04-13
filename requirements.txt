@@ -1,4 +1,3 @@
-./gym_dnn_test
 keras-rl
 numpy
 keras
