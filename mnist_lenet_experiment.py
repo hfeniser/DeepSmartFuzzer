@@ -2,7 +2,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Script for testing LeNet models for MNIST dataset by Reinforcement Learning')
 parser.add_argument("--lenet", type=int, default=1, choices=[1,4,5])
-parser.add_argument("--rl-algorithm", type=str, default="dqn", choices=["dqn", "ddpg", "sac"])
+parser.add_argument("--rl-algorithm", type=str, default="dqn", choices=["dqn"])
 args = parser.parse_args()
 
 print("Arguments:", args)
