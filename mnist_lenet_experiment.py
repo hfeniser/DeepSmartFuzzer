@@ -56,8 +56,28 @@ def input_extender(mutated_input, mutated_output, input_chooser, reward, origina
 def termination_criteria(original_input, mutated_input, original_output, mutated_output, nb_steps):
     return nb_steps >= 30 or np.max(mutated_input) > 255 or np.min(mutated_input) < 0 
 
-env = gym.make('gym_dnn_test:mnist-v0')
-env.init_environment(input_chooser, input_extender, coverage, termination_criteria)
+
+from gym_dnn_test import register_dnn_test_env_from_config
+from gym import spaces
+
+mnist_ob_space = spaces.Box(low=0, high=255, dtype=np.uint8, shape=(1, 28, 28, 1))
+mnist_action_space = spaces.Tuple((spaces.Discrete(1), 
+                                   spaces.Discrete(28), 
+                                   spaces.Discrete(28), 
+                                   spaces.Discrete(1), 
+                                   spaces.Box(low=-255, high=255, dtype=np.int16, shape=(1,))))
+
+env_config = {
+    "observation_space": mnist_ob_space,
+    "action_space": mnist_action_space,
+    "input_chooser": input_chooser,
+    "input_extender": input_extender,
+    "coverage": coverage,
+    "termination_criteria": termination_criteria
+} 
+env_id = 'mnist-v1'
+register_dnn_test_env_from_config(env_id, env_config)
+env = gym.make('gym_dnn_test:mnist-v1')
 
 print("environment initialized")
 
@@ -107,6 +127,7 @@ if args.rl_algorithm == "dqn":
     x = Dense(512, activation='relu', name='dense1')(x)
     x = Dense(nb_actions, activation='linear', name='output')(x)
     model = Model(input_tensor, x)
+    print(model.summary())
 
     memory = SequentialMemory(limit=1000000, window_length=1)
 

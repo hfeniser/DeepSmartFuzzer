@@ -5,7 +5,7 @@
 ## Installation
 ### 1) Downloading All Source Code
 ```
-git clone --recursive https://github.com/hasanferit/RLforDL.git
+git clone https://github.com/hasanferit/RLforDL.git
 ```
 
 
