@@ -16,7 +16,7 @@ import gym
 import os
 
 from input_chooser import InputChooser
-from coverage import KMultisectionCoverage
+from coverages.coverage import KMultisectionCoverage
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 

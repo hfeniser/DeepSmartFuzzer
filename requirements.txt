@@ -4,3 +4,4 @@ keras
 sklearn
 h5py
 cleverhans
+opencv-python

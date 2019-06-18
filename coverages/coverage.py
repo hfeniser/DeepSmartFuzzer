@@ -45,7 +45,7 @@ class AbstractCoverage(ABC):
         # calculates new coverage using test_input and returns coverage and coverage state
         pass
     
-from neuron_cov import measure_neuron_cov
+from coverages.neuron_cov import measure_neuron_cov
 
 class NeuronCoverage(AbstractCoverage):
     def _calc_state_len(self, test_inputs, *argv, **kwargs):
@@ -60,7 +60,7 @@ class NeuronCoverage(AbstractCoverage):
 
     
     
-from kmn import measure_k_multisection_cov
+from coverages.kmn import measure_k_multisection_cov
 from utils import calc_major_func_regions 
 
 class KMultisectionCoverage(AbstractCoverage):

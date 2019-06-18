@@ -1,1 +1,2 @@
 from gym_dnn_test.envs.dnn_test_v0 import DNN_Test_V0
+from gym_dnn_test.envs.dnn_test_image_transforms import DNN_Test_Image_Transforms
