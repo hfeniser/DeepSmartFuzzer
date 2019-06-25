@@ -32,37 +32,52 @@ elif args.lenet == 5:
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # COVERAGE
-from coverages.coverage import KMultisectionCoverage
-(state_len_calc_input, k, train_inputs) = (test_images[0].reshape(-1, 28, 28, 1), 10000, train_images.reshape(-1, 28, 28, 1))
-coverage = KMultisectionCoverage(model, state_len_calc_input, k, train_inputs)
-initial_coverage = coverage.step(test_images.reshape(-1,28,28,1))
-print("initial coverage: %g" % (initial_coverage))
+#from coverages.coverage import KMultisectionCoverage
+#(state_len_calc_input, k, train_inputs) = (test_images[0].reshape(-1, 28, 28, 1), 10000, train_images.reshape(-1, 28, 28, 1))
+#coverage = KMultisectionCoverage(model, state_len_calc_input, k, train_inputs)
+from coverages.coverage import NeuronCoverage
+state_len_calc_input = test_images[0].reshape(-1, 28, 28, 1)
+coverage = NeuronCoverage(model, state_len_calc_input)
+
+
+np.random.seed(seed=213123)
 
 from input_chooser import InputChooser
 input_chooser = InputChooser(test_images, test_labels)
 test_input, _ = input_chooser()
 print(test_input.shape)
+input_lower_limit = 0
+input_upper_limit = 255
+
+coverage.step(test_input.reshape(-1,28,28,1))
+print("initial coverage: %g" % (coverage.get_current_coverage()))
 
 # MCTS
 from mcts import RLforDL_MCTS
 
-actions_p1_spacing = (1,9,9,1)
-actions_p2 = (-5,+5)
+actions_p1_spacing = (1,3,3,1)
+actions_p2 = [-1, +1]
 
-def tc1(root, test_input, best_input, best_coverage): 
+def tc1(level, test_input, best_input, best_coverage): 
     # limit the level/depth of root
-    return root.level > 10
+    return level > 10
 
-def tc2(root):
+def tc2(iterations):
     # limit the number of iterations on root
-    return root.visit_count > 100
+    return iterations > 10
 
 def tc3(level, test_input, mutated_input):
-    return (level > 10 # Tree Depth Limit
+    res =  (level > 10 # Tree Depth Limit
             or not (np.all(mutated_input <= 255) and np.all(mutated_input >= 0)) # Image [0,255]
             or not np.all(np.abs(mutated_input - test_input) < 20) # L_infinity < 20
             )
+    if res:
+        a1 = level > 10 # Tree Depth Limit
+        a2 = not (np.all(mutated_input <= 255) and np.all(mutated_input >= 0)) # Image [0,255]
+        a3 = not np.all(np.abs(mutated_input - test_input) < 20) # L_infinity < 20
+    return res
 
-mcts = RLforDL_MCTS(test_input.shape, actions_p1_spacing, actions_p2, tc1, tc2, tc3)
+mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit, actions_p1_spacing, actions_p2, tc1, tc2, tc3)
 root, best_input, best_coverage = mcts.run(test_input, coverage)
-print("best coverage increase: %g" % (best_coverage))
+print("found coverage increase", best_coverage)
+print("found different input", np.any(best_input-test_input != 0))

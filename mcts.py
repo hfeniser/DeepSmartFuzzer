@@ -17,11 +17,12 @@ class MCTS_Node:
         # See following for details on UCB:
         # 2008. G.M.J.B. Chaslot et all. Progressive strategies for monte-carlo tree search.
         # 2006. Levente Kocsis et all. Bandit based monte-carlo planning.
-        return self.value + C*np.sqrt(np.log(self.parent.visit_count)/self.visit_count)
+        return self.value/self.visit_count + C*np.sqrt(np.log(self.parent.visit_count)/self.visit_count)
 
     def selection(self, C=np.sqrt(2)):
-        p = [child.potential(C) for child in self.child_nodes]
-        return np.random.choice(range(len(self.child_nodes)), p=p)
+        p = np.array([child.potential(C) for child in self.child_nodes])
+        p /= p.sum()
+        return self.child_nodes[np.random.choice(range(len(self.child_nodes)), p=p)]
 
     def expansion(self, child_index, new_node):
         new_node.parent = self
@@ -30,20 +31,33 @@ class MCTS_Node:
         self.child_nodes[child_index] = new_node
 
     def backprop(self, reward):
-        self.value += reward
-        if self.parent:
-            self.parent.backprop(reward)
+        if reward != 0:
+            self.value += reward
+            if self.parent:
+                self.parent.backprop(reward)
 
     def isLeaf(self):
         return self.child_nodes.count(None) == len(self.child_nodes)
 
     def bestChild(self, C=np.sqrt(2)):
         best = self.child_nodes[0]
+        best_r = best.value / best.visit_count
+        #print("i", 0 ,"current_r", best_r)
         for i in range(1, len(self.child_nodes)):
-            if best.potential(C) < self.child_nodes[i].potential(C):
+            current_r = self.child_nodes[i].value / self.child_nodes[i].visit_count
+            #print("i", i ,"current_r", current_r)
+            if best_r < current_r:
                 best = self.child_nodes[i]
-        
+                best_r = current_r
+        #print("best_r", best_r)
         return best
+
+    def printPath(self, end="\n"):
+        if self.parent:
+            self.parent.printPath(end="->")
+            print(self.relative_index, end=end)
+        else:
+            print("root", end=end)
 
 
 class RLforDL_MCTS_State:
@@ -51,20 +65,28 @@ class RLforDL_MCTS_State:
         self.mutated_input = mutated_input
 
 class RLforDL_MCTS:
-    def __init__(self, input_shape, action_division_p1, actions_p2, tc1, tc2, tc3):
+    def __init__(self, input_shape, input_lower_limit, input_upper_limit, action_division_p1, actions_p2, tc1, tc2, tc3, verbose=True):
         self.input_shape = input_shape
+        self.input_lower_limit = input_lower_limit
+        self.input_upper_limit = input_upper_limit
         options_p1 = []
         self.actions_p1_spacing = []
         for i in range(len(action_division_p1)):
             spacing = int(self.input_shape[i] / action_division_p1[i])
-            options_p1.push(list(range(0, self.input_shape[i], spacing)))
-            self.actions_p1_spacing.push(spacing)
+            options_p1.append(list(range(0, self.input_shape[i], spacing)))
+            self.actions_p1_spacing.append(spacing)
 
         self.actions_p1 = list(itertools.product(*options_p1))
         self.actions_p2 = actions_p2
         self.tc1 = tc1 # termination condition for the entire program e.g. limit the number of epochs
         self.tc2 = tc2 # termination condition for the current iteration e.g. limit the iterations
         self.tc3 = tc3 # cut-off condition for the tree
+
+        self.verbose = verbose
+        if self.verbose:
+            print("self.actions_p1", self.actions_p1)
+            print("self.actions_p1_spacing", self.actions_p1_spacing)
+            print("self.actions_p2", self.actions_p2)
     
     def player(self, level):
         if level % 2 == 0:
@@ -76,12 +98,19 @@ class RLforDL_MCTS:
         return self.player(node.level)
 
     def apply_action(self, mutated_input, action1, action2):
+        mutated_input = np.copy(mutated_input)
         action_part1 = self.actions_p1[action1]
         action_part2 = self.actions_p2[action2]
-        lower_limits = np.add(action_part1, actions_p1_spacing)
-        upper_limits = np.subtract(action_part1, actions_p1_spacing)
+        lower_limits = np.subtract(action_part1, self.actions_p1_spacing)
+        lower_limits = (lower_limits >= 0)*lower_limits
+        upper_limits = np.add(action_part1, self.actions_p1_spacing)
+        upper_limits = (upper_limits <= self.input_shape)*upper_limits \
+                        + (upper_limits > self.input_shape)*self.input_shape
         s = tuple([slice(lower_limits[i], upper_limits[i]) for i in range(len(lower_limits))])
+        #if self.verbose:
+        #    print("action", action1, action2)
         mutated_input[s] += action_part2
+
         return mutated_input
 
     def apply_action_for_node(self, node, child_index):
@@ -98,31 +127,45 @@ class RLforDL_MCTS:
         # Simulation
         level = node.level
         input_sim = node.state.mutated_input
+        best_input_sim, best_coverage_sim = np.copy(input_sim), 0
 
         if self.player(level) == 1:
             action1 = np.random.randint(0,len(self.actions_p1))
         else:
             action2 = np.random.randint(0,len(self.actions_p2))
             input_sim = self.apply_action_for_node(node, action2)
+        
+        input_changed = True
 
-        _, coverage_sim = coverage.step(input_sim, update_state=False)
-    
         while not self.tc3(level, test_input, input_sim):
+            if input_changed:
+                _, coverage_sim = coverage.step(input_sim, update_state=False)
+                if coverage_sim > best_coverage_sim:
+                    best_input_sim, best_coverage_sim = np.copy(input_sim), coverage_sim
+                input_changed = False
+            
             level += 1
             if self.player(level) == 1:
                 action1 = np.random.randint(0,len(self.actions_p1))
             else:
                 action2 = np.random.randint(0,len(self.actions_p2))
                 input_sim = self.apply_action(input_sim, action1, action2)
-                _, coverage_sim = coverage.step(input_sim, update_state=False)
-        
-        return input_sim, coverage_sim
+                input_changed = True
+
+        #print("sim end!!!")
+        return best_input_sim, best_coverage_sim
 
     def run(self, test_input, coverage, C=np.sqrt(2)):
-        best_input, best_coverage = None, 0
+        best_input, best_coverage = test_input, 0
         root = MCTS_Node(len(self.actions_p1), RLforDL_MCTS_State(np.copy(test_input)))
-        while not self.tc1(root, test_input, best_input, best_coverage):
-            while not self.tc2(root):
+        while not self.tc1(root.level, test_input, best_input, best_coverage):                
+            if root.isLeaf() and self.tc3(root.level, test_input, root.state.mutated_input):
+                if self.verbose:
+                    print("Reached a game-over node")
+                break
+            
+            iterations = 0
+            while not self.tc2(iterations):
                 # start a new iteration from root
                 current_node = root
                 current_node.visit_count += 1
@@ -131,27 +174,37 @@ class RLforDL_MCTS:
                 while not current_node.isLeaf():
                     current_node = current_node.selection()
                     current_node.visit_count += 1
+                    #print("selection", current_node.relative_index)
                 
                 # If not a terminating leaf
                 if not self.tc3(current_node.level, test_input, current_node.state.mutated_input):
                     # Expansion (All children of the current leaf)
                     for i in range(len(current_node.child_nodes)):
                         if self.player_for_node(current_node) == 1:
-                            nb_chidren_for_new_node = len(self.actions_p1)
-                        else:
                             nb_chidren_for_new_node = len(self.actions_p2)
+                        else:
+                            nb_chidren_for_new_node = len(self.actions_p1)
                         new_input = self.apply_action_for_node(current_node, i) 
                         new_node = MCTS_Node(nb_chidren_for_new_node, RLforDL_MCTS_State(new_input))
                         current_node.expansion(i, new_node)
-
+                    
                     # Simulation & Backpropogation (All children of the current leaf)
                     for node in current_node.child_nodes:
                         input_sim, coverage_sim = self.simulate_for_node(node, test_input, coverage)
                         node.backprop(coverage_sim)
                         if coverage_sim > best_coverage:
                             best_input, best_coverage = input_sim, coverage_sim
-
-
+                
+                if self.verbose:
+                    print("Completed Iteration #%g" % (iterations))
+                    print("Current Coverage From Simulation: %g" % (coverage_sim))
+                    print("Best Coverage up to now: %g" % (best_coverage))
+                iterations += 1
+            
+            if self.verbose:
+                print("Completed MCTS Level/Depth: #%g" % (root.level))
+                root.printPath()
+            
             root = root.bestChild(C)
         
         return root, best_input, best_coverage
