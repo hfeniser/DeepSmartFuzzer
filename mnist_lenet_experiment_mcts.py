@@ -46,8 +46,6 @@ from input_chooser import InputChooser
 input_chooser = InputChooser(test_images, test_labels)
 test_input, _ = input_chooser()
 print(test_input.shape)
-input_lower_limit = 0
-input_upper_limit = 255
 
 coverage.step(test_input.reshape(-1,28,28,1))
 print("initial coverage: %g" % (coverage.get_current_coverage()))
@@ -64,20 +62,16 @@ def tc1(level, test_input, best_input, best_coverage):
 
 def tc2(iterations):
     # limit the number of iterations on root
-    return iterations > 10
+    return iterations > 10000
 
 def tc3(level, test_input, mutated_input):
-    res =  (level > 10 # Tree Depth Limit
-            or not (np.all(mutated_input <= 255) and np.all(mutated_input >= 0)) # Image [0,255]
-            or not np.all(np.abs(mutated_input - test_input) < 20) # L_infinity < 20
-            )
-    if res:
-        a1 = level > 10 # Tree Depth Limit
-        a2 = not (np.all(mutated_input <= 255) and np.all(mutated_input >= 0)) # Image [0,255]
-        a3 = not np.all(np.abs(mutated_input - test_input) < 20) # L_infinity < 20
-    return res
+    a1 = level > 10 # Tree Depth Limit
+    a2 = not (np.all(mutated_input <= 255) and np.all(mutated_input >= 0)) # Image [0,255]
+    a3 = not np.all(np.abs(mutated_input - test_input) < 20) # L_infinity < 20
+    #print(a1, a2, a3)
+    return  a1 or a2 or a3
 
-mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit, actions_p1_spacing, actions_p2, tc1, tc2, tc3)
+mcts = RLforDL_MCTS(test_input.shape, actions_p1_spacing, actions_p2, tc1, tc2, tc3)
 root, best_input, best_coverage = mcts.run(test_input, coverage)
 print("found coverage increase", best_coverage)
 print("found different input", np.any(best_input-test_input != 0))

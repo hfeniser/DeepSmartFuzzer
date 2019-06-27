@@ -42,14 +42,13 @@ class MCTS_Node:
     def bestChild(self, C=np.sqrt(2)):
         best = self.child_nodes[0]
         best_r = best.value / best.visit_count
-        #print("i", 0 ,"current_r", best_r)
+
         for i in range(1, len(self.child_nodes)):
             current_r = self.child_nodes[i].value / self.child_nodes[i].visit_count
-            #print("i", i ,"current_r", current_r)
             if best_r < current_r:
                 best = self.child_nodes[i]
                 best_r = current_r
-        #print("best_r", best_r)
+
         return best
 
     def printPath(self, end="\n"):
@@ -65,10 +64,8 @@ class RLforDL_MCTS_State:
         self.mutated_input = mutated_input
 
 class RLforDL_MCTS:
-    def __init__(self, input_shape, input_lower_limit, input_upper_limit, action_division_p1, actions_p2, tc1, tc2, tc3, verbose=True):
+    def __init__(self, input_shape, action_division_p1, actions_p2, tc1, tc2, tc3, verbose=True):
         self.input_shape = input_shape
-        self.input_lower_limit = input_lower_limit
-        self.input_upper_limit = input_upper_limit
         options_p1 = []
         self.actions_p1_spacing = []
         for i in range(len(action_division_p1)):
@@ -98,7 +95,6 @@ class RLforDL_MCTS:
         return self.player(node.level)
 
     def apply_action(self, mutated_input, action1, action2):
-        mutated_input = np.copy(mutated_input)
         action_part1 = self.actions_p1[action1]
         action_part2 = self.actions_p2[action2]
         lower_limits = np.subtract(action_part1, self.actions_p1_spacing)
@@ -126,7 +122,7 @@ class RLforDL_MCTS:
     def simulate_for_node(self, node, test_input, coverage):
         # Simulation
         level = node.level
-        input_sim = node.state.mutated_input
+        input_sim = np.copy(node.state.mutated_input)
         best_input_sim, best_coverage_sim = np.copy(input_sim), 0
 
         if self.player(level) == 1:
@@ -152,7 +148,6 @@ class RLforDL_MCTS:
                 input_sim = self.apply_action(input_sim, action1, action2)
                 input_changed = True
 
-        #print("sim end!!!")
         return best_input_sim, best_coverage_sim
 
     def run(self, test_input, coverage, C=np.sqrt(2)):
