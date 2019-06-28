@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from utils import get_layer_outs, get_layer_outs_new, calc_major_func_regions, percent_str
+from new_coverages.utils import get_layer_outs, get_layer_outs_new, calc_major_func_regions, percent_str, percent
 from math import floor
 
 from new_coverages.coverage import AbstractCoverage
@@ -31,6 +31,10 @@ class DeepGaugePercentCoverage(AbstractCoverage):
         self.lower_activation_table = state[2]
         self.neuron_set = state[3]
 
+    def reset_measure_state(self):
+        self.activation_table_by_section, self.upper_activation_table, self.lower_activation_table = {}, {}, {}
+        self.neuron_set = set()
+
     def get_current_coverage(self):
         multisection_activated = len(self.activation_table_by_section.keys())
         lower_activated = len(self.lower_activation_table.keys())
@@ -38,16 +42,15 @@ class DeepGaugePercentCoverage(AbstractCoverage):
 
         total = len(self.neuron_set)
 
-        return [percent_str(multisection_activated, self.k*total), # kmn
-                percent_str(upper_activated+lower_activated, 2 * total), # nbc
-                percent_str(upper_activated, total) # snac
+        return [percent(multisection_activated, self.k*total), # kmn
+                percent(upper_activated+lower_activated, 2 * total), # nbc
+                percent(upper_activated, total) # snac
                 ]
     
     def test(self, test_inputs):
         outs = get_layer_outs_new(self.model, test_inputs, self.skip_layers)
 
         for layer_index, layer_out in enumerate(outs):  # layer_out is output of layer for all inputs
-            print(layer_index)
             for out_for_input in layer_out:  # out_for_input is output of layer for single input
                 for neuron_index in range(out_for_input.shape[-1]):
                     neuron_out = np.mean(out_for_input[..., neuron_index])

@@ -2,7 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy as np
-from utils import get_layer_outs_new, percent_str, percent
+from new_coverages.utils import get_layer_outs_new, percent_str, percent
 from collections import defaultdict
 
 def default_scale(intermediate_layer_output, rmax=1, rmin=0):
@@ -45,7 +45,10 @@ class NeuronCoverage(AbstractCoverage):
         return [self.activation_table]
     
     def set_measure_state(self, state):
-        self.activation_table_by_section = state[0]
+        self.activation_table = state[0]
+
+    def reset_measure_state(self):
+        self.activation_table = defaultdict(bool)
 
     def get_current_coverage(self):
         covered = len([1 for c in self.activation_table.values() if c])

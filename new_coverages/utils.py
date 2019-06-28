@@ -551,6 +551,10 @@ def weight_analysis(model):
 
     return deactivatables
 
+def percent(part, whole):
+    if part == 0:
+        return 0
+    return float(part) / whole * 100
 
 def percent_str(part, whole):
     return "{0}%".format(float(part) / whole * 100)
