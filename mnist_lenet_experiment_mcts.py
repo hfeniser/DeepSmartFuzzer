@@ -32,12 +32,8 @@ elif args.lenet == 5:
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # COVERAGE
-#from coverages.coverage import KMultisectionCoverage
-#(state_len_calc_input, k, train_inputs) = (test_images[0].reshape(-1, 28, 28, 1), 10000, train_images.reshape(-1, 28, 28, 1))
-#coverage = KMultisectionCoverage(model, state_len_calc_input, k, train_inputs)
-from coverages.coverage import NeuronCoverage
-state_len_calc_input = test_images[0].reshape(-1, 28, 28, 1)
-coverage = NeuronCoverage(model, state_len_calc_input)
+from coverages.neuron_cov import NeuronCoverage
+coverage = NeuronCoverage(model)
 
 
 np.random.seed(seed=213123)
@@ -62,7 +58,7 @@ def tc1(level, test_input, best_input, best_coverage):
 
 def tc2(iterations):
     # limit the number of iterations on root
-    return iterations > 10000
+    return iterations > 10
 
 def tc3(level, test_input, mutated_input):
     a1 = level > 10 # Tree Depth Limit

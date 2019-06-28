@@ -1,18 +1,17 @@
-from keras.datasets import mnist, cifar
-from keras.utils import np_utils
-from keras.models import model_from_json
-from keras import backend as K
-import sys
-from sklearn.metrics import classification_report, confusion_matrix
-from math import ceil
-import numpy as np
-import h5py
-from datetime import datetime
-from os import path, makedirs
 import traceback
-import math
-from cleverhans.attacks import SaliencyMapMethod, FastGradientMethod, CarliniWagnerL2
+from os import path, makedirs
+import h5py
+import numpy as np
+import sys
+from cleverhans.attacks import SaliencyMapMethod, FastGradientMethod, CarliniWagnerL2, BasicIterativeMethod
 from cleverhans.utils_keras import KerasModelWrapper
+from keras import backend as K
+from keras.datasets import mnist, cifar10
+from keras.models import model_from_json
+from keras.utils import np_utils
+from keras import models
+from math import ceil
+from sklearn.metrics import classification_report, confusion_matrix
 
 
 def load_CIFAR(one_hot=True):
@@ -82,48 +81,33 @@ def get_layer_outs_old(model, class_specific_test_set):
     return layer_outs
 
 
-# https://stackoverflow.com/questions/41711190/keras-how-to-get-the-output-of-each-layer
-def get_layer_outs(model, test_input, skip=None):
-    if skip is None:
-        skip = []
+def get_layer_outs(model, test_input, skip=[]):
 
     inp = model.input  # input placeholder
-    outputs = [layer.output for index, layer in enumerate(model.layers)
-               if (index not in skip and 'input' not in layer.name)]  # all layer outputs (except input for functionals)
+    outputs = [layer.output for index, layer in enumerate(model.layers) \
+               if index not in skip]
+
     functors = [K.function([inp], [out]) for out in outputs]  # evaluation functions
 
     layer_outs = [func([test_input]) for func in functors]
+
     return layer_outs
 
+def get_layer_outs_new(model, test_input, skip=[]):
+    evaluater = models.Model(inputs=model.input,
+                             outputs=[layer.output for index, layer in enumerate(model.layers) \
+                                      if index not in skip])
 
-# https://stackoverflow.com/questions/41711190/keras-how-to-get-the-output-of-each-layer
-def get_layer_outs_optimized_compatible(model, test_input, skip=[]):
-    inp = model.input                                           # input placeholder
-    outputs = [layer.output for index, layer in enumerate(model.layers)
-               if (index not in skip and 'input' not in layer.name)]  # all layer outputs (except input for functionals)
-    functor = K.function([inp, K.learning_phase()], outputs )   # evaluation function
-
-    layer_outs = functor([test_input, 1.])
-    layer_outs = [[layer_out] for layer_out in layer_outs]
-    return layer_outs
-
-# https://stackoverflow.com/questions/41711190/keras-how-to-get-the-output-of-each-layer
-def get_layer_outs_optimized(model, test_input, skip=[]):
-    inp = model.input                                           # input placeholder
-    outputs = [layer.output for index, layer in enumerate(model.layers)
-               if (index not in skip and 'input' not in layer.name)]  # all layer outputs (except input for functionals)
-    functor = K.function([inp, K.learning_phase()], outputs )   # evaluation function
-
-    layer_outs = functor([test_input, 1.])
-    return layer_outs
-
+    return evaluater.predict(test_input)
 
 def calc_major_func_regions(model, train_inputs, skip=None):
     if skip is None:
         skip = []
+
     outs = get_layer_outs(model, train_inputs, skip)
 
     major_regions = []
+
     for layer_index, layer_out in enumerate(outs):  # layer_out is output of layer for all inputs
         layer_out = layer_out[0].mean(axis=tuple(i for i in range(1, layer_out[0].ndim - 1)))
 
@@ -225,6 +209,49 @@ def get_dummy_dominants(model, dominants):
     dominant = {x: random.sample(range(0, 10), len(dominants[x])) for x in range(1, len(dominants) + 1)}
     return dominant
 
+def save_quantization(qtized, filename):
+    with h5py.File(filename + '_quantization.h5', 'w') as hf:
+        hf.create_dataset("q", data=qtized)
+
+    return
+
+def load_quantization(filename):
+    with h5py.File(filename + '_quantization.h5', 'r') as hf:
+        qtized = hf["q"][:]
+
+    return qtized
+
+
+def save_max_comb(max_num, filename):
+    with h5py.File(filename + '_max_comb.h5', 'w') as hf:
+        hf.create_dataset("comb", data=[max_num])
+
+    print("Max number of combinations saved to %s" %(filename))
+    return
+
+def load_max_comb(filename):
+    with h5py.File(filename + '_max_comb.h5', 'r') as hf:
+        max_num = hf["comb"][:]
+
+    print("Max number of combinations loaded from %s" %(filename))
+    return max_num
+
+
+def save_data(data, filename):
+    with h5py.File(filename + '_dataset.h5', 'w') as hf:
+        hf.create_dataset("dataset", data=data)
+
+    print("Data saved to %s" %(filename))
+    return
+
+
+def load_data(filename):
+    with h5py.File(filename + '_dataset.h5', 'r') as hf:
+        dataset = hf["dataset"][:]
+
+    print("Data loaded from %s" %(filename))
+    return dataset
+
 
 def save_layerwise_relevances(relevant_neurons, filename):
     with h5py.File(filename + '_relevant_neurons.h5', 'w') as hf:
@@ -238,7 +265,23 @@ def load_layerwise_relevances(filename):
                     'r') as hf:
         relevant_neurons = hf["relevant_neurons"][:]
 
+    print("Layerwise relevances loaded from %s" %(filename))
+
     return relevant_neurons
+
+
+def save_data(data, filename):
+    with h5py.File(filename + '_dataset.h5', 'w') as hf:
+        hf.create_dataset("dataset", data=data)
+
+    return
+
+
+def load_data(filename):
+    with h5py.File(filename + '_dataset.h5', 'r') as hf:
+        dataset = hf["dataset"][:]
+
+    return dataset
 
 
 def save_perturbed_test(x_perturbed, y_perturbed, filename):
@@ -250,6 +293,7 @@ def save_perturbed_test(x_perturbed, y_perturbed, filename):
     with h5py.File(filename + '_perturbations_y.h5', 'w') as hf:
         hf.create_dataset("y_perturbed", data=y_perturbed)
 
+    print("Layerwise relevances saved to  %s" %(filename))
     return
 
 
@@ -290,7 +334,7 @@ def load_perturbed_test_groups(filename, group_index):
 def create_experiment_dir(experiment_path, model_name,
                           selected_class, step_size,
                           approach, susp_num, repeat):
-    # define experiment name, create directory experiments directory if it
+    # define experiments name, create directory experiments directory if it
     # doesnt exist
     experiment_name = model_name + '_C' + str(selected_class) + '_SS' + \
                       str(step_size) + '_' + approach + '_SN' + str(susp_num) + '_R' + str(repeat)
@@ -363,38 +407,6 @@ def load_layer_outs(filename, group_index):
         return layer_outs
 
 
-def save_suspicious_neurons(suspicious_neurons, filename, group_index):
-    filename = filename + '_suspicious_neurons.h5'
-    with h5py.File(filename, 'a') as hf:
-        group = hf.create_group('group' + str(group_index))
-        for i in range(len(suspicious_neurons)):
-            group.create_dataset("suspicious_neurons" + str(i), data=suspicious_neurons[i])
-
-    print("Suspicious neurons saved in ", filename)
-    return
-
-
-def load_suspicious_neurons(filename, group_index):
-    filename = filename + '_suspicious_neurons.h5'
-    try:
-        with h5py.File(filename, 'r') as hf:
-            group = hf.get('group' + str(group_index))
-            i = 0
-            suspicious_neurons = []
-            while True:
-                suspicious_neurons.append(group.get('suspicious_neurons' + str(i)).value)
-                i += 1
-
-    except (IOError) as error:
-        print("Could not open file: ", filename)
-        sys.exit(-1)
-    except (AttributeError) as error:
-        # because we don't know the exact dimensions (number of layers of our network)
-        # we leave it to iterate until it throws an attribute error, and then return
-        # layer outs to the caller function
-        print("Suspicious neurons  loaded from ", filename)
-        return suspicious_neurons
-
 
 def save_original_inputs(original_inputs, filename, group_index):
     filename = filename + '_originals.h5'
@@ -406,17 +418,37 @@ def save_original_inputs(original_inputs, filename, group_index):
 
     return
 
+def filter_correct_classifications(model, X, Y):
+    X_corr = []
+    Y_corr = []
+    X_misc = []
+    Y_misc = []
+    for x, y in zip(X, Y):
+        p = model.predict(np.expand_dims(x,axis=0))
+        if np.argmax(p) == np.argmax(y):
+            X_corr.append(x)
+            Y_corr.append(y)
+        else:
+            X_misc.append(x)
+            Y_misc.append(y)
+    return np.array(X_corr), np.array(Y_corr), np.array(X_misc), np.array(Y_misc)
+
 
 def filter_val_set(desired_class, X, Y):
+    """
+    Filter the given sets and return only those that match the desired_class value
+    :param desired_class:
+    :param X:
+    :param Y:
+    :return:
+    """
     X_class = []
     Y_class = []
     for x, y in zip(X, Y):
         if y[desired_class] == 1:
             X_class.append(x)
             Y_class.append(y)
-
     print("Validation set filtered for desired class: " + str(desired_class))
-
     return np.array(X_class), np.array(Y_class)
 
 
@@ -429,10 +461,11 @@ def get_trainable_layers(model):
     trainable_layers = []
     for idx, layer in enumerate(model.layers):
         try:
-            weights = layer.get_weights()[0]
-            trainable_layers.append(model.layers.index(layer))
+            if 'input' not in layer.name and 'softmax' not in layer.name and \
+                    'pred' not in layer.name:
+                weights = layer.get_weights()[0]
+                trainable_layers.append(model.layers.index(layer))
         except:
-            print(idx)
             pass
 
     #trainable_layers = trainable_layers[:-1]  # ignore the output layer
@@ -518,9 +551,13 @@ def weight_analysis(model):
 
     return deactivatables
 
+def percent(part, whole):
+    if part == 0:
+        return 0
+    return float(part) / whole * 100
 
 def percent_str(part, whole):
-    return "{0}%".format(part / whole * 100)
+    return "{0}%".format(float(part) / whole * 100)
 
 
 def generate_adversarial(original_input, method, model,
@@ -529,7 +566,8 @@ def generate_adversarial(original_input, method, model,
         generate_adversarial.attack_types = {
             'fgsm': FastGradientMethod,
             'jsma': SaliencyMapMethod,
-            'cw': CarliniWagnerL2
+            'cw': CarliniWagnerL2,
+            'bim': BasicIterativeMethod
         }
 
     if sess is None:

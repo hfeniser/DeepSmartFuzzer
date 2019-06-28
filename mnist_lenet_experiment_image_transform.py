@@ -16,7 +16,6 @@ import gym
 import os
 
 from input_chooser import InputChooser
-from coverages.coverage import KMultisectionCoverage
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 
@@ -41,10 +40,11 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 
 input_chooser = InputChooser(test_images, test_labels)
 
-(state_len_calc_input, k, train_inputs) = (test_images[0].reshape(-1, 28, 28, 1), 10000, train_images.reshape(-1, 28, 28, 1))
-coverage = KMultisectionCoverage(model, state_len_calc_input, k, train_inputs)
-#initial_coverage = coverage.step(test_images.reshape(-1,28,28,1))
-#print("initial coverage:  %g" % (initial_coverage))
+from coverages.kmn import DeepGaugePercentCoverage
+(k, train_inputs) = (10000, train_images.reshape(-1, 28, 28, 1))
+coverage = DeepGaugePercentCoverage(model, k, train_inputs=train_images.reshape(-1, 28, 28, 1))
+initial_coverage = coverage.step(test_images.reshape(-1,28,28,1))
+print("initial coverage:  %g" % (initial_coverage))
 
 def input_extender(mutated_input, mutated_output, input_chooser, reward, original_input, original_output): 
     if reward >= 0.0018:
