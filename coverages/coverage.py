@@ -26,8 +26,13 @@ def merge_state(old_state, new_state):
     
     return final_state
 
+coverage_call_count = 0
+
 class AbstractCoverage(ABC):
     def step(self, test_inputs, update_state=True, coverage_state=None):
+        global coverage_call_count
+        coverage_call_count += 1
+        print("coverage_call_count", coverage_call_count)
         old_state = copy.deepcopy(self.get_measure_state())
         old_coverage = self.get_current_coverage()
         self.reset_measure_state()

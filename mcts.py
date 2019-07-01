@@ -1,6 +1,16 @@
 import numpy as np
 import itertools
 
+import matplotlib.pyplot as plt
+plt.ion()
+fig = plt.imshow(np.random.randint(0,256,size=(28,28)))
+
+import signal
+import sys
+def signal_handler(sig, frame):
+        sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
+
 class MCTS_Node:
     def __init__(self, nb_child_nodes, state):
         self.parent = None
@@ -31,10 +41,9 @@ class MCTS_Node:
         self.child_nodes[child_index] = new_node
 
     def backprop(self, reward):
-        if reward != 0:
-            self.value += reward
-            if self.parent:
-                self.parent.backprop(reward)
+        self.value += reward
+        if reward != 0 and self.parent:
+            self.parent.backprop(reward)
 
     def isLeaf(self):
         return self.child_nodes.count(None) == len(self.child_nodes)
@@ -64,8 +73,10 @@ class RLforDL_MCTS_State:
         self.mutated_input = mutated_input
 
 class RLforDL_MCTS:
-    def __init__(self, input_shape, action_division_p1, actions_p2, tc1, tc2, tc3, verbose=True):
+    def __init__(self, input_shape, input_lower_limit, input_upper_limit, action_division_p1, actions_p2, tc1, tc2, tc3, verbose=True, verbose_image=True):
         self.input_shape = input_shape
+        self.input_lower_limit = input_lower_limit
+        self.input_upper_limit = input_upper_limit
         options_p1 = []
         self.actions_p1_spacing = []
         for i in range(len(action_division_p1)):
@@ -80,6 +91,7 @@ class RLforDL_MCTS:
         self.tc3 = tc3 # cut-off condition for the tree
 
         self.verbose = verbose
+        self.verbose_image = verbose_image
         if self.verbose:
             print("self.actions_p1", self.actions_p1)
             print("self.actions_p1_spacing", self.actions_p1_spacing)
@@ -95,18 +107,19 @@ class RLforDL_MCTS:
         return self.player(node.level)
 
     def apply_action(self, mutated_input, action1, action2):
+        mutated_input_2 = np.copy(mutated_input)
         action_part1 = self.actions_p1[action1]
         action_part2 = self.actions_p2[action2]
         lower_limits = np.subtract(action_part1, self.actions_p1_spacing)
-        lower_limits = (lower_limits >= 0)*lower_limits
+        lower_limits = np.clip(lower_limits, 0, action_part1) # lower_limits \in [0, action_part1]
         upper_limits = np.add(action_part1, self.actions_p1_spacing)
-        upper_limits = (upper_limits <= self.input_shape)*upper_limits \
-                        + (upper_limits > self.input_shape)*self.input_shape
+        upper_limits = np.clip(upper_limits, action_part1, self.input_shape) # upper_limits \in [action_part1, self.input_shape]
         s = tuple([slice(lower_limits[i], upper_limits[i]) for i in range(len(lower_limits))])
         #if self.verbose:
         #    print("action", action1, action2)
         mutated_input[s] += action_part2
-
+        mutated_input[s] = np.clip(mutated_input[s], self.input_lower_limit, self.input_upper_limit)
+        #print("changed mutated_input", np.any(mutated_input != mutated_input_2))
         return mutated_input
 
     def apply_action_for_node(self, node, child_index):
@@ -127,15 +140,23 @@ class RLforDL_MCTS:
 
         if self.player(level) == 1:
             action1 = np.random.randint(0,len(self.actions_p1))
+            input_changed = False
         else:
+            action1 = node.relative_index
             action2 = np.random.randint(0,len(self.actions_p2))
             input_sim = self.apply_action_for_node(node, action2)
-        
-        input_changed = True
+            input_changed = True
 
-        while not self.tc3(level, test_input, input_sim):
+        while not self.tc3(level, test_input, input_sim):         
             if input_changed:
+                if self.verbose_image:
+                    fig.set_data(input_sim.reshape((28,28)))
+                    plt.title("Action:" + str((action1,action2)))
+                    plt.show()
+                    plt.pause(0.0001) #Note this correction
+
                 _, coverage_sim = coverage.step(input_sim, update_state=False)
+                #print("coverage", coverage_sim)
                 if coverage_sim > best_coverage_sim:
                     best_input_sim, best_coverage_sim = np.copy(input_sim), coverage_sim
                 input_changed = False

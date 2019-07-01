@@ -33,7 +33,7 @@ def measure_neuron_cov(model, test_inputs, scaler, threshold=0, skip_layers=None
 from coverages.coverage import AbstractCoverage
 
 class NeuronCoverage(AbstractCoverage):
-    def __init__(self, model, scaler=default_scale, threshold=0, skip_layers=None):
+    def __init__(self, model, scaler=default_scale, threshold=0.75, skip_layers=None):
         self.activation_table = defaultdict(bool)
         
         self.model = model
