@@ -3,7 +3,10 @@ import itertools
 
 import matplotlib.pyplot as plt
 plt.ion()
+plt.figure(1)
 fig = plt.imshow(np.random.randint(0,256,size=(28,28)))
+plt.figure(2)
+fig2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
 
 import signal
 import sys
@@ -57,7 +60,8 @@ class MCTS_Node:
             if best_r < current_r:
                 best = self.child_nodes[i]
                 best_r = current_r
-
+        if best_r == 0:
+            raise Exception("simulations failed to find any reward")
         return best
 
     def printPath(self, end="\n"):
@@ -149,13 +153,13 @@ class RLforDL_MCTS:
 
         while not self.tc3(level, test_input, input_sim):         
             if input_changed:
+                _, coverage_sim = coverage.step(input_sim, update_state=False)
                 if self.verbose_image:
+                    plt.figure(1)
                     fig.set_data(input_sim.reshape((28,28)))
-                    plt.title("Action:" + str((action1,action2)))
+                    plt.title("Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))
                     plt.show()
                     plt.pause(0.0001) #Note this correction
-
-                _, coverage_sim = coverage.step(input_sim, update_state=False)
                 #print("coverage", coverage_sim)
                 if coverage_sim > best_coverage_sim:
                     best_input_sim, best_coverage_sim = np.copy(input_sim), coverage_sim
@@ -210,7 +214,12 @@ class RLforDL_MCTS:
                         node.backprop(coverage_sim)
                         if coverage_sim > best_coverage:
                             best_input, best_coverage = input_sim, coverage_sim
-                
+                            if self.verbose_image:
+                                plt.figure(2)
+                                fig2.set_data(best_input.reshape((28,28)))
+                                plt.title("BEST Coverage Increase: " + str(best_coverage))
+                                plt.show()
+                                plt.pause(0.0001) #Note this correction
                 if self.verbose:
                     print("Completed Iteration #%g" % (iterations))
                     print("Current Coverage From Simulation: %g" % (coverage_sim))
@@ -221,6 +230,9 @@ class RLforDL_MCTS:
                 print("Completed MCTS Level/Depth: #%g" % (root.level))
                 root.printPath()
             
-            root = root.bestChild(C)
+            try:
+                root = root.bestChild(C)
+            except:
+                return root, best_input, best_coverage
         
         return root, best_input, best_coverage

@@ -2,7 +2,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Script for testing LeNet models for MNIST dataset using MCTS')
 parser.add_argument("--lenet", type=int, default=1, choices=[1,4,5])
-parser.add_argument("--coverage", type=str, default="neuron", choices=["neuron","kmn"])
+parser.add_argument("--coverage", type=str, default="kmn", choices=["neuron","kmn"])
 args = parser.parse_args()
 
 print("Arguments:", args)
@@ -45,13 +45,13 @@ else:
 
 
 np.random.seed(seed=213123)
-
+print(test_labels.shape)
 from input_chooser import InputChooser
 input_chooser = InputChooser(test_images, test_labels)
 test_input, _ = input_chooser()
 print(test_input.shape)
 
-coverage.step(test_input.reshape(-1,28,28,1))
+coverage.step(test_images)
 print("initial coverage: %g" % (coverage.get_current_coverage()))
 
 # MCTS
@@ -59,7 +59,7 @@ from mcts import RLforDL_MCTS
 input_lower_limit = 0
 input_upper_limit = 255
 action_division_p1 = (1,3,3,1)
-actions_p2 = [-20, 20]
+actions_p2 = [-40, 40]
 
 def tc1(level, test_input, best_input, best_coverage): 
     # limit the level/depth of root
@@ -73,7 +73,7 @@ def tc3(level, test_input, mutated_input):
     a1 = level > 10 # Tree Depth Limit
     a2 = not np.all(mutated_input >= 0) # Image >= 255
     a3 = not np.all(mutated_input <= 255) # Image <= 255
-    a4 = not np.all(np.abs(mutated_input - test_input) < 80) # L_infinity < 20
+    a4 = not np.all(np.abs(mutated_input - test_input) < 160) # L_infinity < 20
     #if a3:
     #    index = np.where(mutated_input > 255)
     #    print(index, mutated_input[index])
@@ -82,6 +82,16 @@ def tc3(level, test_input, mutated_input):
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
      action_division_p1, actions_p2, tc1, tc2, tc3)
-root, best_input, best_coverage = mcts.run(test_input, coverage)
-print("found coverage increase", best_coverage)
-print("found different input", np.any(best_input-test_input != 0))
+
+for i in range(1, 1000):
+    test_input, test_label = input_chooser()
+    root, best_input, best_coverage = mcts.run(test_input, coverage)
+    if best_coverage > 0:
+        input_chooser.append(best_input, test_label)
+        coverage.step(best_input, update_state=True)
+        print("IMAGE %g SUCCEED" % (i))
+        print("found coverage increase", best_coverage)
+        print("found different input", np.any(best_input-test_input != 0))
+        print("Current Total Coverage", coverage.get_current_coverage())
+    else:
+        print("IMAGE %g FAILED" % (i))

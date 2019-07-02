@@ -45,7 +45,7 @@ class DeepGaugePercentCoverage(AbstractCoverage):
         return [percent(multisection_activated, self.k*total), # kmn
                 percent(upper_activated+lower_activated, 2 * total), # nbc
                 percent(upper_activated, total) # snac
-                ]
+                ][0]
     
     def test(self, test_inputs):
         outs = get_layer_outs_new(self.model, test_inputs, self.skip_layers)
