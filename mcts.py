@@ -7,6 +7,7 @@ plt.figure(1)
 fig = plt.imshow(np.random.randint(0,256,size=(28,28)))
 plt.figure(2)
 fig2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
+plt.title("NOT FOUND ANY COVERAGE INCREASE")
 
 import signal
 import sys
@@ -111,7 +112,6 @@ class RLforDL_MCTS:
         return self.player(node.level)
 
     def apply_action(self, mutated_input, action1, action2):
-        mutated_input_2 = np.copy(mutated_input)
         action_part1 = self.actions_p1[action1]
         action_part2 = self.actions_p2[action2]
         lower_limits = np.subtract(action_part1, self.actions_p1_spacing)
@@ -119,11 +119,8 @@ class RLforDL_MCTS:
         upper_limits = np.add(action_part1, self.actions_p1_spacing)
         upper_limits = np.clip(upper_limits, action_part1, self.input_shape) # upper_limits \in [action_part1, self.input_shape]
         s = tuple([slice(lower_limits[i], upper_limits[i]) for i in range(len(lower_limits))])
-        #if self.verbose:
-        #    print("action", action1, action2)
         mutated_input[s] += action_part2
         mutated_input[s] = np.clip(mutated_input[s], self.input_lower_limit, self.input_upper_limit)
-        #print("changed mutated_input", np.any(mutated_input != mutated_input_2))
         return mutated_input
 
     def apply_action_for_node(self, node, child_index):
