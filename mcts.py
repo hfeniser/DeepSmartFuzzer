@@ -1,6 +1,8 @@
 import numpy as np
 import itertools
 
+import image_transforms
+
 import matplotlib.pyplot as plt
 plt.ion()
 plt.figure(1)
@@ -119,7 +121,14 @@ class RLforDL_MCTS:
         upper_limits = np.add(action_part1, self.actions_p1_spacing)
         upper_limits = np.clip(upper_limits, action_part1, self.input_shape) # upper_limits \in [action_part1, self.input_shape]
         s = tuple([slice(lower_limits[i], upper_limits[i]) for i in range(len(lower_limits))])
-        mutated_input[s] += action_part2
+        if not isinstance(action_part2, tuple):
+            mutated_input[s] += action_part2
+        else:
+            f = getattr(image_transforms,'image_'+action_part2[0])
+            m_shape = mutated_input[s].shape
+            i = mutated_input[s].reshape(m_shape[-3:])
+            i = f(i, action_part2[1])
+            mutated_input[s] = i.reshape(m_shape)
         mutated_input[s] = np.clip(mutated_input[s], self.input_lower_limit, self.input_upper_limit)
         return mutated_input
 
@@ -154,7 +163,7 @@ class RLforDL_MCTS:
                 if self.verbose_image:
                     plt.figure(1)
                     fig.set_data(input_sim.reshape((28,28)))
-                    plt.title("Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))
+                    plt.title("level:" + str(level) + " Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))
                     plt.show()
                     plt.pause(0.0001) #Note this correction
                 #print("coverage", coverage_sim)
