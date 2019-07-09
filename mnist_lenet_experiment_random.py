@@ -1,6 +1,7 @@
 from mnist_lenet_experiment import mnist_lenet_experiment
 import numpy as np
 import itertools
+import image_transforms
 import matplotlib.pyplot as plt
 
 plt.ion()
@@ -23,7 +24,7 @@ print("initial coverage: %g" % (coverage.get_current_coverage()))
 input_lower_limit = 0
 input_upper_limit = 255
 action_division_p1 = (1,3,3,1)
-actions_p2 = [-20, 20]
+actions_p2 = [-30, 30, ("translation", (10, 10)), ("rotation", 3), ("contrast", 1.2), ("blur", 1), ("blur", 4), ("blur", 7)]
 
 input_shape = test_input.shape
 options_p1 = []
@@ -43,20 +44,21 @@ def apply_action(mutated_input, action1, action2):
     upper_limits = np.add(action_part1, actions_p1_spacing)
     upper_limits = np.clip(upper_limits, action_part1, input_shape) # upper_limits \in [action_part1, self.input_shape]
     s = tuple([slice(lower_limits[i], upper_limits[i]) for i in range(len(lower_limits))])
-    mutated_input[s] += action_part2
+    if not isinstance(action_part2, tuple):
+        mutated_input[s] += action_part2
+    else:
+        f = getattr(image_transforms,'image_'+action_part2[0])
+        m_shape = mutated_input[s].shape
+        i = mutated_input[s].reshape(m_shape[-3:])
+        i = f(i, action_part2[1])
+        mutated_input[s] = i.reshape(m_shape)
     mutated_input[s] = np.clip(mutated_input[s], input_lower_limit, input_upper_limit)
     return mutated_input
 
 def tc3(level, test_input, mutated_input):
-    a1 = level > 10 # Tree Depth Limit
-    a2 = not np.all(mutated_input >= 0) # Image >= 255
-    a3 = not np.all(mutated_input <= 255) # Image <= 255
-    a4 = not np.all(np.abs(mutated_input - test_input) < 80) # L_infinity < 20
-    #if a3:
-    #    index = np.where(mutated_input > 255)
-    #    print(index, mutated_input[index])
-    #print(a1, a2, a3, a4)
-    return  a1 or a2 or a3 or a4
+    c1 = level > 10 # Tree Depth Limit
+    c2 = not np.all(np.abs(mutated_input - test_input) < 160) # L_infinity < 20
+    return  c1 or c2
 
 best_coverage, best_input = 0, np.copy(test_input)
 iteration_count = 0

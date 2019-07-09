@@ -27,15 +27,9 @@ def tc2(iterations):
     return iterations > 10
 
 def tc3(level, test_input, mutated_input):
-    a1 = level > 10 # Tree Depth Limit
-    a2 = not np.all(mutated_input >= 0) # Image >= 255
-    a3 = not np.all(mutated_input <= 255) # Image <= 255
-    a4 = not np.all(np.abs(mutated_input - test_input) < 150) # L_infinity < 20
-    #if a3:
-    #    index = np.where(mutated_input > 255)
-    #    print(index, mutated_input[index])
-    #print(a1, a2, a3, a4)
-    return  a1 or a2 or a3 or a4
+    c1 = level > 10 # Tree Depth Limit
+    c2 = not np.all(np.abs(mutated_input - test_input) < 160) # L_infinity < 20
+    return  c1 or c2
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
      action_division_p1, actions_p2, tc1, tc2, tc3)

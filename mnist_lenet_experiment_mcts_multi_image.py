@@ -14,26 +14,20 @@ from mcts import RLforDL_MCTS
 input_lower_limit = 0
 input_upper_limit = 255
 action_division_p1 = (1,3,3,1)
-actions_p2 = [-10, 10, ("translation", (10, 10)), ("rotation", 3), ("contrast", 1.2), ("blur", 1), ("blur", 4), ("blur", 7)]
+actions_p2 = [-40, 40]
 
 def tc1(level, test_input, best_input, best_coverage): 
     # limit the level/depth of root
-    return level > 8
+    return level > 10
 
 def tc2(iterations):
     # limit the number of iterations on root
-    return iterations > 20
+    return iterations > 10
 
 def tc3(level, test_input, mutated_input):
-    a1 = level > 6 # Tree Depth Limit
-    a2 = not np.all(mutated_input >= 0) # Image >= 255
-    a3 = not np.all(mutated_input <= 255) # Image <= 255
-    a4 = not np.all(np.abs(mutated_input - test_input) < 100) # L_infinity < 20
-    #if a3:
-    #    index = np.where(mutated_input > 255)
-    #    print(index, mutated_input[index])
-    #print(a1, a2, a3, a4)
-    return  a1 or a2 or a3 or a4
+    c1 = level > 10 # Tree Depth Limit
+    c2 = not np.all(np.abs(mutated_input - test_input) < 160) # L_infinity < 20
+    return  c1 or c2
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
      action_division_p1, actions_p2, tc1, tc2, tc3)
