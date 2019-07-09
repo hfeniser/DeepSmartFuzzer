@@ -1,14 +1,15 @@
 import sys
-sys.path.append('../')
-sys.path.append('./lrp_toolbox/')
 import os
 import itertools
 import numpy as np
 from pyflann import *
 from sklearn import cluster
 from datetime import datetime
+
 from utils import save_quantization, load_quantization
-from utils import save_max_comb, load_max_comb, get_layer_outs_new)
+from utils import save_layerwise_relevances, load_layerwise_relevances
+from utils import save_max_comb, load_max_comb, get_layer_outs_new
+from lrp_toolbox.model_io import write, read
 
 from scipy.spatial.distance import cdist
 import matplotlib.pyplot as plt
@@ -17,8 +18,8 @@ experiment_folder = 'experiments'
 model_folder      = 'neural_networks'
 
 class CombCoverage:
-    def __init__(model, model_name, num_relevant_neurons, selected_class, subject_layer,
-                      train_inputs, quantization_granularity)
+    def __init__(self,model, model_name, num_relevant_neurons, selected_class, subject_layer,
+                 train_inputs, train_labels, quantization_granularity):
         self.covered_combinations = ()
 
         self.model = model
@@ -28,6 +29,7 @@ class CombCoverage:
         self.subject_layer = subject_layer
         self.quantization_granularity = quantization_granularity
         self.train_inputs = train_inputs
+        self.train_labels = train_labels
 
 
     def get_measure_state(self):
@@ -42,24 +44,31 @@ class CombCoverage:
         #########################
 
         try:
+            print('%s/%s_%d_%d_%d'
+                    %(experiment_folder,
+                    self.model_name,
+                    self.num_relevant_neurons,
+                    self.selected_class,
+                    self.subject_layer))
+
             relevant_neurons = load_layerwise_relevances('%s/%s_%d_%d_%d'
                                                             %(experiment_folder,
                                                             self.model_name,
                                                             self.num_relevant_neurons,
-                                                            self.elected_class,
+                                                            self.selected_class,
                                                             self.subject_layer))
 
         except:
             # Convert keras model into txt
-            model_path = model_folder + '/' + model_name
-            write(model_path, model_path, 'keras_txt')
+            model_path = model_folder + '/' + self.model_name
+            write(model_path, model_path, num_channels=1, fmt='keras_txt')
 
             lrpmodel = read(model_path + '.txt', 'txt')  # 99.16% prediction accuracy
             lrpmodel.drop_softmax_output_layer()  # drop softnax output layer for analysis
 
             relevant_neurons, least_relevant_neurons, total_R = find_relevant_neurons(
-                self.model, lrpmodel, X_train, Y_train, self.subject_layer,
-                self.num_relevant_neurons, 'alphabeta', 'sum')
+                self.model, lrpmodel, self.train_inputs, self.train_labels,
+                self.subject_layer, self.num_relevant_neurons, 'alphabeta', 'sum')
 
 
             save_layerwise_relevances(total_R, '%s/%s_%s_%d'
@@ -78,34 +87,51 @@ class CombCoverage:
 
 
         #FOR CIFAR MODEL TODO: Should be automatically handled.
-        subject_layer -= 1
-        print(relevant_neurons)
+        #subject_layer -= 1
 
 
         ####################################
         #2.Quantize Relevant Neuron Outputs#
         ####################################
-        if 'conv' in model.layers[self.subject_layer].name: is_conv = True
+        if 'conv' in self.model.layers[self.subject_layer].name: is_conv = True
         else: is_conv = False
 
 
-        train_layer_outs = get_layer_outs_new(model, self.train_inputs)
-        qtized = quantize(train_layer_outs[self.subject_layer], conv, relevant_neurons, self.quantization_granularity)
+        train_layer_outs = get_layer_outs_new(self.model, self.train_inputs)
+        try:
+            qtized = load_quantization('%s/%s_%d_%d_%d'
+                              %(experiment_folder,
+                                self.model_name,
+                                self.quantization_granularity,
+                                self.selected_class,
+                                self.subject_layer))
+        except:
+            qtized = quantize(train_layer_outs[self.subject_layer], is_conv,
+                              relevant_neurons, self.quantization_granularity)
+            save_quantization(qtized, '%s/%s_%d_%d_%d'
+                              %(experiment_folder,
+                                self.model_name,
+                                self.quantization_granularity,
+                                self.selected_class,
+                                self.subject_layer))
 
 
         ####################
         #3.Measure coverage#
         ####################
 
-        test_layer_outs = get_layer_outs_new(model, test_inputs)
+        test_layer_outs = get_layer_outs_new(self.model, test_inputs)
 
-        coverage, cov_combs = measure_combinatorial_coverage(self.model, self.model_name,
+
+        coverage, covered_combinations = measure_combinatorial_coverage(self.model, self.model_name,
                                                                 test_inputs, self.subject_layer,
                                                                 relevant_neurons,
                                                                 self.selected_class,
                                                                 test_layer_outs, qtized,
                                                                 self.quantization_granularity,
                                                                 is_conv, self.covered_combinations)
+
+        return coverage, covered_combinations
 
 
 def quantize(out_vectors, conv, relevant_neurons, n_clusters=3):
@@ -128,6 +154,7 @@ def quantize(out_vectors, conv, relevant_neurons, n_clusters=3):
             kmeans.fit(np.array(out_i).reshape(-1, 1))
             values = kmeans.cluster_centers_.squeeze()
         values = list(values)
+        values = limit_precision(values)
 
         if not conv: values.append(0) #If it is convolutional layer we dont add  directly since thake average of whole filter.
 
@@ -136,6 +163,13 @@ def quantize(out_vectors, conv, relevant_neurons, n_clusters=3):
     quantized_ = [quantized_[rn] for rn in relevant_neurons]
 
     return quantized_
+
+def limit_precision(values, limit=2):
+    limited_values = []
+    for v in values:
+        limited_values.append(round(v,limit))
+
+    return limited_values
 
 
 def determine_quantized_cover(lout, quantized):
@@ -155,62 +189,25 @@ def measure_combinatorial_coverage(model, model_name, test_inputs, subject_layer
                                    test_layer_outs, qtized, q_granularity, conv,
                                    covered_combinations=()):
 
-    num_increase = 0
-
-    distance_threshold = 0
-    for q in qtized:
-        distance_threshold += max(q)**2 #Since we consider RELU the min is 0.
-    distance_threshold /= d_var
-
-    #print("distance threshold is: " + str(distance_threshold))
-    #print("Num of test inputs: " + str(len(test_inputs)))
-    #distance_threshold = 3
-
-
     for test_idx in range(len(test_inputs)):
         if conv:
             lout = []
             for r in relevant_neurons:
-            '''
-            for covered_comb in covered_combinations:
-                #distance = cdist(np.array([covered_comb]), np.array([comb_to_add]),
-                #                 metric='cityblock')[0][0]
-                distance = np.linalg.norm(np.array(covered_comb)-np.array(comb_to_add))
-                distance = distance**2
-                if distance < distance_threshold:
-                    distant = False
-                    break
-
-            if distant:
-                covered_combinations.append(comb_to_add)
-                num_increase += 1
-            '''
+                lout.append(np.mean(test_layer_outs[subject_layer][test_idx][...,r]))
         else:
+            lout = test_layer_outs[subject_layer][test_idx][relevant_neurons]
+
+        comb_to_add = determine_quantized_cover(lout, qtized)
+
+        if comb_to_add not in covered_combinations:
             covered_combinations += (comb_to_add,)
 
-    print(relevant_neurons)
-    if os.path.isfile('%s/%s_%d_%d_%d_%d_%d_max_comb.h5' %(experiment_folder,
-                                                           model_name, sel_class,
-                                                           q_granularity, distance_threshold,
-                                                           subject_layer,
-                                                           len(relevant_neurons))):
-
-        max_comb = load_max_comb('%s/%s_%d_%d_%d_%d_%d' %(experiment_folder,
-                                                          model_name, sel_class,
-                                                          q_granularity, distance_threshold,
-                                                          subject_layer,
-                                                          len(relevant_neurons)))[0]
-    else:
-        all_combs = itertools.product(*qtized)
-        reduced_combs = np.array([all_combs.next()]).astype('float32')
-
+    print(covered_combinations)
 
     max_comb = (q_granularity+1)**len(relevant_neurons)
 
-    print("Number of covered combinations: " + str(len(covered_combinations)))
     covered_num = len(covered_combinations)
     coverage = float(covered_num)/max_comb
-    #print("Coverage ratio: " + str(coverage))
 
     return coverage*100, covered_combinations
 
