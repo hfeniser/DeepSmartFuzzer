@@ -10,7 +10,7 @@ np.random.seed(seed=213123)
 test_input, _ = input_chooser()
 print(test_input.shape)
 
-coverage.step(test_input.reshape(-1,28,28,1))
+coverage.step(test_images.reshape(-1,28,28,1))
 print("initial coverage: %g" % (coverage.get_current_coverage()))
 
 DeepHunter(test_images,coverage)
