@@ -39,6 +39,12 @@ def image_brightness(img, params):
     return new_img
 
 def image_blur(img, params):
+    img_type = img.dtype
+    if(np.issubdtype(img_type, np.integer)):
+        img = np.uint8(img)
+    else:
+        img = np.float32(img)
+    
     blur = []
     if params == 1:
         blur = cv2.blur(img, (3, 3))
@@ -60,4 +66,6 @@ def image_blur(img, params):
         blur = cv2.blur(img, (6, 6))
     if params == 10:
         blur = cv2.bilateralFilter(img, 9, 75, 75)
+    
+    blur = blur.astype(img_type)
     return blur

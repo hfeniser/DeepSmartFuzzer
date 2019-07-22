@@ -4,12 +4,23 @@ import itertools
 import image_transforms
 
 import matplotlib.pyplot as plt
+rows, columns = 8, 8
 plt.ion()
-plt.figure(1)
-fig = plt.imshow(np.random.randint(0,256,size=(28,28)))
-plt.figure(2)
-fig2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
-plt.title("NOT FOUND ANY COVERAGE INCREASE")
+fig=plt.figure(1, figsize=(8, 8))
+fig_plots = []
+for i in range(1, columns*rows +1):
+    fig.add_subplot(rows, columns, i)
+    subplot = plt.imshow(np.random.randint(0,256,size=(28,28)))
+    fig_plots.append(subplot)
+plt.show()
+fig2=plt.figure(2, figsize=(8, 8))
+fig2.suptitle("NOT FOUND ANY COVERAGE INCREASE")
+fig2_plots = []
+for i in range(1, columns*rows +1):
+    fig2.add_subplot(rows, columns, i)
+    subplot = plt.imshow(np.random.randint(0,256,size=(28,28)))
+    fig2_plots.append(subplot)
+plt.show()
 
 import signal
 import sys
@@ -121,15 +132,17 @@ class RLforDL_MCTS:
         upper_limits = np.add(action_part1, self.actions_p1_spacing)
         upper_limits = np.clip(upper_limits, action_part1, self.input_shape) # upper_limits \in [action_part1, self.input_shape]
         s = tuple([slice(lower_limits[i], upper_limits[i]) for i in range(len(lower_limits))])
-        if not isinstance(action_part2, tuple):
-            mutated_input[s] += action_part2
-        else:
-            f = getattr(image_transforms,'image_'+action_part2[0])
-            m_shape = mutated_input[s].shape
-            i = mutated_input[s].reshape(m_shape[-3:])
-            i = f(i, action_part2[1])
-            mutated_input[s] = i.reshape(m_shape)
-        mutated_input[s] = np.clip(mutated_input[s], self.input_lower_limit, self.input_upper_limit)
+        for j in range(len(mutated_input)):
+            mutated_input_piece = mutated_input[j].reshape(self.input_shape)
+            if not isinstance(action_part2, tuple):
+                mutated_input_piece[s] += action_part2
+            else:
+                f = getattr(image_transforms,'image_'+action_part2[0])
+                m_shape = mutated_input_piece[s].shape
+                i = mutated_input_piece[s].reshape(m_shape[-3:])
+                i = f(i, action_part2[1])
+                mutated_input_piece[s] = i.reshape(m_shape)
+            mutated_input_piece[s] = np.clip(mutated_input_piece[s], self.input_lower_limit, self.input_upper_limit)
         return mutated_input
 
     def apply_action_for_node(self, node, child_index):
@@ -162,8 +175,9 @@ class RLforDL_MCTS:
                 _, coverage_sim = coverage.step(input_sim, update_state=False)
                 if self.verbose_image:
                     plt.figure(1)
-                    fig.set_data(input_sim.reshape((28,28)))
-                    plt.title("level:" + str(level) + " Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))
+                    fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))
+                    for i in range(len(fig_plots)):
+                        fig_plots[i].set_data(input_sim[i].reshape((28,28)))
                     plt.show()
                     plt.pause(0.0001) #Note this correction
                 #print("coverage", coverage_sim)
@@ -182,7 +196,8 @@ class RLforDL_MCTS:
         return best_input_sim, best_coverage_sim
 
     def run(self, test_input, coverage, C=np.sqrt(2)):
-        best_input, best_coverage = test_input, 0
+        best_input, best_coverage = np.copy(test_input), 0
+        print("batch shape:", test_input.shape)
         root = MCTS_Node(len(self.actions_p1), RLforDL_MCTS_State(np.copy(test_input)))
         while not self.tc1(root.level, test_input, best_input, best_coverage):                
             if root.isLeaf() and self.tc3(root.level, test_input, root.state.mutated_input):
@@ -222,8 +237,9 @@ class RLforDL_MCTS:
                             best_input, best_coverage = input_sim, coverage_sim
                             if self.verbose_image:
                                 plt.figure(2)
-                                fig2.set_data(best_input.reshape((28,28)))
-                                plt.title("BEST Coverage Increase: " + str(best_coverage))
+                                fig2.suptitle("BEST Coverage Increase: " + str(best_coverage))
+                                for i in range(len(fig2_plots)):
+                                    fig2_plots[i].set_data(best_input[i].reshape((28,28)))
                                 plt.show()
                                 plt.pause(0.0001) #Note this correction
                 if self.verbose:

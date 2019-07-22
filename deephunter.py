@@ -144,7 +144,7 @@ brightness = list(itertools.product([getattr(image_transforms, "image_brightness
 blur = list(itertools.product([getattr(image_transforms, "image_blur")], [k+1 for k in range(10)]))
 
 G = translation + rotation
-P = contrast + brightness #+ blur
+P = contrast + brightness + blur
 
 def Mutate(I, TRY_NUM=TRY_NUM):
     global info

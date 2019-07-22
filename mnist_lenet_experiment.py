@@ -43,11 +43,11 @@ def mnist_lenet_experiment(model_name):
     # COVERAGE
     if args.coverage == "neuron":
         from coverages.neuron_cov import NeuronCoverage
-        coverage = NeuronCoverage(model)
+        coverage = NeuronCoverage(model, skip_layers=[0,5]) # 0:input, 5:flatten
     elif args.coverage == "kmn":
         from coverages.kmn import DeepGaugePercentCoverage
         k = 20
-        coverage = DeepGaugePercentCoverage(model, k, train_images)
+        coverage = DeepGaugePercentCoverage(model, k, train_images, skip_layers=[0,5]) # 0:input, 5:flatten
     else:
         raise Exception("Unknown Coverage" + args.coverage)
 

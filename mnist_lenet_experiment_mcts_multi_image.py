@@ -13,8 +13,8 @@ print("initial coverage: %g" % (coverage.get_current_coverage()))
 from mcts import RLforDL_MCTS
 input_lower_limit = 0
 input_upper_limit = 255
-action_division_p1 = (1,3,3,1)
-actions_p2 = [-40, 40]
+action_division_p1 = (1,1,1,1)
+actions_p2 = [-40, 40, ("translation", (10, 10)), ("rotation", 3), ("contrast", 1.2), ("blur", 1), ("blur", 4), ("blur", 7)]
 
 def tc1(level, test_input, best_input, best_coverage): 
     # limit the level/depth of root
@@ -30,10 +30,10 @@ def tc3(level, test_input, mutated_input):
     return  c1 or c2
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
-     action_division_p1, actions_p2, tc1, tc2, tc3)
+     action_division_p1, actions_p2, tc1, tc2, tc3, verbose_image=True)
 
 for i in range(1, 1000):
-    test_input, test_label = input_chooser()
+    test_input, test_label = input_chooser(batch_size=64)
     root, best_input, best_coverage = mcts.run(test_input, coverage)
     if best_coverage > 0:
         input_chooser.append(best_input, test_label)
