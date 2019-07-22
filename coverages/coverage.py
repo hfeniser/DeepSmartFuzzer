@@ -54,7 +54,7 @@ class AbstractCoverage(ABC):
             self.set_measure_state(final_state)
             new_coverage = self.get_current_coverage()
             self.set_measure_state(old_state)
-            return new_state, np.subtract(new_coverage, old_coverage)
+            return final_state, np.subtract(new_coverage, old_coverage)
     
     @abstractmethod
     def get_measure_state(self):

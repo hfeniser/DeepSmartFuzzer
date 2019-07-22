@@ -2,7 +2,32 @@ import numpy as np
 import itertools
 import image_transforms
 
-def DeepHunter(I, coverage, K=64):
+# PARAMETERS
+K=64
+batch1=64
+batch2=16
+p_min=0.01
+gamma=5
+alpha=0.1
+beta=0.5
+TRY_NUM=100
+
+verbose_image = True
+
+if verbose_image:
+    import matplotlib.pyplot as plt
+
+    plt.ion()
+    plt.figure(1)
+    fig = plt.imshow(np.random.randint(0,256,size=(28,28)))
+    plt.figure(2)
+    fig2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
+
+last_coverage_state = None
+
+
+
+def DeepHunter(I, coverage, K=K):
     F = np.array([]).reshape(0, 28, 28, 1)
     T = Preprocess(I)
     B, B_id = SelectNext(T)
@@ -22,23 +47,25 @@ def DeepHunter(I, coverage, K=64):
 
         if len(B_new) > 0:
             cov = Predict(coverage, B_new)
-            print("coverage:", coverage.get_current_coverage())
+            print("coverage increase:", cov)
             if CoverageGain(cov):
+                coverage.step(B_new, update_state=True, coverage_state=last_coverage_state)
+                print("coverage:", coverage.get_current_coverage())
                 B_c, Bs = T
-                B_c += [1]
+                B_c += [0]
                 Bs +=  [B_new]
                 BatchPrioritize(T, B_id)
         
         B, B_id = SelectNext(T)
 
-def Preprocess(I, batch_size=64):
+def Preprocess(I, batch_size=batch1):
     _I = np.random.permutation(I)
     Bs = np.array_split(_I, range(64,len(_I),64))
-    return list(np.ones(len(Bs))), Bs
+    return list(np.zeros(len(Bs))), Bs
 
-def calc_priority(B_ci, p_min=0.01, gama=0.9):
-    if B_ci < (1-p_min) * gama:
-        return 1 - B_ci / gama
+def calc_priority(B_ci, p_min=0.01, gamma=5):
+    if B_ci < (1-p_min) * gamma:
+        return 1 - B_ci / gamma
     else:
         return p_min
 
@@ -48,7 +75,7 @@ def SelectNext(T):
     c = np.random.choice(len(Bs), p=B_p/np.sum(B_p))
     return Bs[c], c
 
-def Sample(B, batch_size=16):
+def Sample(B, batch_size=batch2):
     c = np.random.choice(len(B), size=batch_size, replace=False)
     return B[c]
 
@@ -71,13 +98,13 @@ class INFO:
 
 info = INFO() 
 
-def PowerSchedule(S, K, beta=0.1):
+def PowerSchedule(S, K, beta=beta):
     global info
     potentials = []
     for i in range(len(S)):
         I = S[i]
         I0, I0_new, state = info[I]
-        p = beta * 255 * I.size - np.sum(np.abs(I - I0_new))
+        p = beta * 255 * np.sum(I>0) - np.sum(np.abs(I - I0_new))
         potentials.append(p)
     potentials = np.array(potentials) / np.sum(potentials)
 
@@ -95,8 +122,9 @@ def isChanged(I, I_new):
     return np.any(I != I_new)
 
 def Predict(coverage, B_new):
+    global last_coverage_state
     print("Predict B_new.shape", np.array(B_new).shape)
-    _, cov = coverage.step(B_new, update_state=False)
+    last_coverage_state, cov = coverage.step(B_new, update_state=False)
     return cov
 
 def CoverageGain(cov):
@@ -104,7 +132,7 @@ def CoverageGain(cov):
 
 def BatchPrioritize(T, B_id):
     B_c, Bs = T
-    B_c[B_id] -= 0.1
+    B_c[B_id] += 1
 
 
 translation = list(itertools.product([getattr(image_transforms,"image_translation")], [(10+10*k,10+10*k) for k in range(10)]))
@@ -118,9 +146,13 @@ blur = list(itertools.product([getattr(image_transforms, "image_blur")], [k+1 fo
 G = translation + rotation
 P = contrast + brightness #+ blur
 
-def Mutate(I, TRY_NUM=100):
+def Mutate(I, TRY_NUM=TRY_NUM):
     global info
-    #print("I.shape", I.shape)
+    if verbose_image:
+        plt.figure(1)
+        fig.set_data(I.reshape((28,28)))
+        plt.show()
+        plt.pause(0.0001) #Note this correction
     I0, I0_new, state = info[I]
     for i in range(1, TRY_NUM):
         if state == 0:
@@ -130,6 +162,11 @@ def Mutate(I, TRY_NUM=100):
 
         I_new = t(np.copy(I), p).reshape(28,28,1)
         I_new = np.clip(I_new, 0, 255)
+        if verbose_image:
+            plt.figure(2)
+            fig2.set_data(I_new.reshape((28,28)))
+            plt.show()
+            plt.pause(0.0001) #Note this correction
         if f(I0_new, I_new):
             if (t, p) in G:
                 state = 1
@@ -143,10 +180,8 @@ def randomPick(A):
     c = np.random.randint(0, len(A))
     return A[c]
 
-def f(I, I_new, beta=0.1, alpha=0.1):
-    if(np.sum(np.abs(I-I_new)) < alpha * I.size):
-        return False
-        return np.all(I-I_new <= 255)
+def f(I, I_new, beta=beta, alpha=alpha):
+    if(np.sum((I-I_new) != 0) < alpha * np.sum(I>0)):
+        return np.max(I-I_new) <= 255
     else:
-        return True
-        return np.all(I-I_new <= beta*255)
+        return np.max(I-I_new) <= beta*255
