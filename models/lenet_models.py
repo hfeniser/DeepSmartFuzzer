@@ -52,8 +52,8 @@ def LeNet1(input_tensor=None, train=False):
     x = MaxPooling2D(pool_size=(2, 2), name='block2_pool1')(x)
 
     x = Flatten(name='flatten')(x)
-    x = Dense(nb_classes, name='softmax', activation='softmax')(x)
-#    x = Activation('softmax', name='predictions')(x)
+    x = Dense(nb_classes, name='before_softmax')(x)
+    x = Activation('softmax', name='predictions')(x)
 
     model = Model(input_tensor, x)
 
@@ -119,8 +119,8 @@ def LeNet4(input_tensor=None, train=False):
 
     x = Flatten(name='flatten')(x)
     x = Dense(84, activation='relu', name='fc1')(x)
-    x = Dense(nb_classes, name='softmax', activation='softmax')(x)
-#    x = Activation('softmax', name='predictions')(x)
+    x = Dense(nb_classes, name='before_softmax')(x)
+    x = Activation('softmax', name='predictions')(x)
 
     model = Model(input_tensor, x)
 
