@@ -3,7 +3,7 @@ import numpy as np
 
 from deephunter import DeepHunter
 
-(train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("random_multi_image")
+args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("random_multi_image")
 
 np.random.seed(seed=213123)
 

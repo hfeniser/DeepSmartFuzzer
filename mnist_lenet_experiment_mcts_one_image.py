@@ -1,7 +1,7 @@
 from mnist_lenet_experiment import mnist_lenet_experiment
 import numpy as np
 
-(train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("random_one_image")
+args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("random_one_image")
 
 np.random.seed(seed=213123)
 

@@ -11,6 +11,7 @@ def mnist_lenet_experiment(model_name):
     parser = argparse.ArgumentParser(description=str(model_name) + ' experiment for testing LeNet models with MNIST dataset')
     parser.add_argument("--lenet", type=int, default=1, choices=[1,4,5])
     parser.add_argument("--coverage", type=str, default="neuron", choices=["neuron","kmn"])
+    parser.add_argument("--implicit_reward", type=bool, default=False)
     args = parser.parse_args()
 
     print("Arguments:", args)
@@ -41,9 +42,23 @@ def mnist_lenet_experiment(model_name):
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     # COVERAGE
+    if args.implicit_reward:
+        def calc_implicit_reward_neuron(p1, p2):
+            distance = np.abs(p1-p2)
+            implicit_reward =  1 / (distance + 1)
+            #print("p1, p2, distance, implicit_reward:", p1, p2, distance, implicit_reward)
+            return implicit_reward
+
+        def calc_implicit_reward(activation_values, covered_positions):
+            #print("activation_values, covered_positions", activation_values, covered_positions)
+            return np.max(activation_values * np.logical_not(covered_positions))
+    else:
+        calc_implicit_reward_neuron = None
+        calc_implicit_reward = None
+
     if args.coverage == "neuron":
         from coverages.neuron_cov import NeuronCoverage
-        coverage = NeuronCoverage(model, skip_layers=[0,5]) # 0:input, 5:flatten
+        coverage = NeuronCoverage(model, skip_layers=[0,5], calc_implicit_reward_neuron=calc_implicit_reward_neuron, calc_implicit_reward=calc_implicit_reward) # 0:input, 5:flatten
     elif args.coverage == "kmn":
         from coverages.kmn import DeepGaugePercentCoverage
         k = 20
@@ -54,5 +69,5 @@ def mnist_lenet_experiment(model_name):
     from input_chooser import InputChooser
     input_chooser = InputChooser(test_images, test_labels)
 
-    return (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser
+    return args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser
          

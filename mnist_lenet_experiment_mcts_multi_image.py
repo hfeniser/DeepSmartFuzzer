@@ -1,7 +1,7 @@
 from mnist_lenet_experiment import mnist_lenet_experiment
 import numpy as np
 
-(train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("mcts_multi_image")
+args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("mcts_multi_image")
 
 np.random.seed(seed=213123)
 
@@ -30,7 +30,7 @@ def tc3(level, test_input, mutated_input):
     return  c1 or c2
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
-     action_division_p1, actions_p2, tc1, tc2, tc3, verbose_image=True)
+     action_division_p1, actions_p2, tc1, tc2, tc3, with_implicit_reward=args.implicit_reward, verbose_image=True)
 
 for i in range(1, 1000):
     test_input, test_label = input_chooser(batch_size=64)

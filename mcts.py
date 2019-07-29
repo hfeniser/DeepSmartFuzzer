@@ -91,7 +91,7 @@ class RLforDL_MCTS_State:
         self.mutated_input = mutated_input
 
 class RLforDL_MCTS:
-    def __init__(self, input_shape, input_lower_limit, input_upper_limit, action_division_p1, actions_p2, tc1, tc2, tc3, verbose=True, verbose_image=True):
+    def __init__(self, input_shape, input_lower_limit, input_upper_limit, action_division_p1, actions_p2, tc1, tc2, tc3, with_implicit_reward=False, verbose=True, verbose_image=True):
         self.input_shape = input_shape
         self.input_lower_limit = input_lower_limit
         self.input_upper_limit = input_upper_limit
@@ -107,7 +107,7 @@ class RLforDL_MCTS:
         self.tc1 = tc1 # termination condition for the entire program e.g. limit the number of epochs
         self.tc2 = tc2 # termination condition for the current iteration e.g. limit the iterations
         self.tc3 = tc3 # cut-off condition for the tree
-
+        self.with_implicit_reward = with_implicit_reward
         self.verbose = verbose
         self.verbose_image = verbose_image
         if self.verbose:
@@ -172,7 +172,7 @@ class RLforDL_MCTS:
 
         while not self.tc3(level, test_input, input_sim):         
             if input_changed:
-                _, coverage_sim = coverage.step(input_sim, update_state=False)
+                _, coverage_sim = coverage.step(input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
                 if self.verbose_image:
                     plt.figure(1)
                     fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))

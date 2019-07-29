@@ -11,7 +11,7 @@ plt.figure(2)
 fig2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
 plt.title("NOT FOUND ANY COVERAGE INCREASE")
 
-(train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("random_one_image")
+args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("random_one_image")
 
 np.random.seed(seed=213123)
 
