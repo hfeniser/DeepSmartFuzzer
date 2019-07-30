@@ -38,10 +38,6 @@ class AbstractCoverage(ABC):
     @abstractmethod
     def reset_measure_state(self):
         pass
-    
-    @abstractmethod
-    def reset_implicit_reward_state(self):
-        pass 
 
     @abstractmethod
     def get_current_coverage(self, with_implicit_reward=False):
