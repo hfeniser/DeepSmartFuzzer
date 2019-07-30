@@ -178,8 +178,7 @@ class RLforDL_MCTS:
                     fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))
                     for i in range(len(fig_plots)):
                         fig_plots[i].set_data(input_sim[i].reshape((28,28)))
-                    plt.show()
-                    plt.pause(0.0001) #Note this correction
+                    fig.canvas.flush_events()
                 #print("coverage", coverage_sim)
                 if coverage_sim > best_coverage_sim:
                     best_input_sim, best_coverage_sim = np.copy(input_sim), coverage_sim
@@ -240,8 +239,7 @@ class RLforDL_MCTS:
                                 fig2.suptitle("BEST Coverage Increase: " + str(best_coverage))
                                 for i in range(len(fig2_plots)):
                                     fig2_plots[i].set_data(best_input[i].reshape((28,28)))
-                                plt.show()
-                                plt.pause(0.0001) #Note this correction
+                                fig2.canvas.flush_events()
                 if self.verbose:
                     print("Completed Iteration #%g" % (iterations))
                     print("Current Coverage From Simulation: %g" % (coverage_sim))

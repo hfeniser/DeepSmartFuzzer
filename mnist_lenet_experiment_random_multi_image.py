@@ -73,13 +73,12 @@ for i in range(1, 1000):
             action2 = np.random.randint(0,len(actions_p2))
             mutated_input = apply_action(mutated_input, action1, action2)
             level += 1
-            _, coverage_sim = coverage.step(mutated_input, update_state=False)
+            _, coverage_sim = coverage.step(mutated_input, update_state=False, with_implicit_reward=args.implicit_reward)
             if verbose_image:
                 plt.figure(1)
                 fig.set_data(mutated_input.reshape((28,28)))
                 plt.title("Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))
-                plt.show()
-                plt.pause(0.0001) #Note this correction
+                fig.canvas.flush_events()
             #print("coverage", coverage_sim)
             if coverage_sim > best_coverage:
                 best_input, best_coverage = np.copy(mutated_input), coverage_sim
@@ -87,8 +86,7 @@ for i in range(1, 1000):
                     plt.figure(2)
                     fig2.set_data(best_input.reshape((28,28)))
                     plt.title("BEST Coverage Increase: " + str(best_coverage))
-                    plt.show()
-                    plt.pause(0.0001) #Note this correction
+                    fig2.canvas.flush_events()
         if verbose:
             print("Completed Iteration #%g" % (iteration_count))
             print("Current Coverage: %g" % (coverage_sim))

@@ -70,4 +70,3 @@ def mnist_lenet_experiment(model_name):
     input_chooser = InputChooser(test_images, test_labels)
 
     return args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser
-         

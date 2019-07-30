@@ -52,6 +52,11 @@ class NeuronCoverage(AbstractCoverage):
     def reset_measure_state(self):
         self.activation_table = defaultdict(float)
 
+    def reset_implicit_reward_state(self):
+        for k in self.activation_table:
+            if self.activation_table[k] != 1:
+                self.activation_table[k] = 0
+
     def get_current_coverage(self, with_implicit_reward=False):
         activation_values = np.array(list(self.activation_table.values()))
         if len(activation_values) == 0:
@@ -62,9 +67,9 @@ class NeuronCoverage(AbstractCoverage):
             implicit_reward = self.calc_implicit_reward(activation_values, covered_positions)
         else:
             implicit_reward = 0
-        #print("implicit_reward", implicit_reward)
         reward = covered + implicit_reward
         total = len(self.activation_table.keys())
+        #print("covered, implicit_reward", covered, implicit_reward)
         return percent(reward, total)
         
     def test(self, test_inputs):
@@ -83,8 +88,8 @@ class NeuronCoverage(AbstractCoverage):
                         p1 = np.mean(out_for_input[..., neuron_index])
                         p2 = self.threshold
                         r = self.calc_implicit_reward_neuron(p1, p2)
-                        if r > self.activation_table[(layer_index, neuron_index)]:
-                            self.activation_table[(layer_index, neuron_index)] = r                           
+                        #if r > self.activation_table[(layer_index, neuron_index)]:
+                        self.activation_table[(layer_index, neuron_index)] = r                           
 
         activation_values = np.array(list(self.activation_table.values()))
         covered_positions = activation_values == 1

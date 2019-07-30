@@ -151,8 +151,7 @@ def Mutate(I, TRY_NUM=TRY_NUM):
     if verbose_image:
         plt.figure(1)
         fig.set_data(I.reshape((28,28)))
-        plt.show()
-        plt.pause(0.0001) #Note this correction
+        fig.canvas.flush_events()
     I0, I0_new, state = info[I]
     for i in range(1, TRY_NUM):
         if state == 0:
@@ -165,8 +164,7 @@ def Mutate(I, TRY_NUM=TRY_NUM):
         if verbose_image:
             plt.figure(2)
             fig2.set_data(I_new.reshape((28,28)))
-            plt.show()
-            plt.pause(0.0001) #Note this correction
+            fig2.canvas.flush_events()
         if f(I0_new, I_new):
             if (t, p) in G:
                 state = 1
