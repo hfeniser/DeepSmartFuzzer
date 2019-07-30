@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from utils import get_layer_outs, get_layer_outs_new, percent_str
+from coverages.utils import get_layer_outs, get_layer_outs_new, percent_str
 
 
 def measure_tkn_old(model, test_inputs, k):

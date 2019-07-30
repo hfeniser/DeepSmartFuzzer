@@ -2,7 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy as np
-from utils import get_layer_outs_new, percent_str, percent
+from coverages.utils import get_layer_outs_new, percent_str, percent
 from collections import defaultdict
 
 def default_scale(intermediate_layer_output, rmax=1, rmin=0):

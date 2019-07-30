@@ -5,10 +5,10 @@ import image_transforms
 import matplotlib.pyplot as plt
 
 plt.ion()
-plt.figure(1)
-fig = plt.imshow(np.random.randint(0,256,size=(28,28)))
-plt.figure(2)
-fig2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
+fig = plt.figure(1)
+ax = plt.imshow(np.random.randint(0,256,size=(28,28)))
+fig2 = plt.figure(2)
+ax2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
 plt.title("NOT FOUND ANY COVERAGE INCREASE")
 
 args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("random_multi_image")
@@ -76,7 +76,7 @@ for i in range(1, 1000):
             _, coverage_sim = coverage.step(mutated_input, update_state=False, with_implicit_reward=args.implicit_reward)
             if verbose_image:
                 plt.figure(1)
-                fig.set_data(mutated_input.reshape((28,28)))
+                ax.set_data(mutated_input.reshape((28,28)))
                 plt.title("Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))
                 fig.canvas.flush_events()
             #print("coverage", coverage_sim)
@@ -84,7 +84,7 @@ for i in range(1, 1000):
                 best_input, best_coverage = np.copy(mutated_input), coverage_sim
                 if verbose_image:
                     plt.figure(2)
-                    fig2.set_data(best_input.reshape((28,28)))
+                    ax2.set_data(best_input.reshape((28,28)))
                     plt.title("BEST Coverage Increase: " + str(best_coverage))
                     fig2.canvas.flush_events()
         if verbose:

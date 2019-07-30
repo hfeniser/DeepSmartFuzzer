@@ -1,6 +1,6 @@
 # Sign-sign cover
 
-from utils import get_layer_outs_new, get_layer_outs, percent_str
+from coverages.utils import get_layer_outs_new, get_layer_outs, percent_str
 from collections import defaultdict
 
 def default_sign_fn(x, _=None):

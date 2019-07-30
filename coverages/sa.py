@@ -5,7 +5,7 @@ from multiprocessing import Pool
 from keras.models import load_model, Model
 from scipy.stats import gaussian_kde
 
-from utils import *
+from coverages.utils import *
 
 class SurpriseAdequacy:
     def __init__(self, surprise, model, train_inputs, layer_names, upper_bound,

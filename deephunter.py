@@ -18,10 +18,10 @@ if verbose_image:
     import matplotlib.pyplot as plt
 
     plt.ion()
-    plt.figure(1)
-    fig = plt.imshow(np.random.randint(0,256,size=(28,28)))
-    plt.figure(2)
-    fig2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
+    fig = plt.figure(1)
+    ax = plt.imshow(np.random.randint(0,256,size=(28,28)))
+    fig2 = plt.figure(2)
+    ax2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
 
 last_coverage_state = None
 
@@ -150,7 +150,7 @@ def Mutate(I, TRY_NUM=TRY_NUM):
     global info
     if verbose_image:
         plt.figure(1)
-        fig.set_data(I.reshape((28,28)))
+        ax.set_data(I.reshape((28,28)))
         fig.canvas.flush_events()
     I0, I0_new, state = info[I]
     for i in range(1, TRY_NUM):
@@ -163,7 +163,7 @@ def Mutate(I, TRY_NUM=TRY_NUM):
         I_new = np.clip(I_new, 0, 255)
         if verbose_image:
             plt.figure(2)
-            fig2.set_data(I_new.reshape((28,28)))
+            ax2.set_data(I_new.reshape((28,28)))
             fig2.canvas.flush_events()
         if f(I0_new, I_new):
             if (t, p) in G:

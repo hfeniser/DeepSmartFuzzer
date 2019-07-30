@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from utils import get_layer_outs, get_layer_outs_new, calc_major_func_regions, percent_str, percent
+from coverages.utils import get_layer_outs, get_layer_outs_new, calc_major_func_regions, percent_str, percent
 from math import floor
 
 from coverages.coverage import AbstractCoverage
 
 class DeepGaugePercentCoverage(AbstractCoverage):
-    def __init__(self, model, k, train_inputs=None, major_func_regions=None, skip_layers=None):
+    def __init__(self, model, k, train_inputs=None, major_func_regions=None, skip_layers=None, calc_implicit_reward_neuron=None, calc_implicit_reward=None):
         self.activation_table_by_section, self.upper_activation_table, self.lower_activation_table = {}, {}, {}
         self.neuron_set = set()
         
@@ -21,6 +21,9 @@ class DeepGaugePercentCoverage(AbstractCoverage):
             self.major_func_regions = calc_major_func_regions(model, train_inputs, skip_layers)
         else:
             self.major_func_regions = major_func_regions
+
+        self.calc_implicit_reward_neuron = calc_implicit_reward_neuron
+        self.calc_implicit_reward = calc_implicit_reward
             
     def get_measure_state(self):
         return [self.activation_table_by_section, self.upper_activation_table, self.lower_activation_table, self.neuron_set]
@@ -35,7 +38,7 @@ class DeepGaugePercentCoverage(AbstractCoverage):
         self.activation_table_by_section, self.upper_activation_table, self.lower_activation_table = {}, {}, {}
         self.neuron_set = set()
 
-    def get_current_coverage(self):
+    def get_current_coverage(self, with_implicit_reward=False):
         multisection_activated = len(self.activation_table_by_section.keys())
         lower_activated = len(self.lower_activation_table.keys())
         upper_activated = len(self.upper_activation_table.keys())
