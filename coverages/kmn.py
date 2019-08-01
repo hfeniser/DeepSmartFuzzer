@@ -39,18 +39,24 @@ class DeepGaugePercentCoverage(AbstractCoverage):
         self.neuron_set = set()
 
     def get_current_coverage(self, with_implicit_reward=False):
-        multisection_activated = len(self.activation_table_by_section.keys())
-        lower_activated = len(self.lower_activation_table.keys())
-        upper_activated = len(self.upper_activation_table.keys())
+        if len(self.activation_table_by_section.keys()) == 0:
+            return [0, # kmn
+                    0, # nbc
+                    0  # snac
+                    ]
+        
+        multisection_reward, multisection_covered, multisection_implicit_reward = self.calc_reward(self.activation_table_by_section, with_implicit_reward=with_implicit_reward)
+        lower_reward, lower_covered, lower_implicit_reward = self.calc_reward(self.lower_activation_table, with_implicit_reward=with_implicit_reward)
+        upper_reward, upper_covered, upper_implicit_reward = self.calc_reward(self.upper_activation_table, with_implicit_reward=with_implicit_reward)
 
         total = len(self.neuron_set)
 
-        return [percent(multisection_activated, self.k*total), # kmn
-                percent(upper_activated+lower_activated, 2 * total), # nbc
-                percent(upper_activated, total) # snac
+        return [percent(multisection_reward, self.k*total), # kmn
+                percent(upper_reward+lower_reward, 2 * total), # nbc
+                percent(upper_reward, total) # snac
                 ][0]
     
-    def test(self, test_inputs):
+    def test(self, test_inputs, with_implicit_reward=False):
         outs = get_layer_outs_new(self.model, test_inputs, self.skip_layers)
 
         for layer_index, layer_out in enumerate(outs):  # layer_out is output of layer for all inputs
@@ -65,26 +71,56 @@ class DeepGaugePercentCoverage(AbstractCoverage):
                     neuron_high = self.major_func_regions[layer_index][1][neuron_index]
                     section_length = (neuron_high - neuron_low) / self.k
                     section_index = floor((neuron_out - neuron_low) / section_length) if section_length > 0 else 0
+                    
+                    if not self.calc_implicit_reward_neuron:
+                        self.activation_table_by_section[(global_neuron_index, section_index)] = 1
+                    else:
+                        for s_i in range(self.k):
+                            if s_i == section_index:
+                                self.activation_table_by_section[(global_neuron_index, s_i)] = 1
+                                continue
+                            elif s_i > section_index:
+                                p1 = neuron_out
+                                p2 = neuron_low + section_length * s_i
+                            else:
+                                p1 = neuron_out
+                                p2 = neuron_low + section_length * (s_i + 1)
 
-                    self.activation_table_by_section[(global_neuron_index, section_index)] = True
+                            r = self.calc_implicit_reward_neuron(p1, p2)
+                            self.activation_table_by_section[(global_neuron_index, s_i)] = r  
 
-                    if neuron_out < neuron_low:
-                        self.lower_activation_table[global_neuron_index] = True
+                    if global_neuron_index in self.lower_activation_table and self.lower_activation_table[global_neuron_index] == 1:
+                        pass
+                    elif neuron_out < neuron_low:
+                        self.lower_activation_table[global_neuron_index] = 1
+                    elif self.calc_implicit_reward_neuron:
+                        p1 = neuron_out
+                        p2 = neuron_low
+                        r = self.calc_implicit_reward_neuron(p1, p2)
+                        self.lower_activation_table[global_neuron_index] = r
+                    
+                    if global_neuron_index in self.upper_activation_table and self.upper_activation_table[global_neuron_index] == 1:
+                        pass
                     elif neuron_out > neuron_high:
-                        self.upper_activation_table[global_neuron_index] = True
-
-        multisection_activated = len(self.activation_table_by_section.keys())
-        lower_activated = len(self.lower_activation_table.keys())
-        upper_activated = len(self.upper_activation_table.keys())
+                        self.upper_activation_table[global_neuron_index] = 1
+                    elif self.calc_implicit_reward_neuron:
+                        p1 = neuron_out
+                        p2 = neuron_high
+                        r = self.calc_implicit_reward_neuron(p1, p2)
+                        self.lower_activation_table[global_neuron_index] = r
+        
+        multisection_reward, multisection_covered, multisection_implicit_reward = self.calc_reward(self.activation_table_by_section, with_implicit_reward=with_implicit_reward)
+        lower_reward, lower_covered, lower_implicit_reward = self.calc_reward(self.lower_activation_table, with_implicit_reward=with_implicit_reward)
+        upper_reward, upper_covered, upper_implicit_reward = self.calc_reward(self.upper_activation_table, with_implicit_reward=with_implicit_reward)
 
         total = len(self.neuron_set)
 
-        return (percent_str(multisection_activated, self.k*total), # kmn
-                multisection_activated,
-                percent_str(upper_activated+lower_activated, 2 * total), # nbc
-                percent_str(upper_activated, total), # snac
-                lower_activated, upper_activated, total,
-                multisection_activated, upper_activated, lower_activated, total, outs)
+        return (percent_str(multisection_reward, self.k*total), # kmn
+                multisection_reward,
+                percent_str(lower_reward+upper_reward, 2 * total), # nbc
+                percent_str(upper_reward, total), # snac
+                lower_reward, upper_reward, total,
+                multisection_reward, upper_reward, lower_reward, total, outs)
 
 
 def measure_k_multisection_cov(model, test_inputs, k, train_inputs=None, major_func_regions=None, skip=None, outs=None):

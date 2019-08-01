@@ -17,15 +17,26 @@ class AbstractCoverage(ABC):
             if coverage_state:
                 self.set_measure_state(coverage_state)
             else:
-                self.test(test_inputs)
+                self.test(test_inputs, with_implicit_reward=with_implicit_reward)
             new_coverage = self.get_current_coverage(with_implicit_reward=with_implicit_reward)
             return np.subtract(new_coverage, old_coverage)
         else:
-            self.test(test_inputs)
+            self.test(test_inputs, with_implicit_reward=with_implicit_reward)
             new_state = self.get_measure_state()
             new_coverage = self.get_current_coverage(with_implicit_reward=with_implicit_reward)
             self.set_measure_state(old_state)
             return new_state, np.subtract(new_coverage, old_coverage)
+
+    def calc_reward(self, activation_table, with_implicit_reward=True):
+        activation_values = np.array(list(activation_table.values()))
+        covered_positions = activation_values == 1
+        covered = np.sum(covered_positions)
+        if with_implicit_reward and self.calc_implicit_reward:
+            implicit_reward = self.calc_implicit_reward(activation_values, covered_positions)
+        else:
+            implicit_reward = 0
+        reward = covered + implicit_reward
+        return reward, covered, implicit_reward
     
     @abstractmethod
     def get_measure_state(self):
@@ -41,4 +52,8 @@ class AbstractCoverage(ABC):
 
     @abstractmethod
     def get_current_coverage(self, with_implicit_reward=False):
+        pass
+
+    @abstractmethod
+    def test(self, with_implicit_reward=False):
         pass

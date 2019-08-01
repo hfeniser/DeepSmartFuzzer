@@ -53,21 +53,15 @@ class NeuronCoverage(AbstractCoverage):
         self.activation_table = defaultdict(float)
 
     def get_current_coverage(self, with_implicit_reward=False):
-        activation_values = np.array(list(self.activation_table.values()))
-        if len(activation_values) == 0:
+        if len(self.activation_table.keys()) == 0:
             return 0
-        covered_positions = activation_values == 1
-        covered = np.sum(covered_positions)
-        if with_implicit_reward and self.calc_implicit_reward:
-            implicit_reward = self.calc_implicit_reward(activation_values, covered_positions)
-        else:
-            implicit_reward = 0
-        reward = covered + implicit_reward
+
+        reward, covered, implicit_reward = self.calc_reward(self.activation_table, with_implicit_reward=with_implicit_reward)
         total = len(self.activation_table.keys())
         #print("covered, implicit_reward", covered, implicit_reward)
         return percent(reward, total)
         
-    def test(self, test_inputs):
+    def test(self, test_inputs, with_implicit_reward=False):
         outs = get_layer_outs_new(self.model, test_inputs, self.skip_layers)
 
         for layer_index, layer_out in enumerate(outs):  # layer_out is output of layer for all inputs
@@ -83,16 +77,8 @@ class NeuronCoverage(AbstractCoverage):
                         p1 = np.mean(out_for_input[..., neuron_index])
                         p2 = self.threshold
                         r = self.calc_implicit_reward_neuron(p1, p2)
-                        #if r > self.activation_table[(layer_index, neuron_index)]:
                         self.activation_table[(layer_index, neuron_index)] = r                           
 
-        activation_values = np.array(list(self.activation_table.values()))
-        covered_positions = activation_values == 1
-        covered = np.sum(covered_positions)
-        if self.calc_implicit_reward:
-            implicit_reward = self.calc_implicit_reward(activation_values, covered_positions)
-        else:
-            implicit_reward = 0
-        reward = covered + implicit_reward
+        reward, covered, implicit_reward = self.calc_reward(self.activation_table, with_implicit_reward=with_implicit_reward)
         total = len(self.activation_table.keys())
         return percent_str(reward, total), reward, total, outs
