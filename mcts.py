@@ -159,7 +159,7 @@ class RLforDL_MCTS:
         # Simulation
         level = node.level
         input_sim = np.copy(node.state.mutated_input)
-        best_input_sim, best_coverage_sim = np.copy(input_sim), 0
+        pre_input_sim = np.copy(input_sim)
 
         if self.player(level) == 1:
             action1 = np.random.randint(0,len(self.actions_p1))
@@ -172,27 +172,24 @@ class RLforDL_MCTS:
 
         while not self.tc3(level, test_input, input_sim):         
             if input_changed:
-                _, coverage_sim = coverage.step(input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
                 if self.verbose_image:
                     plt.figure(1)
-                    fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)) + " Coverage Increase: " + str(coverage_sim))
-                    for i in range(len(fig_plots)):
+                    fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)))
+                    for i in range(len(input_sim[0:64])):
                         fig_plots[i].set_data(input_sim[i].reshape((28,28)))
                     fig.canvas.flush_events()
-                #print("coverage", coverage_sim)
-                if coverage_sim > best_coverage_sim:
-                    best_input_sim, best_coverage_sim = np.copy(input_sim), coverage_sim
-                input_changed = False
             
             level += 1
             if self.player(level) == 1:
                 action1 = np.random.randint(0,len(self.actions_p1))
             else:
                 action2 = np.random.randint(0,len(self.actions_p2))
+                pre_input_sim = np.copy(input_sim)
                 input_sim = self.apply_action(input_sim, action1, action2)
                 input_changed = True
-
-        return best_input_sim, best_coverage_sim
+            
+        _, coverage_sim = coverage.step(pre_input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
+        return pre_input_sim, coverage_sim
 
     def run(self, test_input, coverage, C=np.sqrt(2)):
         best_input, best_coverage = np.copy(test_input), 0
@@ -237,7 +234,7 @@ class RLforDL_MCTS:
                             if self.verbose_image:
                                 plt.figure(2)
                                 fig2.suptitle("BEST Coverage Increase: " + str(best_coverage))
-                                for i in range(len(fig2_plots)):
+                                for i in range(len(best_input[0:64])):
                                     fig2_plots[i].set_data(best_input[i].reshape((28,28)))
                                 fig2.canvas.flush_events()
                 if self.verbose:

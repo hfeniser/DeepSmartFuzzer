@@ -5,7 +5,7 @@ from deephunter import DeepHunter
 
 args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("random_multi_image")
 
-np.random.seed(seed=213123)
+#np.random.seed(seed=23)
 
 test_input, _ = input_chooser()
 print(test_input.shape)

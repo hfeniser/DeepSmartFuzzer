@@ -32,21 +32,26 @@ def tc1(level, test_input, best_input, best_coverage):
 
 def tc2(iterations):
     # limit the number of iterations on root
-    return iterations > 10
+    return iterations > 100
 
 def tc3(level, test_input, mutated_input):
-    c1 = level > 10 # Tree Depth Limit
-    c2 = not np.all(np.abs(mutated_input - test_input) < 160) # L_infinity < 20
+    c1 = level > 5 # Tree Depth Limit
+    #c2 = not np.all(np.abs(mutated_input - test_input) < 40) # L_infinity < 20
+    alpha = 0.1
+    beta = 0.5
+    if(np.sum((test_input-mutated_input) != 0) < alpha * np.sum(test_input>0)):
+        c2 = not np.max(np.abs(test_input-mutated_input)) <= 255
+    else:
+        c2 = not np.max(np.abs(test_input-mutated_input)) <= beta*255
     return  c1 or c2
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
      action_division_p1, actions_p2, tc1, tc2, tc3, with_implicit_reward=args.implicit_reward, verbose_image=True)
 
-for i in range(1, 1000):
-    test_input, test_label = input_chooser(batch_size=64)
+for i in range(1, 11):
+    test_input = np.load("deephunter_{}.npy".format(i))
     root, best_input, best_coverage = mcts.run(test_input, coverage)
     if best_coverage > 0:
-        input_chooser.append(best_input, test_label)
         coverage.step(best_input, update_state=True)
         print("IMAGE %g SUCCEED" % (i))
         print("found coverage increase", best_coverage)

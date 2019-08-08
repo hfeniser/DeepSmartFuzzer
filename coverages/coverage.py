@@ -12,7 +12,7 @@ class AbstractCoverage(ABC):
         if coverage_call_count % 100 == 0:
             print("coverage_call_count", coverage_call_count)
         old_state = copy.deepcopy(self.get_measure_state())
-        old_coverage = self.get_current_coverage()
+        old_coverage = self.get_current_coverage(with_implicit_reward=False)
         if update_state:
             if coverage_state:
                 self.set_measure_state(coverage_state)
@@ -25,10 +25,12 @@ class AbstractCoverage(ABC):
             new_state = self.get_measure_state()
             new_coverage = self.get_current_coverage(with_implicit_reward=with_implicit_reward)
             self.set_measure_state(old_state)
+            #print("new_coverage, old_coverage, s", new_coverage, old_coverage, np.subtract(new_coverage, old_coverage))
             return new_state, np.subtract(new_coverage, old_coverage)
 
-    def calc_reward(self, activation_table, with_implicit_reward=True):
+    def calc_reward(self, activation_table, with_implicit_reward=False):
         activation_values = np.array(list(activation_table.values()))
+        #print("activation_values", activation_values)
         covered_positions = activation_values == 1
         covered = np.sum(covered_positions)
         if with_implicit_reward and self.calc_implicit_reward:
@@ -36,6 +38,7 @@ class AbstractCoverage(ABC):
         else:
             implicit_reward = 0
         reward = covered + implicit_reward
+        #print("reward, covered, implicit_reward", reward, covered, implicit_reward)
         return reward, covered, implicit_reward
     
     @abstractmethod

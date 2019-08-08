@@ -1,0 +1,290 @@
+Arguments: Namespace(coverage='kmn', implicit_reward=False, lenet=5)
+initial coverage: 7.83582
+self.actions_p1 [(0, 0, 0, 0), (0, 0, 9, 0), (0, 0, 18, 0), (0, 0, 27, 0), (0, 9, 0, 0), (0, 9, 9, 0), (0, 9, 18, 0), (0, 9, 27, 0), (0, 18, 0, 0), (0, 18, 9, 0), (0, 18, 18, 0), (0, 18, 27, 0), (0, 27, 0, 0), (0, 27, 9, 0), (0, 27, 18, 0), (0, 27, 27, 0)]
+self.actions_p1_spacing [1, 9, 9, 1]
+self.actions_p2 [('translation', (10, 10)), ('translation', (20, 20)), ('translation', (30, 30)), ('translation', (40, 40)), ('translation', (50, 50)), ('translation', (60, 60)), ('translation', (70, 70)), ('translation', (80, 80)), ('translation', (90, 90)), ('translation', (100, 100)), ('rotation', 3), ('rotation', 6), ('rotation', 9), ('rotation', 12), ('rotation', 15), ('rotation', 18), ('rotation', 21), ('rotation', 24), ('rotation', 27), ('rotation', 30), ('contrast', 1.2), ('contrast', 1.4), ('contrast', 1.6), ('contrast', 1.8), ('contrast', 2.0), ('contrast', 2.2), ('contrast', 2.4000000000000004), ('contrast', 2.6), ('contrast', 2.8), ('contrast', 3.0), ('brightness', 10), ('brightness', 20), ('brightness', 30), ('brightness', 40), ('brightness', 50), ('brightness', 60), ('brightness', 70), ('brightness', 80), ('brightness', 90), ('brightness', 100), ('blur', 1), ('blur', 2), ('blur', 3), ('blur', 4), ('blur', 5), ('blur', 6), ('blur', 7), ('blur', 8), ('blur', 9), ('blur', 10)]
+batch shape: (16, 28, 28, 1)
+Completed Iteration #0
+Current Coverage From Simulation: 0
+Best Coverage up to now: 0
+Completed Iteration #1
+Current Coverage From Simulation: 0
+Best Coverage up to now: 0.186567
+Completed Iteration #2
+Current Coverage From Simulation: 0
+Best Coverage up to now: 0.186567
+coverage_call_count 100
+Completed Iteration #3
+Current Coverage From Simulation: 0
+Best Coverage up to now: 0.373134
+Completed Iteration #4
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+coverage_call_count 200
+Completed Iteration #5
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #6
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #7
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #8
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #9
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #10
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+coverage_call_count 300
+Completed Iteration #11
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #12
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #13
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #14
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #15
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #16
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #17
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+coverage_call_count 400
+Completed Iteration #18
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.73134
+Completed Iteration #19
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #20
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #21
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+coverage_call_count 500
+Completed Iteration #22
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #23
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+coverage_call_count 600
+Completed Iteration #24
+Current Coverage From Simulation: 0.746269
+Best Coverage up to now: 3.91791
+Completed Iteration #25
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #26
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #27
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #28
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #29
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #30
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #31
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #32
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+coverage_call_count 700
+Completed Iteration #33
+Current Coverage From Simulation: 0.186567
+Best Coverage up to now: 3.91791
+Completed Iteration #34
+Current Coverage From Simulation: 0.186567
+Best Coverage up to now: 3.91791
+Completed Iteration #35
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #36
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #37
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #38
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #39
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+coverage_call_count 800
+Completed Iteration #40
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #41
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #42
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #43
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #44
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #45
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #46
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #47
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #48
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #49
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #50
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+coverage_call_count 900
+Completed Iteration #51
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #52
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #53
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #54
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #55
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #56
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #57
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #58
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #59
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+coverage_call_count 1000
+Completed Iteration #60
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #61
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #62
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #63
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #64
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #65
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #66
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #67
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #68
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #69
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #70
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #71
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #72
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+coverage_call_count 1100
+Completed Iteration #73
+Current Coverage From Simulation: 0.186567
+Best Coverage up to now: 3.91791
+Completed Iteration #74
+Current Coverage From Simulation: 0.186567
+Best Coverage up to now: 3.91791
+Completed Iteration #75
+Current Coverage From Simulation: 0.186567
+Best Coverage up to now: 3.91791
+Completed Iteration #76
+Current Coverage From Simulation: 0.186567
+Best Coverage up to now: 3.91791
+Completed Iteration #77
+Current Coverage From Simulation: 0.186567
+Best Coverage up to now: 3.91791
+Completed Iteration #78
+Current Coverage From Simulation: 0.186567
+Best Coverage up to now: 3.91791
+Completed Iteration #79
+Current Coverage From Simulation: 0.186567
+Best Coverage up to now: 3.91791
+Completed Iteration #80
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #81
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #82
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #83
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #84
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #85
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #86
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #87
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #88
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #89
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791
+Completed Iteration #90
+Current Coverage From Simulation: 0
+Best Coverage up to now: 3.91791

@@ -1,0 +1,93 @@
+Arguments: Namespace(coverage='kmn', implicit_reward=False, lenet=5)
+(1, 28, 28, 1)
+initial coverage: 7.83582
+counter 1
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 2.0522388059701484
+coverage: 9.888059701492537
+counter 2
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.5597014925373127
+coverage: 10.44776119402985
+counter 3
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.3731343283582085
+coverage: 10.820895522388058
+counter 4
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+counter 5
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.9328358208955247
+coverage: 11.753731343283583
+counter 6
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+counter 7
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.3731343283582085
+coverage: 12.126865671641792
+counter 8
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+counter 9
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+counter 10
+Predict B_new.shape (74, 28, 28, 1)
+coverage increase: 0.0
+counter 11
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.5597014925373127
+coverage: 12.686567164179104
+counter 12
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+counter 13
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.18656716417910602
+coverage: 12.87313432835821
+counter 14
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+counter 15
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.18656716417910246
+coverage: 13.059701492537313
+counter 16
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.37313432835821025
+coverage: 13.432835820895523
+counter 17
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+counter 18
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+counter 19
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.18656716417910424
+coverage: 13.619402985074627
+counter 20
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+counter 21
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+counter 22
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+counter 23
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.18656716417910424
+coverage: 13.805970149253731
+counter 24
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+counter 25
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.7462686567164187
+coverage: 14.55223880597015
+counter 26
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0

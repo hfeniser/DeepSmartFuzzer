@@ -17,11 +17,18 @@ verbose_image = True
 if verbose_image:
     import matplotlib.pyplot as plt
 
+    rows, columns = 8, 8
     plt.ion()
     fig = plt.figure(1)
     ax = plt.imshow(np.random.randint(0,256,size=(28,28)))
-    fig2 = plt.figure(2)
-    ax2 = plt.imshow(np.random.randint(0,256,size=(28,28)))
+    fig2=plt.figure(2, figsize=(8, 8))
+    fig2.suptitle("NOT FOUND ANY COVERAGE INCREASE")
+    fig2_plots = []
+    for i in range(1, columns*rows +1):
+        fig2.add_subplot(rows, columns, i)
+        subplot = plt.imshow(np.random.randint(0,256,size=(28,28)))
+        fig2_plots.append(subplot)
+    plt.show()
 
 last_coverage_state = None
 
@@ -32,8 +39,12 @@ def DeepHunter(I, coverage, K=K):
     T = Preprocess(I)
     B, B_id = SelectNext(T)
 
+    counter = 0
     while B is not None:
+        counter += 1
         S = Sample(B)
+        np.save("deephunter_{}".format(counter), S)
+        print("counter", counter)
         Ps = PowerSchedule(S, K)
         B_new = np.array([]).reshape(0, 28, 28, 1)
         for s_i in range(len(S)):
@@ -48,6 +59,16 @@ def DeepHunter(I, coverage, K=K):
         if len(B_new) > 0:
             cov = Predict(coverage, B_new)
             print("coverage increase:", cov)
+
+            if verbose_image:
+                plt.figure(2)
+                fig2.suptitle("Coverage Increase: " + str(cov))
+                for i in range(len(B_new[0:64])):
+                    fig2_plots[i].set_data(B_new[i].reshape((28,28)))
+                fig2.canvas.flush_events()
+                import time
+                time.sleep(5)
+
             if CoverageGain(cov):
                 coverage.step(B_new, update_state=True, coverage_state=last_coverage_state)
                 print("coverage:", coverage.get_current_coverage())
@@ -148,10 +169,6 @@ P = contrast + brightness + blur
 
 def Mutate(I, TRY_NUM=TRY_NUM):
     global info
-    if verbose_image:
-        plt.figure(1)
-        ax.set_data(I.reshape((28,28)))
-        fig.canvas.flush_events()
     I0, I0_new, state = info[I]
     for i in range(1, TRY_NUM):
         if state == 0:
@@ -162,9 +179,9 @@ def Mutate(I, TRY_NUM=TRY_NUM):
         I_new = t(np.copy(I), p).reshape(28,28,1)
         I_new = np.clip(I_new, 0, 255)
         if verbose_image:
-            plt.figure(2)
-            ax2.set_data(I_new.reshape((28,28)))
-            fig2.canvas.flush_events()
+            plt.figure(1)
+            ax.set_data(I_new.reshape((28,28)))
+            fig.canvas.flush_events()
         if f(I0_new, I_new):
             if (t, p) in G:
                 state = 1
