@@ -35,15 +35,10 @@ def tc2(iterations):
     return iterations > 100
 
 def tc3(level, test_input, mutated_input):
-    c1 = level > 5 # Tree Depth Limit
-    #c2 = not np.all(np.abs(mutated_input - test_input) < 40) # L_infinity < 20
-    alpha = 0.1
-    beta = 0.5
-    if(np.sum((test_input-mutated_input) != 0) < alpha * np.sum(test_input>0)):
-        c2 = not np.max(np.abs(test_input-mutated_input)) <= 255
-    else:
-        c2 = not np.max(np.abs(test_input-mutated_input)) <= beta*255
-    return  c1 or c2
+    #c1 = level > 5 # Tree Depth Limit
+    return np.sum((mutated_input - test_input)>0) > np.sum(test_input > 0)*0 or \
+        (np.sum((mutated_input - test_input)>0) != 0 and np.sum((mutated_input - test_input)**2) / np.sum((mutated_input - test_input)>0) > 400)
+    #not np.all(np.abs(mutated_input - test_input) < 40) # L_infinity < 20
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
      action_division_p1, actions_p2, tc1, tc2, tc3, with_implicit_reward=args.implicit_reward, verbose_image=True)

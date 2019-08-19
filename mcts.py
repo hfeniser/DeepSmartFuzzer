@@ -3,6 +3,9 @@ import itertools
 
 import image_transforms
 
+
+distance_in_reward = False
+
 import matplotlib.pyplot as plt
 rows, columns = 8, 8
 plt.ion()
@@ -48,6 +51,8 @@ class MCTS_Node:
 
     def selection(self, C=np.sqrt(2)):
         p = np.array([child.potential(C) for child in self.child_nodes])
+        print(" -float((p.min() < 0)*p.min())",  -float((p.min() < 0)*p.min()))
+        p += -float((p.min() < 0)*p.min())
         p /= p.sum()
         return self.child_nodes[np.random.choice(range(len(self.child_nodes)), p=p)]
 
@@ -89,6 +94,21 @@ class MCTS_Node:
 class RLforDL_MCTS_State:
     def __init__(self, mutated_input):
         self.mutated_input = mutated_input
+
+def find_the_distance(mutated_input, last_node):
+    # find root node
+    root = last_node
+    while(root.parent != None):
+        root = root.parent
+
+    # get the initial input from the root node
+    initial_input = root.state.mutated_input
+
+    # calc distance
+    dist = np.sum((mutated_input - initial_input)**2) / mutated_input.size
+    print("dist", dist)
+    return dist
+
 
 class RLforDL_MCTS:
     def __init__(self, input_shape, input_lower_limit, input_upper_limit, action_division_p1, actions_p2, tc1, tc2, tc3, with_implicit_reward=False, verbose=True, verbose_image=True):
@@ -169,8 +189,12 @@ class RLforDL_MCTS:
             action2 = np.random.randint(0,len(self.actions_p2))
             input_sim = self.apply_action_for_node(node, action2)
             input_changed = True
+        
+        if self.tc3(level, test_input, input_sim):
+            # already an termination node
+            return input_sim, -1
 
-        while not self.tc3(level, test_input, input_sim):         
+        while not self.tc3(level, test_input, input_sim):     
             if input_changed:
                 if self.verbose_image:
                     plt.figure(1)
@@ -187,9 +211,14 @@ class RLforDL_MCTS:
                 pre_input_sim = np.copy(input_sim)
                 input_sim = self.apply_action(input_sim, action1, action2)
                 input_changed = True
-            
-        _, coverage_sim = coverage.step(pre_input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
-        return pre_input_sim, coverage_sim
+
+        print("self.tc3(level, test_input, input_sim)", self.tc3(level-1, test_input, pre_input_sim))
+        _, reward = coverage.step(pre_input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
+        if distance_in_reward:
+            dist = find_the_distance(pre_input_sim, node)
+            if reward > 0 and dist > 0:
+                reward = reward / dist
+        return pre_input_sim, reward
 
     def run(self, test_input, coverage, C=np.sqrt(2)):
         best_input, best_coverage = np.copy(test_input), 0
