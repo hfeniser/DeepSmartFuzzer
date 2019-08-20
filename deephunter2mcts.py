@@ -14,7 +14,7 @@ print("initial coverage: %g" % (coverage.get_current_coverage()))
 from mcts import RLforDL_MCTS
 input_lower_limit = 0
 input_upper_limit = 255
-action_division_p1 = (1,3,3,1)
+action_division_p1 = (1,2,2,1)
 
 translation = list(itertools.product(["translation"], [(10+10*k,10+10*k) for k in range(10)]))
 scale = list(itertools.product(["scale"], [(1.5+0.5*k,1.5+0.5*k) for k in range(10)]))
@@ -24,7 +24,7 @@ contrast = list(itertools.product(["contrast"], [1.2+0.2*k for k in range(10)]))
 brightness = list(itertools.product(["brightness"], [10+10*k for k in range(10)]))
 blur = list(itertools.product(["blur"], [k+1 for k in range(10)]))
 
-actions_p2 = translation + rotation + contrast + brightness + blur
+actions_p2 = blur
 
 def tc1(level, test_input, best_input, best_coverage): 
     # limit the level/depth of root
@@ -36,8 +36,8 @@ def tc2(iterations):
 
 def tc3(level, test_input, mutated_input):
     #c1 = level > 5 # Tree Depth Limit
-    return np.sum((mutated_input - test_input)>0) > np.sum(test_input > 0)*0 or \
-        (np.sum((mutated_input - test_input)>0) != 0 and np.sum((mutated_input - test_input)**2) / np.sum((mutated_input - test_input)>0) > 400)
+    return np.sum((mutated_input - test_input)>0) > np.sum(test_input > 0)*0.2 or \
+        (np.sum((mutated_input - test_input)>0) != 0 and np.sum((mutated_input - test_input)**2) / np.sum((mutated_input - test_input)>0) > 1000)
     #not np.all(np.abs(mutated_input - test_input) < 40) # L_infinity < 20
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\

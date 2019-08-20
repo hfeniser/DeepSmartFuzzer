@@ -51,8 +51,8 @@ class MCTS_Node:
 
     def selection(self, C=np.sqrt(2)):
         p = np.array([child.potential(C) for child in self.child_nodes])
-        print(" -float((p.min() < 0)*p.min())",  -float((p.min() < 0)*p.min()))
-        p += -float((p.min() < 0)*p.min())
+        #print(" -float((p.min() < 0)*p.min())",  -float((p.min() < 0)*p.min()))
+        #p += -float((p.min() < 0)*p.min())
         p /= p.sum()
         return self.child_nodes[np.random.choice(range(len(self.child_nodes)), p=p)]
 
@@ -106,7 +106,7 @@ def find_the_distance(mutated_input, last_node):
 
     # calc distance
     dist = np.sum((mutated_input - initial_input)**2) / mutated_input.size
-    print("dist", dist)
+    #print("dist", dist)
     return dist
 
 
@@ -189,10 +189,6 @@ class RLforDL_MCTS:
             action2 = np.random.randint(0,len(self.actions_p2))
             input_sim = self.apply_action_for_node(node, action2)
             input_changed = True
-        
-        if self.tc3(level, test_input, input_sim):
-            # already an termination node
-            return input_sim, -1
 
         while not self.tc3(level, test_input, input_sim):     
             if input_changed:
@@ -211,8 +207,11 @@ class RLforDL_MCTS:
                 pre_input_sim = np.copy(input_sim)
                 input_sim = self.apply_action(input_sim, action1, action2)
                 input_changed = True
-
-        print("self.tc3(level, test_input, input_sim)", self.tc3(level-1, test_input, pre_input_sim))
+        
+        if self.tc3(level-1, test_input, pre_input_sim):
+            # already an termination node
+            return pre_input_sim, 0
+        
         _, reward = coverage.step(pre_input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
         if distance_in_reward:
             dist = find_the_distance(pre_input_sim, node)
