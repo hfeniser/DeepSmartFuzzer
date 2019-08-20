@@ -147,6 +147,7 @@ class RLforDL_MCTS:
     def apply_action(self, mutated_input, action1, action2):
         action_part1 = self.actions_p1[action1]
         action_part2 = self.actions_p2[action2]
+        #print("action:", action_part1, action_part2)
         lower_limits = np.subtract(action_part1, self.actions_p1_spacing)
         lower_limits = np.clip(lower_limits, 0, action_part1) # lower_limits \in [0, action_part1]
         upper_limits = np.add(action_part1, self.actions_p1_spacing)
@@ -190,16 +191,8 @@ class RLforDL_MCTS:
             input_sim = self.apply_action_for_node(node, action2)
             input_changed = True
 
-        while not self.tc3(level, test_input, input_sim):     
-            if input_changed:
-                if self.verbose_image:
-                    plt.figure(1)
-                    fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)))
-                    for i in range(len(input_sim[0:64])):
-                        fig_plots[i].set_data(input_sim[i].reshape((28,28)))
-                    fig.canvas.flush_events()
-            
-            level += 1
+        level += 1
+        while not input_changed:
             if self.player(level) == 1:
                 action1 = np.random.randint(0,len(self.actions_p1))
             else:
@@ -207,12 +200,24 @@ class RLforDL_MCTS:
                 pre_input_sim = np.copy(input_sim)
                 input_sim = self.apply_action(input_sim, action1, action2)
                 input_changed = True
+            
+            level += 1
         
-        if self.tc3(level-1, test_input, pre_input_sim):
+        if input_changed:
+            if self.verbose_image:
+                plt.figure(1)
+                fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)))
+                for i in range(len(input_sim[0:64])):
+                    fig_plots[i].set_data(input_sim[i].reshape((28,28)))
+                fig.canvas.flush_events()
+
+        if self.tc3(level, test_input, input_sim):
             # already an termination node
+            print("termination node")
             return pre_input_sim, 0
         
-        _, reward = coverage.step(pre_input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
+        _, reward = coverage.step(input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
+        print("reward", reward)
         if distance_in_reward:
             dist = find_the_distance(pre_input_sim, node)
             if reward > 0 and dist > 0:

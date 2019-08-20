@@ -197,6 +197,6 @@ def randomPick(A):
 
 def f(I, I_new, beta=beta, alpha=alpha):
     if(np.sum((I-I_new) != 0) < alpha * np.sum(I>0)):
-        return np.max(I-I_new) <= 255
+        return np.max(np.abs(I-I_new)) <= 255
     else:
-        return np.max(I-I_new) <= beta*255
+        return np.max(np.abs(I-I_new)) <= beta*255
