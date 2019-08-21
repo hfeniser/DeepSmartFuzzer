@@ -249,9 +249,9 @@ class RLforDL_MCTS:
                     # Expansion (All children of the current leaf)
                     for i in range(len(current_node.child_nodes)):
                         if self.player_for_node(current_node) == 1:
-                            nb_chidren_for_new_node = len(self.actions_p1)
-                        else:
                             nb_chidren_for_new_node = len(self.actions_p2)
+                        else:
+                            nb_chidren_for_new_node = len(self.actions_p1)
                         new_input = self.apply_action_for_node(current_node, i) 
                         new_node = MCTS_Node(nb_chidren_for_new_node, RLforDL_MCTS_State(new_input))
                         current_node.expansion(i, new_node)
