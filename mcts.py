@@ -64,7 +64,8 @@ class MCTS_Node:
 
     def backprop(self, reward):
         self.value += reward
-        if reward != 0 and self.parent:
+        print("self.level, self.value", self.level, self.value)
+        if reward != 0 and self.parent != None:
             self.parent.backprop(reward)
 
     def isLeaf(self):
@@ -74,12 +75,21 @@ class MCTS_Node:
         best = self.child_nodes[0]
         best_r = best.value / best.visit_count
 
-        for i in range(1, len(self.child_nodes)):
-            current_r = self.child_nodes[i].value / self.child_nodes[i].visit_count
+        print("x1")
+
+        for i in range(len(self.child_nodes)):
+            if self.child_nodes[i].visit_count == 0:
+                current_r = 0
+            else:
+                current_r = self.child_nodes[i].value / self.child_nodes[i].visit_count
+            print("x2", i, len(self.child_nodes))
             if best_r < current_r:
                 best = self.child_nodes[i]
                 best_r = current_r
+        
         if best_r == 0:
+            print("x3", [self.child_nodes[i].value for i in range(len(self.child_nodes))])
+            print("simulations failed to find any reward")
             raise Exception("simulations failed to find any reward")
         return best
 
@@ -180,63 +190,50 @@ class RLforDL_MCTS:
         # Simulation
         level = node.level
         input_sim = np.copy(node.state.mutated_input)
-        pre_input_sim = np.copy(input_sim)
 
         if self.player(level) == 1:
             action1 = np.random.randint(0,len(self.actions_p1))
-            input_changed = False
+            action2 = np.random.randint(0,len(self.actions_p2))
+            input_sim = self.apply_action(input_sim, action1, action2)
+            level += 2
         else:
             action1 = node.relative_index
             action2 = np.random.randint(0,len(self.actions_p2))
             input_sim = self.apply_action_for_node(node, action2)
-            input_changed = True
-
-        level += 1
-        while not input_changed:
-            if self.player(level) == 1:
-                action1 = np.random.randint(0,len(self.actions_p1))
-            else:
-                action2 = np.random.randint(0,len(self.actions_p2))
-                pre_input_sim = np.copy(input_sim)
-                input_sim = self.apply_action(input_sim, action1, action2)
-                input_changed = True
-            
             level += 1
         
-        if input_changed:
-            if self.verbose_image:
-                plt.figure(1)
-                fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)))
-                for i in range(len(input_sim[0:64])):
-                    fig_plots[i].set_data(input_sim[i].reshape((28,28)))
-                fig.canvas.flush_events()
+        if self.verbose_image:
+            plt.figure(1)
+            fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)))
+            for i in range(len(input_sim[0:64])):
+                fig_plots[i].set_data(input_sim[i].reshape((28,28)))
+            fig.canvas.flush_events()
 
         if self.tc3(level, test_input, input_sim):
             # already an termination node
             print("termination node")
-            return pre_input_sim, 0
+            return input_sim, 0
         
         _, reward = coverage.step(input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
         print("reward", reward)
         if distance_in_reward:
-            dist = find_the_distance(pre_input_sim, node)
+            dist = find_the_distance(input_sim, node)
             if reward > 0 and dist > 0:
                 reward = reward / dist
-        return pre_input_sim, reward
+        return input_sim, reward, action1, action2
 
     def run(self, test_input, coverage, C=np.sqrt(2)):
         best_input, best_coverage = np.copy(test_input), 0
         print("batch shape:", test_input.shape)
         root = MCTS_Node(len(self.actions_p1), RLforDL_MCTS_State(np.copy(test_input)))
+        
         while not self.tc1(root.level, test_input, best_input, best_coverage):                
             if root.isLeaf() and self.tc3(root.level, test_input, root.state.mutated_input):
                 if self.verbose:
                     print("Reached a game-over node")
                 break
-            
             iterations = 0
             while not self.tc2(iterations):
-                # start a new iteration from root
                 current_node = root
                 current_node.visit_count += 1
 
@@ -248,41 +245,52 @@ class RLforDL_MCTS:
                 
                 # If not a terminating leaf
                 if not self.tc3(current_node.level, test_input, current_node.state.mutated_input):
+                    print("Expansion")
                     # Expansion (All children of the current leaf)
                     for i in range(len(current_node.child_nodes)):
                         if self.player_for_node(current_node) == 1:
-                            nb_chidren_for_new_node = len(self.actions_p2)
-                        else:
                             nb_chidren_for_new_node = len(self.actions_p1)
+                        else:
+                            nb_chidren_for_new_node = len(self.actions_p2)
                         new_input = self.apply_action_for_node(current_node, i) 
                         new_node = MCTS_Node(nb_chidren_for_new_node, RLforDL_MCTS_State(new_input))
                         current_node.expansion(i, new_node)
+                        
+                    # Simulation
+                    input_sim, coverage_sim, a1, a2 = self.simulate_for_node(current_node, test_input, coverage)
+                    # Backpropagation
+                    if self.player(current_node.level) == 1:
+                        current_node = current_node.child_nodes[a1]
+                    else:
+                        current_node = current_node.child_nodes[a2]
+                    current_node.backprop(coverage_sim)
+                    print("current_node.backprop(coverage_sim)", coverage_sim, current_node.value, current_node.visit_count, current_node.level)
+
+                    if coverage_sim > best_coverage:
+                        best_input, best_coverage = input_sim, coverage_sim
+                        if self.verbose_image:
+                            plt.figure(2)
+                            fig2.suptitle("BEST Coverage Increase: " + str(best_coverage))
+                            for i in range(len(best_input[0:64])):
+                                fig2_plots[i].set_data(best_input[i].reshape((28,28)))
+                            fig2.canvas.flush_events()
                     
-                    # Simulation & Backpropogation (All children of the current leaf)
-                    for node in current_node.child_nodes:
-                        input_sim, coverage_sim = self.simulate_for_node(node, test_input, coverage)
-                        node.backprop(coverage_sim)
-                        if coverage_sim > best_coverage:
-                            best_input, best_coverage = input_sim, coverage_sim
-                            if self.verbose_image:
-                                plt.figure(2)
-                                fig2.suptitle("BEST Coverage Increase: " + str(best_coverage))
-                                for i in range(len(best_input[0:64])):
-                                    fig2_plots[i].set_data(best_input[i].reshape((28,28)))
-                                fig2.canvas.flush_events()
                 if self.verbose:
                     print("Completed Iteration #%g" % (iterations))
                     print("Current Coverage From Simulation: %g" % (coverage_sim))
                     print("Best Coverage up to now: %g" % (best_coverage))
                 iterations += 1
-            
+                    
             if self.verbose:
                 print("Completed MCTS Level/Depth: #%g" % (root.level))
                 root.printPath()
             
             try:
                 root = root.bestChild(C)
-            except:
+            except Exception as e:
+                print("except root", e)
+                print("root.value", root.value)
+                print("current_node.value", current_node.value)
                 return root, best_input, best_coverage
-        
+        print("root.level", root.level)
         return root, best_input, best_coverage
