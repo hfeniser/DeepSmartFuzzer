@@ -44,7 +44,7 @@ def tc3(level, test_input, mutated_input):
     #not np.all(np.abs(mutated_input - test_input) < 40) # L_infinity < 20
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
-     action_division_p1, actions_p2, tc1, tc2, tc3, tc4, with_implicit_reward=args.implicit_reward, verbose_image=True)
+     action_division_p1, actions_p2, tc1, tc2, tc3, with_implicit_reward=args.implicit_reward, verbose_image=True)
 
 for i in range(1, 11):
     test_input = np.load("deephunter_{}.npy".format(i))
