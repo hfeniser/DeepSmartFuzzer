@@ -212,7 +212,7 @@ class RLforDL_MCTS:
         if self.tc3(level, test_input, input_sim):
             # already an termination node
             print("termination node")
-            return input_sim, 0
+            return input_sim, 0, action1, action2
         
         _, reward = coverage.step(input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
         print("reward", reward)
