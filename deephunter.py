@@ -42,6 +42,8 @@ def DeepHunter(I, coverage, K=K):
     counter = 0
     while B is not None:
         counter += 1
+        if counter == 11:
+            break
         S = Sample(B)
         np.save("deephunter_{}".format(counter), S)
         print("counter", counter)
@@ -66,8 +68,6 @@ def DeepHunter(I, coverage, K=K):
                 for i in range(len(B_new[0:64])):
                     fig2_plots[i].set_data(B_new[i].reshape((28,28)))
                 fig2.canvas.flush_events()
-                import time
-                time.sleep(5)
 
             if CoverageGain(cov):
                 coverage.step(B_new, update_state=True, coverage_state=last_coverage_state)
@@ -156,10 +156,16 @@ def BatchPrioritize(T, B_id):
     B_c[B_id] += 1
 
 
-translation = list(itertools.product([getattr(image_transforms,"image_translation")], [(10+10*k,10+10*k) for k in range(10)]))
-scale = list(itertools.product([getattr(image_transforms, "image_scale")], [(1.5+0.5*k,1.5+0.5*k) for k in range(10)]))
-shear = list(itertools.product([getattr(image_transforms, "image_shear")], [(-1.0+0.1*k,0) for k in range(10)]))
-rotation = list(itertools.product([getattr(image_transforms, "image_rotation")], [3+3*k for k in range(10)]))
+#translation = list(itertools.product([getattr(image_transforms,"image_translation")], [(10+10*k,10+10*k) for k in range(10)]))
+#scale = list(itertools.product([getattr(image_transforms, "image_scale")], [(1.5+0.5*k,1.5+0.5*k) for k in range(10)]))
+#shear = list(itertools.product([getattr(image_transforms, "image_shear")], [(-1.0+0.1*k,0) for k in range(10)]))
+#rotation = list(itertools.product([getattr(image_transforms, "image_rotation")], [3+3*k for k in range(10)]))
+#contrast = list(itertools.product([getattr(image_transforms, "image_contrast")], [1.2+0.2*k for k in range(10)]))
+#brightness = list(itertools.product([getattr(image_transforms, "image_brightness")], [10+10*k for k in range(10)]))
+#blur = list(itertools.product([getattr(image_transforms, "image_blur")], [k+1 for k in range(10)]))
+
+translation = list(itertools.product([getattr(image_transforms,"image_translation")], [(-5,-5), (-5,0), (0,-5), (0,0), (5,0), (0,5), (5,5)]))
+rotation = list(itertools.product([getattr(image_transforms, "image_rotation")], [-15,-12,-9,-6,-3,3,6,9,12,15]))
 contrast = list(itertools.product([getattr(image_transforms, "image_contrast")], [1.2+0.2*k for k in range(10)]))
 brightness = list(itertools.product([getattr(image_transforms, "image_brightness")], [10+10*k for k in range(10)]))
 blur = list(itertools.product([getattr(image_transforms, "image_blur")], [k+1 for k in range(10)]))
