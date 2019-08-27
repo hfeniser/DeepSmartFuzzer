@@ -14,7 +14,7 @@ print("initial coverage: %g" % (coverage.get_current_coverage()))
 from mcts import RLforDL_MCTS
 input_lower_limit = 0
 input_upper_limit = 255
-action_division_p1 = (1,1,1,1)
+action_division_p1 = (1,3,3,1)
 
 translation = list(itertools.product(["translation"], [(-5,-5), (-5,0), (0,-5), (0,0), (5,0), (0,5), (5,5)]))
 rotation = list(itertools.product(["rotation"], [-15,-12,-9,-6,-3,3,6,9,12,15]))
@@ -22,7 +22,7 @@ contrast = list(itertools.product(["contrast"], [1.2+0.2*k for k in range(10)]))
 brightness = list(itertools.product(["brightness"], [10+10*k for k in range(10)]))
 blur = list(itertools.product(["blur"], [k+1 for k in range(10)]))
 
-actions_p2 = translation + rotation + contrast + brightness + blur
+actions_p2 = contrast + brightness + blur
 
 def tc1(level, test_input, best_input, best_coverage): 
     # limit the level/depth of root
