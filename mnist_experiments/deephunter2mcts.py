@@ -47,7 +47,7 @@ mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
      action_division_p1, actions_p2, tc1, tc2, tc3, with_implicit_reward=args.implicit_reward, verbose_image=True)
 
 for i in range(0, 30):
-    test_input = np.load("deephunter_{}.npy".format((i%10)+1))
+    test_input = np.load("data/deephunter_{}.npy".format((i%10)+1))
     root, best_input, best_coverage = mcts.run(test_input, coverage)
     if best_coverage > 0:
         coverage.step(best_input, update_state=True)

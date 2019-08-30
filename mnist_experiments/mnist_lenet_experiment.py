@@ -1,3 +1,4 @@
+import parent_import # adds parent directory to sys.path
 
 import signal
 import sys

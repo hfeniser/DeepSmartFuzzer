@@ -3,9 +3,10 @@ keras==2.2.4
 tensorflow==1.5.0
 sklearn
 scipy
+matplotlib
 absl-py
 pyflann
-keras-rl
 h5py
 cleverhans
 opencv-python
+parent_import==0.0.1

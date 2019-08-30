@@ -45,7 +45,7 @@ def DeepHunter(I, coverage, K=K):
         if counter == 11:
             break
         S = Sample(B)
-        np.save("deephunter_{}".format(counter), S)
+        np.save("data/deephunter_{}".format(counter), S)
         print("counter", counter)
         Ps = PowerSchedule(S, K)
         B_new = np.array([]).reshape(0, 28, 28, 1)

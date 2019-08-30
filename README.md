@@ -8,29 +8,9 @@
 git clone https://github.com/hasanferit/RLforDL.git
 ```
 
-
-### 2) Install Gym Environments
-```
-pip install -e gym_dnn_test/
-```
-
-### 3) Install Dependecies
+### 2) Install Dependecies
 ```
 pip install -r requirements.txt
-```
-
-## Run MNIST-LENET Experiment
-```
-python mnist_lenet_experiment.py --lenet <lenet model number> --rl-algorithm <name of rl-algorithm>
-```
-Example:
-```
-python mnist_lenet_experiment.py --lenet 1 --rl-algorithm dqn
-```
-
-See available options:
-```
-python mnist_lenet_experiment.py --help
 ```
 
 ## Copyright Notice
