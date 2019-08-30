@@ -32,7 +32,7 @@ def mnist_lenet_experiment(model_name):
     import os
     os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
-    from ml_models.LeNet.lenet_models import LeNet1, LeNet4, LeNet5
+    from LeNet.lenet_models import LeNet1, LeNet4, LeNet5
     from keras.layers import Input
     if args.lenet == 1:
         model = LeNet1(Input((28,28,1)))

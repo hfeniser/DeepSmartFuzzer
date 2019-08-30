@@ -1,8 +1,7 @@
 # RLforDL
 
-# Generating an Extended Test Set For Deep Learning Models By Using Reinforcement Learning To Maximize Coverage
+# Generating coverage-increasing mutated inputs by exploiting the explored coverage-increase patterns
 
-## Installation
 ### 1) Install Dependencies
 ```
 pip install -r requirements.txt
