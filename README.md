@@ -3,14 +3,14 @@
 # Generating an Extended Test Set For Deep Learning Models By Using Reinforcement Learning To Maximize Coverage
 
 ## Installation
-### 1) Downloading All Source Code
-```
-git clone https://github.com/hasanferit/RLforDL.git
-```
-
-### 2) Install Dependecies
+### 1) Install Dependencies
 ```
 pip install -r requirements.txt
+```
+
+### 2) MNIST-LeNet Experiments
+```
+python mnist_experiments/mcts_selected_batches.py --lenet 5 --coverage nbc
 ```
 
 ## Copyright Notice

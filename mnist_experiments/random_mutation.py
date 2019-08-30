@@ -1,7 +1,7 @@
 from mnist_lenet_experiment import mnist_lenet_experiment
 import numpy as np
 import itertools
-import image_transforms
+import src.image_transforms
 import matplotlib.pyplot as plt
 
 plt.ion()

@@ -1,7 +1,7 @@
 import numpy as np
 import itertools
 
-import image_transforms
+import src.image_transforms as image_transforms
 
 
 distance_in_reward = False

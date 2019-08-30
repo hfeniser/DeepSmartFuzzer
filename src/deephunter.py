@@ -1,6 +1,6 @@
 import numpy as np
 import itertools
-import image_transforms
+import src.image_transforms as image_transforms
 
 # PARAMETERS
 K=64

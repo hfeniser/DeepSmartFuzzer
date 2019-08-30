@@ -11,7 +11,7 @@ def mnist_lenet_experiment(model_name):
 
     parser = argparse.ArgumentParser(description=str(model_name) + ' experiment for testing LeNet models with MNIST dataset')
     parser.add_argument("--lenet", type=int, default=1, choices=[1,4,5])
-    parser.add_argument("--coverage", type=str, default="neuron", choices=["neuron","kmn"])
+    parser.add_argument("--coverage", type=str, default="neuron", choices=["neuron","kmn","nbc","snac"])
     parser.add_argument("--implicit_reward", type=bool, default=False)
     args = parser.parse_args()
 
@@ -32,7 +32,7 @@ def mnist_lenet_experiment(model_name):
     import os
     os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
-    from models.lenet_models import LeNet1, LeNet4, LeNet5
+    from ml_models.LeNet.lenet_models import LeNet1, LeNet4, LeNet5
     from keras.layers import Input
     if args.lenet == 1:
         model = LeNet1(Input((28,28,1)))
@@ -60,14 +60,14 @@ def mnist_lenet_experiment(model_name):
     if args.coverage == "neuron":
         from coverages.neuron_cov import NeuronCoverage
         coverage = NeuronCoverage(model, skip_layers=[0,5], calc_implicit_reward_neuron=calc_implicit_reward_neuron, calc_implicit_reward=calc_implicit_reward) # 0:input, 5:flatten
-    elif args.coverage == "kmn":
+    elif args.coverage == "kmn" or args.coverage == "nbc" or args.coverage == "snac":
         from coverages.kmn import DeepGaugePercentCoverage
         k = 20
-        coverage = DeepGaugePercentCoverage(model, k, train_images, skip_layers=[0,5], calc_implicit_reward_neuron=calc_implicit_reward_neuron, calc_implicit_reward=calc_implicit_reward) # 0:input, 5:flatten
+        coverage = DeepGaugePercentCoverage(model, k, train_images, skip_layers=[0,5], coverage_name=args.coverage, calc_implicit_reward_neuron=calc_implicit_reward_neuron, calc_implicit_reward=calc_implicit_reward) # 0:input, 5:flatten
     else:
         raise Exception("Unknown Coverage" + args.coverage)
 
-    from input_chooser import InputChooser
+    from src.input_chooser import InputChooser
     input_chooser = InputChooser(test_images, test_labels)
 
     return args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser

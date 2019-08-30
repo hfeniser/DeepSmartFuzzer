@@ -6,7 +6,8 @@ from math import floor
 from coverages.coverage import AbstractCoverage
 
 class DeepGaugePercentCoverage(AbstractCoverage):
-    def __init__(self, model, k, train_inputs=None, major_func_regions=None, skip_layers=None, calc_implicit_reward_neuron=None, calc_implicit_reward=None):
+    def __init__(self, model, k, train_inputs=None, major_func_regions=None, skip_layers=None, coverage_name="kmn", calc_implicit_reward_neuron=None, calc_implicit_reward=None):
+        self.coverage_name = coverage_name
         self.activation_table_by_section, self.upper_activation_table, self.lower_activation_table = {}, {}, {}
         self.neuron_set = set()
         
@@ -40,21 +41,22 @@ class DeepGaugePercentCoverage(AbstractCoverage):
 
     def get_current_coverage(self, with_implicit_reward=False):
         if len(self.activation_table_by_section.keys()) == 0:
-            return [0, # kmn
-                    0, # nbc
-                    0  # snac
-                    ][1]
+            return 0
         
         multisection_reward, multisection_covered, multisection_implicit_reward = self.calc_reward(self.activation_table_by_section, with_implicit_reward=with_implicit_reward)
         lower_reward, lower_covered, lower_implicit_reward = self.calc_reward(self.lower_activation_table, with_implicit_reward=with_implicit_reward)
         upper_reward, upper_covered, upper_implicit_reward = self.calc_reward(self.upper_activation_table, with_implicit_reward=with_implicit_reward)
 
         total = len(self.neuron_set)
-        #print("reward, covered, implicit_reward", multisection_reward, multisection_covered, multisection_implicit_reward)
-        return [percent(multisection_reward, self.k*total), # kmn
-                percent(upper_reward+lower_reward, 2 * total), # nbc
-                percent(upper_reward, total) # snac
-                ][1]
+
+        if self.coverage_name == "kmn":
+            return percent(multisection_reward, self.k*total) # kmn
+        elif self.coverage_name == "nbc":
+            return percent(upper_reward+lower_reward, 2 * total) # nbc
+        elif self.coverage_name == "snac":
+            percent(upper_reward, total) # snac
+        else:
+            raise Exception("Unknown coverage: " + str(self.coverage_name))
     
     def test(self, test_inputs, with_implicit_reward=False):
         outs = get_layer_outs_new(self.model, test_inputs, skip=self.skip_layers)

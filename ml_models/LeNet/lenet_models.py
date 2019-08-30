@@ -9,6 +9,9 @@ from keras.layers import Convolution2D, MaxPooling2D, Input, Dense, Activation, 
 from keras.models import Model
 from keras.utils import to_categorical
 
+import os
+
+dir_path = os.path.dirname(os.path.abspath(__file__))
 
 def LeNet1(input_tensor=None, train=False):
     nb_classes = 10
@@ -64,13 +67,13 @@ def LeNet1(input_tensor=None, train=False):
         # trainig
         model.fit(x_train, y_train, validation_data=(x_test, y_test), batch_size=batch_size, epochs=nb_epoch, verbose=1)
         # save model
-        model.save_weights('./models/LeNet1.h5')
+        model.save_weights(dir_path + '/LeNet1.h5')
         score = model.evaluate(x_test, y_test, verbose=0)
         print('\n')
         print('Overall Test score:', score[0])
         print('Overall Test accuracy:', score[1])
     else:
-        model.load_weights('./models/LeNet1.h5')
+        model.load_weights(dir_path + '/LeNet1.h5')
 
 
     return model
@@ -131,13 +134,13 @@ def LeNet4(input_tensor=None, train=False):
         # trainig
         model.fit(x_train, y_train, validation_data=(x_test, y_test), batch_size=batch_size, epochs=nb_epoch, verbose=1)
         # save model
-        model.save_weights('./models/LeNet4.h5')
+        model.save_weights(dir_path + '/LeNet4.h5')
         score = model.evaluate(x_test, y_test, verbose=0)
         print('\n')
         print('Overall Test score:', score[0])
         print('Overall Test accuracy:', score[1])
     else:
-        model.load_weights('./models/LeNet4.h5')
+        model.load_weights(dir_path + '/LeNet4.h5')
 
 
     return model
@@ -200,13 +203,13 @@ def LeNet5(input_tensor=None, train=False):
         # trainig
         model.fit(x_train, y_train, validation_data=(x_test, y_test), batch_size=batch_size, epochs=nb_epoch, verbose=1)
         # save model
-        model.save_weights('./models/LeNet5.h5')
+        model.save_weights(dir_path + '/LeNet5.h5')
         score = model.evaluate(x_test, y_test, verbose=0)
         print('\n')
         print('Overall Test score:', score[0])
         print('Overall Test accuracy:', score[1])
     else:
-        model.load_weights('./models/LeNet5.h5')
+        model.load_weights(dir_path + '/LeNet5.h5')
 
     return model
 

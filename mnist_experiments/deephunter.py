@@ -1,7 +1,7 @@
 from mnist_lenet_experiment import mnist_lenet_experiment
 import numpy as np
 
-from deephunter import DeepHunter
+from src.deephunter import DeepHunter
 
 args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("random_multi_image")
 

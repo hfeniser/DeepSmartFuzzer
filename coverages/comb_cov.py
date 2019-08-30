@@ -6,9 +6,9 @@ from pyflann import *
 from sklearn import cluster
 from datetime import datetime
 
-from utils import save_quantization, load_quantization
-from utils import save_layerwise_relevances, load_layerwise_relevances
-from utils import save_max_comb, load_max_comb, get_layer_outs_new
+from coverages.utils import save_quantization, load_quantization
+from coverages.utils import save_layerwise_relevances, load_layerwise_relevances
+from coverages.utils import save_max_comb, load_max_comb, get_layer_outs_new
 from lrp_toolbox.model_io import write, read
 
 from scipy.spatial.distance import cdist

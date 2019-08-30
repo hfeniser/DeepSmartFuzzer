@@ -12,7 +12,7 @@ coverage.step(test_input.reshape(-1,28,28,1))
 print("initial coverage: %g" % (coverage.get_current_coverage()))
 
 # MCTS
-from mcts import RLforDL_MCTS
+from src.mcts import RLforDL_MCTS
 input_lower_limit = 0
 input_upper_limit = 255
 action_division_p1 = (1,3,3,1)
