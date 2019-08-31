@@ -6,7 +6,7 @@ def signal_handler(sig, frame):
         sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
-def mnist_lenet_experiment(model_name):
+def mnist_lenet_experiment(model_name, clustered_input_chooser=False):
     import argparse
 
     parser = argparse.ArgumentParser(description=str(model_name) + ' experiment for testing LeNet models with MNIST dataset')
@@ -67,7 +67,11 @@ def mnist_lenet_experiment(model_name):
     else:
         raise Exception("Unknown Coverage" + args.coverage)
 
-    from src.input_chooser import InputChooser
-    input_chooser = InputChooser(test_images, test_labels)
+    if clustered_input_chooser:
+        from src.clustered_input_chooser import ClusteredInputChooser
+        input_chooser = ClusteredInputChooser(test_images, test_labels)
+    else:
+        from src.input_chooser import InputChooser
+        input_chooser = InputChooser(test_images, test_labels)
 
     return args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser

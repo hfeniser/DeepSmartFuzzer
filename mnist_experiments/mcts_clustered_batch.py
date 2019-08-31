@@ -2,11 +2,11 @@ from mnist_lenet_experiment import mnist_lenet_experiment
 import numpy as np
 import itertools
 
-args, (train_images, train_labels), (test_images, test_labels), model, coverage, input_chooser = mnist_lenet_experiment("mcts_multi_image")
+args, (train_images, train_labels), (test_images, test_labels), model, coverage, clustered_input_chooser = mnist_lenet_experiment("mcts_clustered_batch", clustered_input_chooser=True)
 
 #np.random.seed(seed=191)
 
-test_input, _ = input_chooser()
+_, (test_input, _) = clustered_input_chooser()
 coverage.step(test_images)
 print("initial coverage: %g" % (coverage.get_current_coverage()))
 
@@ -39,13 +39,19 @@ def tc3(level, test_input, mutated_input):
         return not np.max(np.abs(mutated_input-test_input)) <= 255
     else:
         return not np.max(np.abs(mutated_input-test_input)) <= beta*255
+    #return np.sum((mutated_input - test_input)>0) > np.sum(test_input > 0)*0.4 or \
+    #    (np.sum((mutated_input - test_input)>0) != 0 and np.sum((mutated_input - test_input)**2) / np.sum((mutated_input - test_input)>0) > 800)
+    #not np.all(np.abs(mutated_input - test_input) < 40) # L_infinity < 20
 
 mcts = RLforDL_MCTS(test_input.shape, input_lower_limit, input_upper_limit,\
      action_division_p1, actions_p2, tc1, tc2, tc3, with_implicit_reward=args.implicit_reward, verbose_image=True)
 
-for i in range(0, 30):
-    test_input = np.load("data/deephunter_{}.npy".format((i%10)+1))
-    root, best_input, best_coverage = mcts.run(test_input, coverage)
+mcts_roots = [None for i in range(len(clustered_input_chooser))]
+
+for i in range(0, 40):
+    cluster_index, (test_input, _) = clustered_input_chooser(batch_size=64)
+    print("cluster_index", cluster_index)
+    mcts_roots[cluster_index], best_input, best_coverage = mcts.run(test_input, coverage, root=mcts_roots[cluster_index])
     if best_coverage > 0:
         coverage.step(best_input, update_state=True)
         print("IMAGE %g SUCCEED" % (i))

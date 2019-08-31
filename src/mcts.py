@@ -215,9 +215,12 @@ class RLforDL_MCTS:
                 reward = reward / dist
         return input_sim, reward, action1, action2
 
-    def run(self, test_input, coverage, C=np.sqrt(2)):
+    def run(self, test_input, coverage, C=np.sqrt(2), root=None):
         best_input, best_coverage = np.copy(test_input), 0
-        root = MCTS_Node(len(self.actions_p1), RLforDL_MCTS_State(np.copy(test_input)))
+
+        if root == None:
+            root = MCTS_Node(len(self.actions_p1), RLforDL_MCTS_State(np.copy(test_input)))
+        saved_root = root
         
         while not self.tc1(root.level, test_input, best_input, best_coverage):                
             if root.isLeaf() and self.tc3(root.level, test_input, root.state.mutated_input):
@@ -278,6 +281,6 @@ class RLforDL_MCTS:
             try:
                 root = root.bestChild(C)
             except Exception as e:
-                return root, best_input, best_coverage
+                return saved_root, best_input, best_coverage
 
-        return root, best_input, best_coverage
+        return saved_root, best_input, best_coverage
