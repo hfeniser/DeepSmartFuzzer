@@ -8,6 +8,13 @@ pip install -r requirements.txt
 ```
 
 ### 2) MNIST-LeNet Experiments
+* deephunter: runs deephunter
+* mcts_batch: runs mcts on batches formed from the testset
+* mcts_one: runs mcts on one random input from the testset
+* mcts: runs mcts one input at a time
+* mcts_selected_batches: runs mcts on the given batches(deephunter_x.npy files in data dir)
+
+Example Usage:
 ```
 python mnist_experiments/mcts_selected_batches.py --lenet 5 --coverage nbc
 ```
