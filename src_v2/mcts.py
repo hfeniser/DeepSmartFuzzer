@@ -54,7 +54,7 @@ class MCTS_Node:
         current_node = self
 
         # take actions until a reward or game end
-        while (not current_node.state.game_finished) and current_node.state.reward_status == Reward_Status.NOT_AVAILABLE:
+        while (not current_node.state.game_finished) and current_node.state.reward_status != Reward_Status.VISITED:
             action = np.random.randint(0, current_node.state.nb_actions)
             current_node = current_node.expansion(action)
         
