@@ -7,7 +7,9 @@ import copy
 from src_v2.utility import find_the_distance, init_image_plots
 from src_v2.reward import Reward_Status
 
+import pprint
 
+pp = pprint.PrettyPrinter()
 
 class RLforDL_State:
     def __init__(self, mutated_input, action=0, previous_state=None, reward_status=Reward_Status.NOT_AVAILABLE, reward=None, game=None):
@@ -36,7 +38,7 @@ class RLforDL_State:
     
     def visit(self):
         if self.reward_status == Reward_Status.UNVISITED:
-            Reward_Status.VISITED
+            self.reward_status = Reward_Status.VISITED
 
 class RLforDL:
     def __init__(self, coverage, input_shape, input_lower_limit, input_upper_limit, action_division_p1, actions_p2, ending_condition, with_implicit_reward=False, distance_in_reward=False, verbose=True, verbose_image=True):
@@ -48,10 +50,28 @@ class RLforDL:
         self.actions_p1_spacing = []
         for i in range(len(action_division_p1)):
             spacing = int(self.input_shape[i] / action_division_p1[i])
-            options_p1.append(list(range(0, self.input_shape[i], spacing)))
+            if self.input_shape[i] == 1:
+                options_p1.append([0])
+            else:
+                options_p1.append(list(range(0, self.input_shape[i]-spacing, spacing)))
             self.actions_p1_spacing.append(spacing)
 
-        self.actions_p1 = list(itertools.product(*options_p1))
+        actions_p1_lower_limit = np.array(list(itertools.product(*options_p1)))
+        actions_p1_upper_limit = np.add(actions_p1_lower_limit, self.actions_p1_spacing)
+
+        # round upper_limits of end/edge section to input_shape (NO EXACT DIVISION)
+        for i in range(len(action_division_p1)):
+            if self.input_shape[i] != 1:
+               round_up = actions_p1_upper_limit[:,i] > (self.input_shape[i] - self.actions_p1_spacing[i])
+               actions_p1_upper_limit[:,i] = round_up * self.input_shape[i] + np.logical_not(round_up) * actions_p1_upper_limit[:,i]
+        
+        self.actions_p1 = []
+        for i in range(len(actions_p1_lower_limit)):
+            self.actions_p1.append({
+                "lower_limits": actions_p1_lower_limit[i],
+                "upper_limits": actions_p1_upper_limit[i]
+            })
+        
         self.actions_p2 = actions_p2
         self.ending_condition = ending_condition
         self.with_implicit_reward = with_implicit_reward
@@ -63,9 +83,10 @@ class RLforDL:
         self.best_input = None
 
         if self.verbose:
-            print("self.actions_p1", self.actions_p1)
-            print("self.actions_p1_spacing", self.actions_p1_spacing)
-            print("self.actions_p2", self.actions_p2)
+            print("self.actions_p1") 
+            pp.pprint(self.actions_p1)
+            print("self.actions_p2")
+            pp.pprint(self.actions_p2)
 
         if self.verbose_image:
             self.fig_current, self.fig_plots_current = init_image_plots(8, 8, self.input_shape[1:3])
@@ -98,10 +119,8 @@ class RLforDL:
         action_part2 = self.actions_p2[action2]
         
         # find the part of input where the mutation will be applied
-        lower_limits = np.subtract(action_part1, self.actions_p1_spacing)
-        lower_limits = np.clip(lower_limits, 0, action_part1) # lower_limits \in [0, action_part1]
-        upper_limits = np.add(action_part1, self.actions_p1_spacing)
-        upper_limits = np.clip(upper_limits, action_part1, self.input_shape) # upper_limits \in [action_part1, self.input_shape]
+        lower_limits = action_part1['lower_limits']
+        upper_limits = action_part1['upper_limits']
         s = tuple([slice(lower_limits[i], upper_limits[i]) for i in range(len(lower_limits))])
         
         # loop through the inputs and apply the mutation on each
@@ -159,7 +178,7 @@ class RLforDL:
                 self.best_input, self.best_reward = copy.deepcopy(new_state.mutated_input), new_state.reward
 
                 if self.verbose_image:
-                    self.fig_best.suptitle("Best Reward:" + str(self.best_reward))
+                    self.fig_best.suptitle("Best Reward: " + str(self.best_reward))
                     for i in range(len(self.best_input[0:64])):
                         self.fig_plots_best[i].set_data(self.best_input[i].reshape(self.input_shape[1:3]))
                     self.fig_best.canvas.flush_events()

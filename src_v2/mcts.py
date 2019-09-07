@@ -36,8 +36,7 @@ class MCTS_Node:
             p.append(potential)
 
         p = np.array(p)
-        #print(" -float((p.min() < 0)*p.min())",  -float((p.min() < 0)*p.min()))
-        #p += -float((p.min() < 0)*p.min())
+        
         if np.sum(p == 0) == p.size:
             p[:] = 1
         p /= p.sum()
