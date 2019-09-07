@@ -53,7 +53,7 @@ class RLforDL:
             if self.input_shape[i] == 1:
                 options_p1.append([0])
             else:
-                options_p1.append(list(range(0, self.input_shape[i]-spacing, spacing)))
+                options_p1.append(list(range(0, self.input_shape[i]-spacing+1, spacing)))
             self.actions_p1_spacing.append(spacing)
 
         actions_p1_lower_limit = np.array(list(itertools.product(*options_p1)))

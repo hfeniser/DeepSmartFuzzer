@@ -28,7 +28,7 @@ actions_p2 = contrast + brightness + blur
 
 def tc1(state): 
     # limit the level/depth of root
-    return state.level > 4
+    return state.level > 8
 
 def tc2(iterations):
     # limit the number of iterations on root
@@ -38,7 +38,7 @@ def tc3(state):
     original_input = state.original_input
     mutated_input = state.mutated_input
 
-    alpha, beta = 0.03, 0.1
+    alpha, beta = 0.1, 0.5
     if(np.sum((original_input-mutated_input) != 0) < alpha * np.sum(original_input>0)):
         return not np.max(np.abs(mutated_input-original_input)) <= 255
     else:

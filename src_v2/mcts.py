@@ -36,7 +36,7 @@ class MCTS_Node:
             p.append(potential)
 
         p = np.array(p)
-        
+
         if np.sum(p == 0) == p.size:
             p[:] = 1
         p /= p.sum()
@@ -64,6 +64,7 @@ class MCTS_Node:
         self.value += reward
         self.visit_count += 1
         self.state.visit()
+        print("backprop", self, self.value, self.visit_count)
         if self.parent != None:
             self.parent.backprop(reward)
 
@@ -75,7 +76,8 @@ class MCTS_Node:
         best_r = 0
 
         for i in range(len(self.child_nodes)):
-            try:
+            if self.child_nodes[i] != None:
+                print("bestChild", i, self.child_nodes[i], self.child_nodes[i].visit_count, self.child_nodes[i].value)
                 if self.child_nodes[i].visit_count == 0:
                     current_r = 0
                 else:
@@ -83,8 +85,6 @@ class MCTS_Node:
                 if best_r < current_r:
                     best = self.child_nodes[i]
                     best_r = current_r
-            except Exception:
-                pass
         
         if best_r == 0:
             raise Exception("simulations failed to find any reward")
@@ -150,7 +150,8 @@ def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True):
         
         try:
             root = root.bestChild(C)
-        except Exception:
+        except Exception as e:
+            print("Continuing with new batch:", e)
             return root
 
     return root
