@@ -29,7 +29,15 @@ def init_image_plots(rows, columns, image_size, figsize=(8, 8)):
         subplot = plt.imshow(np.random.randint(0,256,size=image_size))
         fig_plots.append(subplot)
     plt.show()
-    return fig, fig_plots
+    return (fig, fig_plots)
+
+def update_image_plots(f, images, title):
+    (fig, fig_plots) = f
+    fig.suptitle(title)
+    for j in range(len(images)):
+        fig_plots[j].set_data(images[j])
+    fig.canvas.draw()
+    fig.canvas.flush_events()
 
 def activate_ctrl_c_exit():
     def signal_handler(sig, frame):
