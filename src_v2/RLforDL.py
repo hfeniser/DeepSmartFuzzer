@@ -164,7 +164,7 @@ class RLforDL:
             # already an termination node
             new_state.game_finished = True
 
-        if new_state.reward != None:
+        if not new_state.game_finished and new_state.reward != None:
             if self.verbose:
                 print("Reward:", new_state.reward)
             

@@ -2,6 +2,13 @@ import numpy as np
 import itertools
 
 from src_v2.reward import Reward_Status
+from src_v2.utility import plt, figure_count
+
+import copy
+
+import matplotlib.patches as patches
+
+visual_path_fig = None
 
 class MCTS_Node:
     def __init__(self, state, game, parent=None, relative_index=0):
@@ -23,10 +30,10 @@ class MCTS_Node:
             value, visit_count, parent_visit_count = self.value, self.visit_count, self.parent.visit_count
         elif value == None or visit_count == None or parent_visit_count == None:
             raise Exception("set all value, visit_count and parent_visit_count parameters or leave all None")
+        #print("potential", value/visit_count, C*np.sqrt(np.log(parent_visit_count)/visit_count))
+        return (100 * value/visit_count) + C*np.sqrt(np.log(parent_visit_count)/visit_count)
 
-        return value/visit_count + C*np.sqrt(np.log(parent_visit_count)/visit_count)
-
-    def selection(self, C=np.sqrt(2)):
+    def get_potential_array(self, C=np.sqrt(2)):
         p = []
         for child in self.child_nodes:
             if child != None:
@@ -40,6 +47,12 @@ class MCTS_Node:
         if np.sum(p == 0) == p.size:
             p[:] = 1
         p /= p.sum()
+
+        return p
+
+
+    def selection(self, C=np.sqrt(2)):
+        p = self.get_potential_array(C=C)
         return np.random.choice(range(len(self.child_nodes)), p=p)
 
     def expansion(self, child_index):
@@ -54,10 +67,15 @@ class MCTS_Node:
         current_node = self
 
         # take actions until a reward or game end
-        while (not current_node.state.game_finished) and current_node.state.reward_status != Reward_Status.VISITED:
+        print("current_node.state.reward_status", current_node.state.reward_status, current_node.state.level)
+        while (not current_node.state.game_finished) and (current_node.state.reward_status != Reward_Status.UNVISITED and current_node.state.reward_status != Reward_Status.NOT_CALCULATED):
             action = np.random.randint(0, current_node.state.nb_actions)
             current_node = current_node.expansion(action)
+            print("current_node.state.reward_status", current_node.state.reward_status, current_node.state.level)
         
+        if current_node.state.reward_status == Reward_Status.NOT_CALCULATED:
+            current_node = current_node.parent.expansion(current_node.relative_index)
+
         return current_node, current_node.state.reward
     
     def backprop(self, reward):
@@ -91,12 +109,80 @@ class MCTS_Node:
         else:
             return best
 
+    def updateRootWithNewInput(self, new_state):
+        def walk(node):
+            """ iterate tree in pre-order depth-first search order """
+            yield node
+            for child in node.child_nodes:
+                if child:
+                    for n in walk(child):
+                        yield n
+        
+        self.state = new_state
+
+        for node in walk(self):
+            if node != self:
+                node.state.original_input = copy.deepcopy(node.parent.state.original_input)
+                node.state.game_finished = False
+                if self.game.player(node.state.level-1) == 1:
+                    node.state.mutated_input = copy.deepcopy(node.parent.state.mutated_input)
+                else:
+                    node.state.reward_status = Reward_Status.NOT_CALCULATED
+                    node.state.reward = None
+        
+        return self
+
+
     def printPath(self, end="\n"):
         if self.parent:
             self.parent.printPath(end="->")
             print(self.relative_index, end=end)
         else:
             print("root", end=end)
+
+    def showPathVisual(self, columns=None, image_size=(28,28)):
+        global visual_path_fig, figure_count, plt
+        if visual_path_fig == None:
+            plt.ion()
+            visual_path_fig=plt.figure(99, figsize=(24,6))
+        if columns == None:
+            columns = int(self.state.level*3/2)
+            visual_path_fig.clf()
+        if self.parent:
+            if self.game.player(self.state.level-1) == 2:
+                ax1 = visual_path_fig.add_subplot(1, columns, int(self.state.level*3/2))
+                ax1.imshow(self.state.mutated_input[0].reshape(image_size), cmap='gray')
+
+                plt.title("reward:%.2f" % self.state.reward)
+                
+                action_p1 = self.game.actions_p1[self.parent.relative_index]
+                position = (action_p1['lower_limits'][2]-0.5, action_p1['lower_limits'][1]-0.5)
+                spacing = np.subtract(action_p1['upper_limits'], action_p1['lower_limits'])
+                rect = patches.Rectangle(position, spacing[2], spacing[1], linewidth=1, edgecolor='r', facecolor='none')
+                ax1.add_patch(rect)
+                
+                ax2 = visual_path_fig.add_subplot(1, columns, int(self.state.level*3/2)-1)
+                ax2.imshow(self.parent.get_potential_array().reshape(-1, 1), cmap='gray')
+                ax2.plot(0, self.relative_index, 'r*')
+                plt.title("Action: %d" % self.relative_index)
+                xyA = (0,self.relative_index)
+                xyB = (action_p1['lower_limits'][2]-0.5, action_p1['lower_limits'][1]-0.5+spacing[1]/2)
+                con = patches.ConnectionPatch(xyA=xyA, xyB=xyB, coordsA="data", coordsB="data", arrowstyle="-|>", axesA=ax2, axesB=ax1, color="crimson")
+                ax2.add_patch(con)
+
+                ax3 = visual_path_fig.add_subplot(1, columns, int(self.state.level*3/2)-2)
+                ax3.imshow(self.parent.parent.get_potential_array().reshape(-1, 1), cmap='gray')
+                ax3.plot(0, self.parent.relative_index, 'r*')
+                plt.title("Action: %d" % self.parent.relative_index)
+                xyA2 = (0,self.parent.relative_index)
+                xyB2 = xyA
+                con2 = patches.ConnectionPatch(xyA=xyA2, xyB=xyB2, coordsA="data", coordsB="data", arrowstyle="-|>", axesA=ax3, axesB=ax2, color="crimson")
+                ax3.add_patch(con2)
+
+            self.parent.showPathVisual(columns=columns)
+        else:
+            plt.show()
+
 
 
 
@@ -113,19 +199,24 @@ def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True):
 
             # Selection until a leaf node
             selected_node_index = None
-            while not current_node.isLeaf():
+            while not current_node.isLeaf() and current_node.state.reward_status != Reward_Status.NOT_CALCULATED:
                 node_index = current_node.selection()
                 if current_node.child_nodes[node_index] != None:
                     current_node = current_node.child_nodes[node_index]
                 else:
                     selected_node_index = node_index
                     break
+                print("current_node.isLeaf()", current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
                 
             # Expansion
             if not current_node.state.game_finished:
                 if selected_node_index == None:
                     selected_node_index = np.random.randint(0, current_node.state.nb_actions)
-                current_node = current_node.expansion(selected_node_index)
+                    print("current_node.isLeaf()", current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
+                if current_node.state.reward_status != Reward_Status.NOT_CALCULATED:
+                    current_node = current_node.expansion(selected_node_index)
+                else:
+                    current_node = current_node.parent.expansion(selected_node_index)
             
 
             # If not a terminating leaf
@@ -134,7 +225,8 @@ def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True):
                 final_node, reward = current_node.simulation()
             
                 # Backpropagation
-                if reward != None:
+                if not final_node.state.game_finished and reward != None:
+                    final_node.showPathVisual()
                     final_node.backprop(reward)
             
             if verbose:
