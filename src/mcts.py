@@ -200,7 +200,8 @@ class RLforDL_MCTS:
             plt.figure(1)
             fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)))
             for i in range(len(input_sim[0:64])):
-                fig_plots[i].set_data(input_sim[i].reshape((28,28)))
+                print(self.input_shape[1:])
+                fig_plots[i].set_data(input_sim[i].reshape(self.input_shape[1:]))
             fig.canvas.flush_events()
 
         if self.tc3(level, test_input, input_sim):
@@ -265,7 +266,7 @@ class RLforDL_MCTS:
                             plt.figure(2)
                             fig2.suptitle("BEST Coverage Increase: " + str(best_coverage))
                             for i in range(len(best_input[0:64])):
-                                fig2_plots[i].set_data(best_input[i].reshape((28,28)))
+                                fig2_plots[i].set_data(best_input[i].reshape(self.input_shape[1:]))
                             fig2.canvas.flush_events()
                     
                     if self.verbose:

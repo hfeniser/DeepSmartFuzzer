@@ -93,18 +93,20 @@ def get_layer_outs(model, test_input, skip=[]):
 
     return layer_outs
 
+
 def get_layer_outs_new(model, test_input, skip=[]):
     evaluater = models.Model(inputs=model.input,
-                             outputs=[layer.output for index, layer in enumerate(model.layers) \
+                             outputs=[layer.output for index, layer in enumerate(model.layers)
                                       if index not in skip])
 
     return evaluater.predict(test_input)
+
 
 def calc_major_func_regions(model, train_inputs, skip=None):
     if skip is None:
         skip = []
 
-    outs = get_layer_outs(model, train_inputs, skip)
+    outs = get_layer_outs_new(model, train_inputs, skip)
 
     major_regions = []
 
