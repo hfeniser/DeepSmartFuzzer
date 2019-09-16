@@ -7,17 +7,40 @@
 pip install -r requirements.txt
 ```
 
-### 2) MNIST-LeNet Experiments
+### 2) Usage
+```
+python run_experiment.py --help
+usage: run_experiment.py [-h] [--params_set {mnist_lenet,cifar}]
+                         [--dataset {MNIST,CIFAR10}]
+                         [--model {LeNet1,LeNet4,LeNet5,CIFAR_ORIGINAL}]
+                         [--implicit_reward [IMPLICIT_REWARD]]
+                         [--coverage {neuron,kmn,nbc,snac}]
+                         [--input_chooser {random,clustered_random}]
+                         [--runner {mcts_batch,mcts_clustered_batch,mcts_selected_batches,mcts_one,mcts,deephunter}]
+                         [--verbose [VERBOSE]]
+                         [--image_verbose [IMAGE_VERBOSE]]
+
+Experiments Script For RLforDL
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --params_set {mnist_lenet,cifar}
+  --dataset {MNIST,CIFAR10}
+  --model {LeNet1,LeNet4,LeNet5,CIFAR_ORIGINAL}
+  --implicit_reward [IMPLICIT_REWARD]
+  --coverage {neuron,kmn,nbc,snac}
+  --input_chooser {random,clustered_random}
+  --runner {mcts_batch,mcts_clustered_batch,mcts_selected_batches,mcts_one,mcts,deephunter}
+  --verbose [VERBOSE]
+  --image_verbose [IMAGE_VERBOSE]
+```
+
+#### 2.1) Runners
 * deephunter: runs deephunter
 * mcts_batch: runs mcts on batches formed from the testset
 * mcts_one: runs mcts on one random input from the testset
 * mcts: runs mcts one input at a time
 * mcts_selected_batches: runs mcts on the given batches(deephunter_x.npy files in data dir)
-
-Example Usage:
-```
-python mnist_experiments/mcts_selected_batches.py --lenet 5 --coverage nbc
-```
 
 ## Copyright Notice
 RLforDL Copyright (C) 2019 Bogazici University

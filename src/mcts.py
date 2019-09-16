@@ -1,91 +1,137 @@
 import numpy as np
 import itertools
 
-import src.image_transforms as image_transforms
+from src.reward import Reward_Status
+from src.utility import plt, figure_count
 
+import copy
 
-distance_in_reward = False
+import matplotlib.patches as patches
 
-import matplotlib.pyplot as plt
-rows, columns = 8, 8
-plt.ion()
-fig=plt.figure(1, figsize=(8, 8))
-fig_plots = []
-for i in range(1, columns*rows +1):
-    fig.add_subplot(rows, columns, i)
-    subplot = plt.imshow(np.random.randint(0,256,size=(28,28)))
-    fig_plots.append(subplot)
-plt.show()
-fig2=plt.figure(2, figsize=(8, 8))
-fig2.suptitle("NOT FOUND ANY COVERAGE INCREASE")
-fig2_plots = []
-for i in range(1, columns*rows +1):
-    fig2.add_subplot(rows, columns, i)
-    subplot = plt.imshow(np.random.randint(0,256,size=(28,28)))
-    fig2_plots.append(subplot)
-plt.show()
-
-import signal
-import sys
-def signal_handler(sig, frame):
-        sys.exit(0)
-signal.signal(signal.SIGINT, signal_handler)
+visual_path_fig = None
 
 class MCTS_Node:
-    def __init__(self, nb_child_nodes, state):
-        self.parent = None
-        self.level = 0
+    def __init__(self, state, game, parent=None, relative_index=0):
+        self.parent = parent
+        self.relative_index = relative_index
         self.value = 0
-        self.relative_index = 0
         self.visit_count = 1
-        self.child_nodes = [None] * nb_child_nodes
+        self.child_nodes = [None] * state.nb_actions
         self.state = state
+        self.game = game
 
-    def potential(self, C=np.sqrt(2)):
+    def potential(self, value=None, visit_count=None, parent_visit_count=None, C=np.sqrt(2)):
         # Upper Confidence Bound (UCB)
         # C: hyperparammer
         # See following for details on UCB:
         # 2008. G.M.J.B. Chaslot et all. Progressive strategies for monte-carlo tree search.
         # 2006. Levente Kocsis et all. Bandit based monte-carlo planning.
-        return self.value/self.visit_count + C*np.sqrt(np.log(self.parent.visit_count)/self.visit_count)
+        if value == None and visit_count == None and parent_visit_count == None:
+            value, visit_count, parent_visit_count = self.value, self.visit_count, self.parent.visit_count
+        elif value == None or visit_count == None or parent_visit_count == None:
+            raise Exception("set all value, visit_count and parent_visit_count parameters or leave all None")
+        #print("potential", value/visit_count, C*np.sqrt(np.log(parent_visit_count)/visit_count))
+        return (100 * value/visit_count) + C*np.sqrt(np.log(parent_visit_count)/visit_count)
+
+    def get_potential_array(self, C=np.sqrt(2)):
+        p = []
+        for child in self.child_nodes:
+            if child != None:
+                potential = child.potential(C=C)
+            else:
+                potential = self.potential(value=0,visit_count=1,parent_visit_count=self.visit_count, C=C)
+            p.append(potential)
+
+        p = np.array(p)
+
+        if np.sum(p == 0) == p.size:
+            p[:] = 1
+        p /= p.sum()
+
+        return p
+
 
     def selection(self, C=np.sqrt(2)):
-        p = np.array([child.potential(C) for child in self.child_nodes])
-        #print(" -float((p.min() < 0)*p.min())",  -float((p.min() < 0)*p.min()))
-        #p += -float((p.min() < 0)*p.min())
-        p /= p.sum()
-        return self.child_nodes[np.random.choice(range(len(self.child_nodes)), p=p)]
+        p = self.get_potential_array(C=C)
+        return np.random.choice(range(len(self.child_nodes)), p=p)
 
-    def expansion(self, child_index, new_node):
-        new_node.parent = self
-        new_node.level = self.level+1
-        new_node.relative_index = child_index
-        self.child_nodes[child_index] = new_node
+    def expansion(self, child_index):
+        new_state, _ = self.game.step(self.state, child_index)
+        if self.child_nodes[child_index] == None:
+            self.child_nodes[child_index] = MCTS_Node(new_state, self.game, parent=self, relative_index=child_index)
+        else:
+            self.child_nodes[child_index].state = new_state
+        return self.child_nodes[child_index]
 
+    def simulation(self):
+        current_node = self
+
+        # take actions until a reward or game end
+        print("current_node.state.reward_status", current_node.state.reward_status, current_node.state.level)
+        while (not current_node.state.game_finished) and (current_node.state.reward_status != Reward_Status.UNVISITED and current_node.state.reward_status != Reward_Status.NOT_CALCULATED):
+            action = np.random.randint(0, current_node.state.nb_actions)
+            current_node = current_node.expansion(action)
+            print("current_node.state.reward_status", current_node.state.reward_status, current_node.state.level)
+        
+        if current_node.state.reward_status == Reward_Status.NOT_CALCULATED:
+            current_node = current_node.parent.expansion(current_node.relative_index)
+
+        return current_node, current_node.state.reward
+    
     def backprop(self, reward):
         self.value += reward
-        if reward != 0 and self.parent != None:
+        self.visit_count += 1
+        self.state.visit()
+        print("backprop", self, self.value, self.visit_count)
+        if self.parent != None:
             self.parent.backprop(reward)
 
     def isLeaf(self):
         return self.child_nodes.count(None) == len(self.child_nodes)
 
     def bestChild(self, C=np.sqrt(2)):
-        best = self.child_nodes[0]
-        best_r = best.value / best.visit_count
+        best = None
+        best_r = 0
 
         for i in range(len(self.child_nodes)):
-            if self.child_nodes[i].visit_count == 0:
-                current_r = 0
-            else:
-                current_r = self.child_nodes[i].value / self.child_nodes[i].visit_count
-            if best_r < current_r:
-                best = self.child_nodes[i]
-                best_r = current_r
+            if self.child_nodes[i] != None:
+                print("bestChild", i, self.child_nodes[i], self.child_nodes[i].visit_count, self.child_nodes[i].value)
+                if self.child_nodes[i].visit_count == 0:
+                    current_r = 0
+                else:
+                    current_r = self.child_nodes[i].value / self.child_nodes[i].visit_count
+                if best_r < current_r:
+                    best = self.child_nodes[i]
+                    best_r = current_r
         
         if best_r == 0:
             raise Exception("simulations failed to find any reward")
-        return best
+        else:
+            return best
+
+    def updateRootWithNewInput(self, new_state):
+        def walk(node):
+            """ iterate tree in pre-order depth-first search order """
+            yield node
+            for child in node.child_nodes:
+                if child:
+                    for n in walk(child):
+                        yield n
+        
+        self.state = new_state
+
+        for node in walk(self):
+            if node != self:
+                node.state.original_input = copy.deepcopy(node.parent.state.original_input)
+                node.state.game_finished = False
+                if self.game.player(node.state.level-1) == 1:
+                    node.state.mutated_input = copy.deepcopy(node.parent.state.mutated_input)
+                else:
+                    node.state.reward_status = Reward_Status.NOT_CALCULATED
+                    node.state.reward = None
+        
+        return self
+
 
     def printPath(self, end="\n"):
         if self.parent:
@@ -94,194 +140,110 @@ class MCTS_Node:
         else:
             print("root", end=end)
 
+    def showPathVisual(self, columns=None, image_size=(28,28)):
+        global visual_path_fig, figure_count, plt
+        if visual_path_fig == None:
+            plt.ion()
+            visual_path_fig=plt.figure(99, figsize=(24,6))
+        if columns == None:
+            columns = int(self.state.level*3/2)
+            visual_path_fig.clf()
+        if self.parent:
+            if self.game.player(self.state.level-1) == 2:
+                ax1 = visual_path_fig.add_subplot(1, columns, int(self.state.level*3/2))
+                ax1.imshow(self.state.mutated_input[0].reshape(image_size), cmap='gray')
 
-class RLforDL_MCTS_State:
-    def __init__(self, mutated_input):
-        self.mutated_input = mutated_input
-
-def find_the_distance(mutated_input, last_node):
-    # find root node
-    root = last_node
-    while(root.parent != None):
-        root = root.parent
-
-    # get the initial input from the root node
-    initial_input = root.state.mutated_input
-
-    # calc distance
-    dist = np.sum((mutated_input - initial_input)**2) / mutated_input.size
-    #print("dist", dist)
-    return dist
-
-
-class RLforDL_MCTS:
-    def __init__(self, input_shape, input_lower_limit, input_upper_limit, action_division_p1, actions_p2, tc1, tc2, tc3, with_implicit_reward=False, verbose=True, verbose_image=True):
-        self.input_shape = input_shape
-        self.input_lower_limit = input_lower_limit
-        self.input_upper_limit = input_upper_limit
-        options_p1 = []
-        self.actions_p1_spacing = []
-        for i in range(len(action_division_p1)):
-            spacing = int(self.input_shape[i] / action_division_p1[i])
-            options_p1.append(list(range(0, self.input_shape[i], spacing)))
-            self.actions_p1_spacing.append(spacing)
-
-        self.actions_p1 = list(itertools.product(*options_p1))
-        self.actions_p2 = actions_p2
-        self.tc1 = tc1 # termination condition for the entire program e.g. limit the number of epochs
-        self.tc2 = tc2 # termination condition for the current iteration e.g. limit the iterations
-        self.tc3 = tc3 # cut-off condition for the tree
-        self.with_implicit_reward = with_implicit_reward
-        self.verbose = verbose
-        self.verbose_image = verbose_image
-        if self.verbose:
-            print("self.actions_p1", self.actions_p1)
-            print("self.actions_p1_spacing", self.actions_p1_spacing)
-            print("self.actions_p2", self.actions_p2)
-    
-    def player(self, level):
-        if level % 2 == 0:
-            return 1
-        else:
-            return 2
-
-    def player_for_node(self, node):
-        return self.player(node.level)
-
-    def apply_action(self, mutated_input, action1, action2):
-        action_part1 = self.actions_p1[action1]
-        action_part2 = self.actions_p2[action2]
-        #print("action:", action_part1, action_part2)
-        lower_limits = np.subtract(action_part1, self.actions_p1_spacing)
-        lower_limits = np.clip(lower_limits, 0, action_part1) # lower_limits \in [0, action_part1]
-        upper_limits = np.add(action_part1, self.actions_p1_spacing)
-        upper_limits = np.clip(upper_limits, action_part1, self.input_shape) # upper_limits \in [action_part1, self.input_shape]
-        s = tuple([slice(lower_limits[i], upper_limits[i]) for i in range(len(lower_limits))])
-        for j in range(len(mutated_input)):
-            mutated_input_piece = mutated_input[j].reshape(self.input_shape)
-            if not isinstance(action_part2, tuple):
-                mutated_input_piece[s] += action_part2
-            else:
-                f = getattr(image_transforms,'image_'+action_part2[0])
-                m_shape = mutated_input_piece[s].shape
-                i = mutated_input_piece[s].reshape(m_shape[-3:])
-                i = f(i, action_part2[1])
-                mutated_input_piece[s] = i.reshape(m_shape)
-            mutated_input_piece[s] = np.clip(mutated_input_piece[s], self.input_lower_limit, self.input_upper_limit)
-        return mutated_input
-
-    def apply_action_for_node(self, node, child_index):
-        # Player 1: select a position in the input (e.g. pixel for image)
-        # Player 2: select a manipulation on the selected region (e.g. +5,-5 for image)
-        # action is complete when player 2 done
-        mutated_input = np.copy(node.state.mutated_input)
-        if self.player_for_node(node) == 2:
-            mutated_input = self.apply_action(mutated_input, node.relative_index, child_index)
-
-        return mutated_input
-
-    def simulate_for_node(self, node, test_input, coverage):
-        # Simulation
-        level = node.level
-        input_sim = np.copy(node.state.mutated_input)
-
-        if self.player(level) == 1:
-            action1 = np.random.randint(0,len(self.actions_p1))
-            action2 = np.random.randint(0,len(self.actions_p2))
-            input_sim = self.apply_action(input_sim, action1, action2)
-            level += 2
-        else:
-            action1 = node.relative_index
-            action2 = np.random.randint(0,len(self.actions_p2))
-            input_sim = self.apply_action_for_node(node, action2)
-            level += 1
-        
-        if self.verbose_image:
-            plt.figure(1)
-            fig.suptitle("level:" + str(level) + " Action: " + str((action1,action2)))
-            for i in range(len(input_sim[0:64])):
-                print(self.input_shape[1:])
-                fig_plots[i].set_data(input_sim[i].reshape(self.input_shape[1:]))
-            fig.canvas.flush_events()
-
-        if self.tc3(level, test_input, input_sim):
-            # already an termination node
-            return input_sim, 0, action1, action2
-        
-        _, reward = coverage.step(input_sim, update_state=False, with_implicit_reward=self.with_implicit_reward)
-
-        if distance_in_reward:
-            dist = find_the_distance(input_sim, node)
-            if reward > 0 and dist > 0:
-                reward = reward / dist
-        return input_sim, reward, action1, action2
-
-    def run(self, test_input, coverage, C=np.sqrt(2), root=None):
-        best_input, best_coverage = np.copy(test_input), 0
-
-        if root == None:
-            root = MCTS_Node(len(self.actions_p1), RLforDL_MCTS_State(np.copy(test_input)))
-        saved_root = root
-        
-        while not self.tc1(root.level, test_input, best_input, best_coverage):                
-            if root.isLeaf() and self.tc3(root.level, test_input, root.state.mutated_input):
-                if self.verbose:
-                    print("Reached a game-over node")
-                break
-            iterations = 0
-            while not self.tc2(iterations):
-                current_node = root
-                current_node.visit_count += 1
-
-                # Selection until a leaf node
-                while not current_node.isLeaf():
-                    current_node = current_node.selection()
-                    current_node.visit_count += 1
-                    #print("selection", current_node.relative_index)
+                plt.title("reward:%.2f" % self.state.reward)
                 
-                # If not a terminating leaf
-                if not self.tc3(current_node.level, test_input, current_node.state.mutated_input):
-                    # Expansion (All children of the current leaf)
-                    for i in range(len(current_node.child_nodes)):
-                        if self.player_for_node(current_node) == 1:
-                            nb_chidren_for_new_node = len(self.actions_p2)
-                        else:
-                            nb_chidren_for_new_node = len(self.actions_p1)
-                        new_input = self.apply_action_for_node(current_node, i) 
-                        new_node = MCTS_Node(nb_chidren_for_new_node, RLforDL_MCTS_State(new_input))
-                        current_node.expansion(i, new_node)
-                        
-                    # Simulation
-                    input_sim, coverage_sim, a1, a2 = self.simulate_for_node(current_node, test_input, coverage)
-                    # Backpropagation
-                    if self.player(current_node.level) == 1:
-                        current_node = current_node.child_nodes[a1]
-                    else:
-                        current_node = current_node.child_nodes[a2]
-                    current_node.backprop(coverage_sim)
+                action_p1 = self.game.actions_p1[self.parent.relative_index]
+                position = (action_p1['lower_limits'][2]-0.5, action_p1['lower_limits'][1]-0.5)
+                spacing = np.subtract(action_p1['upper_limits'], action_p1['lower_limits'])
+                rect = patches.Rectangle(position, spacing[2], spacing[1], linewidth=1, edgecolor='r', facecolor='none')
+                ax1.add_patch(rect)
+                
+                ax2 = visual_path_fig.add_subplot(1, columns, int(self.state.level*3/2)-1)
+                ax2.imshow(self.parent.get_potential_array().reshape(-1, 1), cmap='gray')
+                ax2.plot(0, self.relative_index, 'r*')
+                plt.title("Action: %d" % self.relative_index)
+                xyA = (0,self.relative_index)
+                xyB = (action_p1['lower_limits'][2]-0.5, action_p1['lower_limits'][1]-0.5+spacing[1]/2)
+                con = patches.ConnectionPatch(xyA=xyA, xyB=xyB, coordsA="data", coordsB="data", arrowstyle="-|>", axesA=ax2, axesB=ax1, color="crimson")
+                ax2.add_patch(con)
 
-                    if coverage_sim > best_coverage:
-                        best_input, best_coverage = input_sim, coverage_sim
-                        if self.verbose_image:
-                            plt.figure(2)
-                            fig2.suptitle("BEST Coverage Increase: " + str(best_coverage))
-                            for i in range(len(best_input[0:64])):
-                                fig2_plots[i].set_data(best_input[i].reshape(self.input_shape[1:]))
-                            fig2.canvas.flush_events()
-                    
-                    if self.verbose:
-                        print("Completed Iteration #%g" % (iterations))
-                        print("Current Coverage From Simulation: %g" % (coverage_sim))
-                        print("Best Coverage up to now: %g" % (best_coverage))
-                iterations += 1
-                    
-            if self.verbose:
-                print("Completed MCTS Level/Depth: #%g" % (root.level))
-                root.printPath()
+                ax3 = visual_path_fig.add_subplot(1, columns, int(self.state.level*3/2)-2)
+                ax3.imshow(self.parent.parent.get_potential_array().reshape(-1, 1), cmap='gray')
+                ax3.plot(0, self.parent.relative_index, 'r*')
+                plt.title("Action: %d" % self.parent.relative_index)
+                xyA2 = (0,self.parent.relative_index)
+                xyB2 = xyA
+                con2 = patches.ConnectionPatch(xyA=xyA2, xyB=xyB2, coordsA="data", coordsB="data", arrowstyle="-|>", axesA=ax3, axesB=ax2, color="crimson")
+                ax3.add_patch(con2)
+
+            self.parent.showPathVisual(columns=columns)
+        else:
+            plt.show()
+
+
+
+
+def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True):
+    while not tc1(root.state):                
+        if root.isLeaf() and root.state.game_finished:
+            if verbose:
+                print("Reached a game-over node")
+            break
+
+        iterations = 0
+        while not tc2(iterations):
+            current_node = root
+
+            # Selection until a leaf node
+            selected_node_index = None
+            while not current_node.isLeaf() and current_node.state.reward_status != Reward_Status.NOT_CALCULATED:
+                node_index = current_node.selection()
+                if current_node.child_nodes[node_index] != None:
+                    current_node = current_node.child_nodes[node_index]
+                else:
+                    selected_node_index = node_index
+                    break
+                print("current_node.isLeaf()", current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
+                
+            # Expansion
+            if not current_node.state.game_finished:
+                if selected_node_index == None:
+                    selected_node_index = np.random.randint(0, current_node.state.nb_actions)
+                    print("current_node.isLeaf()", current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
+                if current_node.state.reward_status != Reward_Status.NOT_CALCULATED:
+                    current_node = current_node.expansion(selected_node_index)
+                else:
+                    current_node = current_node.parent.expansion(selected_node_index)
             
-            try:
-                root = root.bestChild(C)
-            except Exception as e:
-                return saved_root, best_input, best_coverage
 
-        return saved_root, best_input, best_coverage
+            # If not a terminating leaf
+            if not current_node.state.game_finished:
+                # Simulation
+                final_node, reward = current_node.simulation()
+            
+                # Backpropagation
+                if not final_node.state.game_finished and reward != None:
+                    final_node.showPathVisual()
+                    final_node.backprop(reward)
+            
+            if verbose:
+                print("Completed Iteration #%g" % (iterations))
+                root.game.print_status()
+
+            iterations += 1
+                
+        if verbose:
+            print("Completed MCTS Level/Depth: #%g" % (root.state.level))
+            root.printPath()
+            root.game.print_status()
+        
+        try:
+            root = root.bestChild(C)
+        except Exception as e:
+            print("Continuing with new batch:", e)
+            return root
+
+    return root

@@ -4,8 +4,8 @@ import numpy as np
 import src.image_transforms as image_transforms
 import copy
 
-from src_v2.utility import find_the_distance, init_image_plots
-from src_v2.reward import Reward_Status
+from src.utility import find_the_distance, init_image_plots
+from src.reward import Reward_Status
 
 import pprint
 

@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import signal
 import sys
+import argparse
 
 def find_the_distance(mutated_input, last_node):
     # find root node
@@ -43,3 +44,19 @@ def activate_ctrl_c_exit():
     def signal_handler(sig, frame):
             sys.exit(0)
     signal.signal(signal.SIGINT, signal_handler)
+
+def str2bool(v):
+    if isinstance(v, bool):
+       return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
+def merge_object(initial_obj, additional_obj):
+    for property in additional_obj.__dict__:
+        setattr(initial_obj, property, getattr(additional_obj, property))
+
+    return initial_obj
