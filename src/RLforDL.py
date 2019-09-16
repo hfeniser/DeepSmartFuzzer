@@ -89,8 +89,8 @@ class RLforDL:
             pp.pprint(self.actions_p2)
 
         if self.verbose_image:
-            self.fig_current, self.fig_plots_current = init_image_plots(8, 8, self.input_shape[1:3])
-            self.fig_best, self.fig_plots_best = init_image_plots(8, 8, self.input_shape[1:3]) 
+            self.fig_current, self.fig_plots_current = init_image_plots(8, 8, self.input_shape[1:])
+            self.fig_best, self.fig_plots_best = init_image_plots(8, 8, self.input_shape[1:]) 
     
     def get_stat(self):
         return self.best_reward, self.best_input
@@ -171,7 +171,7 @@ class RLforDL:
             if self.verbose_image:
                 self.fig_current.suptitle("level:" + str(new_state.level) + " Action: " + str((action1,action2)) + " Reward: " + str(new_state.reward))
                 for i in range(len(new_state.mutated_input[0:64])):
-                    self.fig_plots_current[i].set_data(new_state.mutated_input[i].reshape(self.input_shape[1:3]))
+                    self.fig_plots_current[i].set_data(new_state.mutated_input[i].reshape(self.input_shape[1:]))
                 self.fig_current.canvas.flush_events()
 
             if new_state.reward > self.best_reward:
@@ -180,7 +180,7 @@ class RLforDL:
                 if self.verbose_image:
                     self.fig_best.suptitle("Best Reward: " + str(self.best_reward))
                     for i in range(len(self.best_input[0:64])):
-                        self.fig_plots_best[i].set_data(self.best_input[i].reshape(self.input_shape[1:3]))
+                        self.fig_plots_best[i].set_data(self.best_input[i].reshape(self.input_shape[1:]))
                     self.fig_best.canvas.flush_events()
 
         return new_state, new_state.reward

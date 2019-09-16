@@ -140,8 +140,9 @@ class MCTS_Node:
         else:
             print("root", end=end)
 
-    def showPathVisual(self, columns=None, image_size=(28,28)):
+    def showPathVisual(self, columns=None):
         global visual_path_fig, figure_count, plt
+        image_size = self.game.input_shape[1:]
         if visual_path_fig == None:
             plt.ion()
             visual_path_fig=plt.figure(99, figsize=(24,6))
@@ -151,7 +152,7 @@ class MCTS_Node:
         if self.parent:
             if self.game.player(self.state.level-1) == 2:
                 ax1 = visual_path_fig.add_subplot(1, columns, int(self.state.level*3/2))
-                ax1.imshow(self.state.mutated_input[0].reshape(image_size), cmap='gray')
+                ax1.imshow(self.state.mutated_input[0].reshape(image_size))
 
                 plt.title("reward:%.2f" % self.state.reward)
                 
@@ -162,7 +163,7 @@ class MCTS_Node:
                 ax1.add_patch(rect)
                 
                 ax2 = visual_path_fig.add_subplot(1, columns, int(self.state.level*3/2)-1)
-                ax2.imshow(self.parent.get_potential_array().reshape(-1, 1), cmap='gray')
+                ax2.imshow(self.parent.get_potential_array().reshape(-1, 1))
                 ax2.plot(0, self.relative_index, 'r*')
                 plt.title("Action: %d" % self.relative_index)
                 xyA = (0,self.relative_index)
