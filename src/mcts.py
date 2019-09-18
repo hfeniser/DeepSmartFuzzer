@@ -67,15 +67,16 @@ class MCTS_Node:
         current_node = self
 
         # take actions until a reward or game end
-        print("current_node.state.reward_status", current_node.state.reward_status, current_node.state.level)
+        print("SIMULATE: pre while", current_node.state.reward_status, current_node.state.level)
         while (not current_node.state.game_finished) and (current_node.state.reward_status != Reward_Status.UNVISITED and current_node.state.reward_status != Reward_Status.NOT_CALCULATED):
             action = np.random.randint(0, current_node.state.nb_actions)
             current_node = current_node.expansion(action)
-            print("current_node.state.reward_status", current_node.state.reward_status, current_node.state.level)
+            print("SIMULATE: while", current_node.state.reward_status, current_node.state.level)
         
+        print("SIMULATE: after while", current_node.state.reward_status, current_node.state.level)
         if current_node.state.reward_status == Reward_Status.NOT_CALCULATED:
             current_node = current_node.parent.expansion(current_node.relative_index)
-
+        print("SIMULATE: end", current_node.state.reward_status, current_node.state.level)
         return current_node, current_node.state.reward
     
     def backprop(self, reward):
@@ -202,6 +203,7 @@ def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True):
 
             # Selection until a leaf node
             selected_node_index = None
+            print("RUN: pre while", current_node.state.game_finished, current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
             while not current_node.isLeaf() and current_node.state.reward_status != Reward_Status.NOT_CALCULATED:
                 node_index = current_node.selection()
                 if current_node.child_nodes[node_index] != None:
@@ -209,20 +211,21 @@ def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True):
                 else:
                     selected_node_index = node_index
                     break
-                print("current_node.isLeaf()", current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
-                
+                print("RUN: while", current_node.state.game_finished, current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
+            
+            print("RUN: after while", current_node.state.game_finished, current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
             # Expansion
-            if not current_node.state.game_finished:
+            # if NOT_CALCULATED then, that node should be explored first
+            # if game finished, no need to expand further
+            if current_node.state.reward_status != Reward_Status.NOT_CALCULATED and not current_node.state.game_finished:
                 if selected_node_index == None:
                     selected_node_index = np.random.randint(0, current_node.state.nb_actions)
-                    print("current_node.isLeaf()", current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
-                if current_node.state.reward_status != Reward_Status.NOT_CALCULATED:
-                    current_node = current_node.expansion(selected_node_index)
-                else:
-                    current_node = current_node.parent.expansion(selected_node_index)
-            
+                    print("current_node.isLeaf()", current_node.state.game_finished, current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
 
-            # If not a terminating leaf
+                current_node = current_node.expansion(selected_node_index)
+            
+            print("RUN: after expansion", current_node.state.game_finished, current_node.isLeaf(), current_node.state.reward_status, current_node.state.level)
+            # if game finished, no need to simulate further
             if not current_node.state.game_finished:
                 # Simulation
                 final_node, reward = current_node.simulation()
