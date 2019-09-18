@@ -1,6 +1,4 @@
 
-import parent_import # adds parent directory to sys.path
-
 from src.utility import init_image_plots, update_image_plots
 import numpy as np
 import time

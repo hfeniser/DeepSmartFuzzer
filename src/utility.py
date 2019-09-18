@@ -19,8 +19,9 @@ def find_the_distance(mutated_input, last_node):
     return dist
 
 figure_count = 1
-def init_image_plots(rows, columns, image_size, figsize=(8, 8)):
+def init_image_plots(rows, columns, input_shape, figsize=(8, 8)):
     global figure_count
+    image_size = get_image_size(input_shape)
     plt.ion()
     figure_count += 1
     fig=plt.figure(figure_count, figsize=figsize)
@@ -34,6 +35,8 @@ def init_image_plots(rows, columns, image_size, figsize=(8, 8)):
 
 def update_image_plots(f, images, title):
     (fig, fig_plots) = f
+    if images.shape[-1] == 1:
+        images = images.reshape(images.shape[:-1])
     fig.suptitle(title)
     for j in range(len(images)):
         fig_plots[j].set_data(images[j])
@@ -60,3 +63,11 @@ def merge_object(initial_obj, additional_obj):
         setattr(initial_obj, property, getattr(additional_obj, property))
 
     return initial_obj
+
+def get_image_size(input_shape):
+    image_size = input_shape
+    if len(input_shape) == 4:
+        image_size = image_size[1:]
+    if image_size[-1] == 1:
+        image_size = image_size[:-1]
+    return image_size

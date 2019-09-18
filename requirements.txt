@@ -9,4 +9,3 @@ pyflann
 h5py
 cleverhans
 opencv-python
-parent_import==0.0.1

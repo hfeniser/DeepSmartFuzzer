@@ -2,7 +2,7 @@ import numpy as np
 import itertools
 
 from src.reward import Reward_Status
-from src.utility import plt, figure_count
+from src.utility import plt, figure_count, get_image_size
 
 import copy
 
@@ -142,7 +142,9 @@ class MCTS_Node:
 
     def showPathVisual(self, columns=None):
         global visual_path_fig, figure_count, plt
-        image_size = self.game.input_shape[1:]
+        
+        image_size = get_image_size(self.game.input_shape)
+
         if visual_path_fig == None:
             plt.ion()
             visual_path_fig=plt.figure(99, figsize=(24,6))
