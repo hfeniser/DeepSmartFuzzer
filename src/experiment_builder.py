@@ -44,13 +44,13 @@ def _get_model(params, experiment):
         from keras.layers import Input
         model = LeNet1(Input((28,28,1)))
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    elif params.model == "Lenet4":
+    elif params.model == "LeNet4":
         from src.LeNet.lenet_models import LeNet4
         from keras.layers import Input
         model = LeNet4(Input((28,28,1)))
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    elif params.model == "Lenet5":
-        from src.CIFAR10LeNet.lenet_models import LeNet5
+    elif params.model == "LeNet5":
+        from src.LeNet.lenet_models import LeNet5
         from keras.layers import Input
         model = LeNet5(Input((28,28,1)))
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
@@ -69,11 +69,17 @@ def _get_coverage(params, experiment):
 
     if params.coverage == "neuron":
         from coverages.neuron_cov import NeuronCoverage
+        #TODO: Skip layers should be determined autoamtically
         coverage = NeuronCoverage(experiment.model, skip_layers=[0,5], calc_implicit_reward_neuron=params.calc_implicit_reward_neuron, calc_implicit_reward=params.calc_implicit_reward) # 0:input, 5:flatten
     elif params.coverage == "kmn" or params.coverage == "nbc" or params.coverage == "snac":
         from coverages.kmn import DeepGaugePercentCoverage
         k = 20
+        #TODO: Skip layers should be determined autoamtically
         coverage = DeepGaugePercentCoverage(experiment.model, k, experiment.dataset["train_inputs"], skip_layers=[0,5], coverage_name=params.coverage, calc_implicit_reward_neuron=params.calc_implicit_reward_neuron, calc_implicit_reward=params.calc_implicit_reward) # 0:input, 5:flatten
+    elif params.coverage == "tfc":
+        from coverages.tfc import TFCoverage
+        #TODO: Subject layer and distance threshold could be added to
+        coverage = TFCoverage(experiment.model, -3, 35000000)
     else:
         raise Exception("Unknown Coverage" + str(params.coverage))
 

@@ -12,7 +12,7 @@ def run_experiment(params):
         print("Parameters:", params)
 
     experiment.coverage.step(experiment.dataset["test_inputs"])
-    
+
     if params.verbose:
         print("initial coverage: %g" % (experiment.coverage.get_current_coverage()))
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     parser.add_argument("--dataset", type=str, default="MNIST", choices=["MNIST", "CIFAR10"])
     parser.add_argument("--model", type=str, default="LeNet1", choices=["LeNet1", "LeNet4", "LeNet5", "CIFAR_ORIGINAL"])
     parser.add_argument("--implicit_reward", type=str2bool, nargs='?', const=True, default=False)
-    parser.add_argument("--coverage", type=str, default="neuron", choices=["neuron", "kmn", "nbc", "snac"])
+    parser.add_argument("--coverage", type=str, default="neuron", choices=["neuron", "kmn", "nbc", "snac", "tfc"])
     parser.add_argument("--input_chooser", type=str, default="random", choices=["random", "clustered_random"])
     parser.add_argument("--runner", type=str, default="mcts", choices=["mcts", "mcts_clustered", "mcts_selected", "deephunter"])
     parser.add_argument("--batch_size", type=int, default=64)

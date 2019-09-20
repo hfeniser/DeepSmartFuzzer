@@ -59,5 +59,5 @@ class AbstractCoverage(ABC):
         pass
 
     @abstractmethod
-    def test(self, with_implicit_reward=False):
+    def test(self, test_inputs, with_implicit_reward=False):
         pass

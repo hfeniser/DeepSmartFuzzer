@@ -31,12 +31,17 @@ class CombCoverage:
         self.train_inputs = train_inputs
         self.train_labels = train_labels
 
-
     def get_measure_state(self):
         return self.covered_combinations
 
     def set_measure_state(self, covered_combinations):
         self.covered_combinations = covered_combinations
+
+    def reset_measure_state(self):
+        self.covered_combinations = ()
+
+    def get_current_coverage(self):
+        return self.covered_combinations
 
     def test(self, test_inputs):
         #########################
