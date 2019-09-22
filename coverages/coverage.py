@@ -8,6 +8,7 @@ coverage_call_count = 0
 class AbstractCoverage(ABC):
     def step(self, test_inputs, update_state=True, coverage_state=None, with_implicit_reward=False):
         global coverage_call_count
+        print("COVERAGE CALL!!!!!!!!!!!!")
         coverage_call_count += 1
         if coverage_call_count % 100 == 0:
             print("coverage_call_count", coverage_call_count)
@@ -58,5 +59,5 @@ class AbstractCoverage(ABC):
         pass
 
     @abstractmethod
-    def test(self, with_implicit_reward=False):
+    def test(self, test_inputs, with_implicit_reward=False):
         pass

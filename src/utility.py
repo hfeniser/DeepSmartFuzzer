@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import signal
 import sys
+import argparse
 
 def find_the_distance(mutated_input, last_node):
     # find root node
@@ -18,8 +19,9 @@ def find_the_distance(mutated_input, last_node):
     return dist
 
 figure_count = 1
-def init_image_plots(rows, columns, image_size, figsize=(8, 8)):
+def init_image_plots(rows, columns, input_shape, figsize=(8, 8)):
     global figure_count
+    image_size = get_image_size(input_shape)
     plt.ion()
     figure_count += 1
     fig=plt.figure(figure_count, figsize=figsize)
@@ -33,6 +35,8 @@ def init_image_plots(rows, columns, image_size, figsize=(8, 8)):
 
 def update_image_plots(f, images, title):
     (fig, fig_plots) = f
+    if images.shape[-1] == 1:
+        images = images.reshape(images.shape[:-1])
     fig.suptitle(title)
     for j in range(len(images)):
         fig_plots[j].set_data(images[j])
@@ -43,3 +47,27 @@ def activate_ctrl_c_exit():
     def signal_handler(sig, frame):
             sys.exit(0)
     signal.signal(signal.SIGINT, signal_handler)
+
+def str2bool(v):
+    if isinstance(v, bool):
+       return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
+def merge_object(initial_obj, additional_obj):
+    for property in additional_obj.__dict__:
+        setattr(initial_obj, property, getattr(additional_obj, property))
+
+    return initial_obj
+
+def get_image_size(input_shape):
+    image_size = input_shape
+    if len(input_shape) == 4:
+        image_size = image_size[1:]
+    if image_size[-1] == 1:
+        image_size = image_size[:-1]
+    return image_size

@@ -111,7 +111,7 @@ def calc_major_func_regions(model, train_inputs, skip=None):
     major_regions = []
 
     for layer_index, layer_out in enumerate(outs):  # layer_out is output of layer for all inputs
-        layer_out = layer_out[0].mean(axis=tuple(i for i in range(1, layer_out[0].ndim - 1)))
+        layer_out = layer_out.mean(axis=tuple(i for i in range(1, layer_out.ndim - 1)))
 
         major_regions.append((layer_out.min(axis=0), layer_out.max(axis=0)))
 

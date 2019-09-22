@@ -4,8 +4,8 @@ import numpy as np
 import src.image_transforms as image_transforms
 import copy
 
-from src_v2.utility import find_the_distance, init_image_plots
-from src_v2.reward import Reward_Status
+from src.utility import find_the_distance, init_image_plots, update_image_plots
+from src.reward import Reward_Status
 
 import pprint
 
@@ -89,8 +89,8 @@ class RLforDL:
             pp.pprint(self.actions_p2)
 
         if self.verbose_image:
-            self.fig_current, self.fig_plots_current = init_image_plots(8, 8, self.input_shape[1:3])
-            self.fig_best, self.fig_plots_best = init_image_plots(8, 8, self.input_shape[1:3]) 
+            self.f_current = init_image_plots(8, 8, self.input_shape)
+            self.f_best = init_image_plots(8, 8, self.input_shape) 
     
     def get_stat(self):
         return self.best_reward, self.best_input
@@ -169,19 +169,15 @@ class RLforDL:
                 print("Reward:", new_state.reward)
             
             if self.verbose_image:
-                self.fig_current.suptitle("level:" + str(new_state.level) + " Action: " + str((action1,action2)) + " Reward: " + str(new_state.reward))
-                for i in range(len(new_state.mutated_input[0:64])):
-                    self.fig_plots_current[i].set_data(new_state.mutated_input[i].reshape(self.input_shape[1:3]))
-                self.fig_current.canvas.flush_events()
+                title = "level:" + str(new_state.level) + " Action: " + str((action1,action2)) + " Reward: " + str(new_state.reward)
+                update_image_plots(self.f_current, new_state.mutated_input, title)
 
             if new_state.reward > self.best_reward:
                 self.best_input, self.best_reward = copy.deepcopy(new_state.mutated_input), new_state.reward
 
                 if self.verbose_image:
-                    self.fig_best.suptitle("Best Reward: " + str(self.best_reward))
-                    for i in range(len(self.best_input[0:64])):
-                        self.fig_plots_best[i].set_data(self.best_input[i].reshape(self.input_shape[1:3]))
-                    self.fig_best.canvas.flush_events()
+                    title = "Best Reward: " + str(self.best_reward)
+                    update_image_plots(self.f_best, self.best_input, title)
 
         return new_state, new_state.reward
 

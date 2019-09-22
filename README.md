@@ -7,16 +7,34 @@
 pip install -r requirements.txt
 ```
 
-### 2) MNIST-LeNet Experiments
-* deephunter: runs deephunter
-* mcts_batch: runs mcts on batches formed from the testset
-* mcts_one: runs mcts on one random input from the testset
-* mcts: runs mcts one input at a time
-* mcts_selected_batches: runs mcts on the given batches(deephunter_x.npy files in data dir)
-
-Example Usage:
+### 2) Usage
 ```
-python mnist_experiments/mcts_selected_batches.py --lenet 5 --coverage nbc
+usage: run_experiment.py [-h] [--params_set {mnist_lenet,cifar10}]
+                         [--dataset {MNIST,CIFAR10}]
+                         [--model {LeNet1,LeNet4,LeNet5,CIFAR_ORIGINAL}]
+                         [--implicit_reward [IMPLICIT_REWARD]]
+                         [--coverage {neuron,kmn,nbc,snac}]
+                         [--input_chooser {random,clustered_random}]
+                         [--runner {mcts,mcts_clustered,mcts_selected,deephunter}]
+                         [--batch_size BATCH_SIZE]
+                         [--nb_iterations NB_ITERATIONS] [--verbose [VERBOSE]]
+                         [--image_verbose [IMAGE_VERBOSE]]
+
+Experiments Script For RLforDL
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --params_set {mnist_lenet,cifar10}
+  --dataset {MNIST,CIFAR10}
+  --model {LeNet1,LeNet4,LeNet5,CIFAR_ORIGINAL}
+  --implicit_reward [IMPLICIT_REWARD]
+  --coverage {neuron,kmn,nbc,snac}
+  --input_chooser {random,clustered_random}
+  --runner {mcts,mcts_clustered,mcts_selected,deephunter}
+  --batch_size BATCH_SIZE
+  --nb_iterations NB_ITERATIONS
+  --verbose [VERBOSE]
+  --image_verbose [IMAGE_VERBOSE]
 ```
 
 ## Copyright Notice
