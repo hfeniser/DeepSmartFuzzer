@@ -9,6 +9,7 @@ class Tensorfuzz():
         self.num_iteration = glob_num_iteration
         self.corpus = corpus
         self.coverage = coverage
+        self.last_coverage_state = None
 
     def fuzz():
         for iteration in range(self.num_iteration):
@@ -18,13 +19,18 @@ class Tensorfuzz():
             inp = uniform_sample_function(self.corpus)
             mutated_data_batches = do_basic_mutations(inp, glob_num_mutations)
 
-            last_cov, cov = self.coverage.step(
-                self.corpus.append(mutated_data_batches), update_stae=False)
+            prospective_corpus = self.corpus
+            prospective_corpus.append(mutated_data_batches)
+
+            _, cov = self.coverage.step(
+                prospective_corpus, update_stae=False, self.last_coverage_state)
 
 
             if cov > 0:
-                self.corpus.append(mutated_data_batches)
-
+                self.corpus = prospective_corpus
+                last_cov, cov = coverage.step(self.corpus, update_state=True,
+                                              coverage_state=last_coverage_state)
+                self.last_coverage_state = last_cov
 
         return None
 
