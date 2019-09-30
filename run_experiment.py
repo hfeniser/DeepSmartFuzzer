@@ -43,7 +43,7 @@ if __name__ == "__main__":
     parser.add_argument("--implicit_reward", type=str2bool, nargs='?', const=True, default=False)
     parser.add_argument("--coverage", type=str, default="neuron", choices=["neuron", "kmn", "nbc", "snac", "tfc"])
     parser.add_argument("--input_chooser", type=str, default="random", choices=["random", "clustered_random"])
-    parser.add_argument("--runner", type=str, default="mcts", choices=["mcts", "mcts_clustered", "mcts_selected", "deephunter"])
+    parser.add_argument("--runner", type=str, default="mcts", choices=["mcts", "mcts_clustered", "mcts_selected", "deephunter", "tensorfuzz"])
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--nb_iterations", type=int, default=30)
     parser.add_argument("--verbose", type=str2bool, nargs='?', const=True, default=True)
