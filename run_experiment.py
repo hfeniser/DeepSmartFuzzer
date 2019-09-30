@@ -37,7 +37,7 @@ def load_runner(params):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Experiments Script For RLforDL")
-    parser.add_argument("--params_set", type=str, default="mnist_lenet", choices=["mnist_lenet", "cifar10"])
+    parser.add_argument("--params_set", type=str, default="mnist_lenet", choices=["mnist_lenet", "cifar10", "deephunter_mnist"])
     parser.add_argument("--dataset", type=str, default="MNIST", choices=["MNIST", "CIFAR10"])
     parser.add_argument("--model", type=str, default="LeNet1", choices=["LeNet1", "LeNet4", "LeNet5", "CIFAR_ORIGINAL"])
     parser.add_argument("--implicit_reward", type=str2bool, nargs='?', const=True, default=False)

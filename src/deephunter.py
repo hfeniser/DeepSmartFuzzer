@@ -1,108 +1,5 @@
 import numpy as np
-import itertools
-import src.image_transforms as image_transforms
-
-# PARAMETERS
-K = 64
-batch1 = 64
-batch2 = 16
-p_min = 0.01
-gamma = 5
-alpha = 0.1
-beta = 0.5
-TRY_NUM = 100
-
-verbose_image = True
-
-if verbose_image:
-    import matplotlib.pyplot as plt
-
-    rows, columns = 8, 8
-    plt.ion()
-    fig = plt.figure(1)
-    ax = plt.imshow(np.random.randint(0, 256, size=(28, 28)))
-    fig2 = plt.figure(2, figsize=(8, 8))
-    fig2.suptitle("NOT FOUND ANY COVERAGE INCREASE")
-    fig2_plots = []
-    for i in range(1, columns * rows + 1):
-        fig2.add_subplot(rows, columns, i)
-        subplot = plt.imshow(np.random.randint(0, 256, size=(28, 28)))
-        fig2_plots.append(subplot)
-    plt.show()
-
-last_coverage_state = None
-
-
-def DeepHunter(I, coverage, K=K):
-    F = np.array([]).reshape(0, 28, 28, 1)
-    T = Preprocess(I)
-    B, B_id = SelectNext(T)
-
-    counter = 0
-    while B is not None:
-        counter += 1
-        if counter == 11:
-            break
-        S = Sample(B)
-        np.save("data/deephunter_{}".format(counter), S)
-        print("counter", counter)
-        Ps = PowerSchedule(S, K)
-        B_new = np.array([]).reshape(0, 28, 28, 1)
-        for s_i in range(len(S)):
-            I = S[s_i]
-            for i in range(1, Ps(s_i) + 1):
-                I_new = Mutate(I)
-                if isFailedTest(I_new):
-                    F += np.concatenate((F, [I_new]))
-                elif isChanged(I, I_new):
-                    B_new = np.concatenate((B_new, [I_new]))
-
-        if len(B_new) > 0:
-            cov = Predict(coverage, B_new)
-            print("coverage increase:", cov)
-
-            if verbose_image:
-                plt.figure(2)
-                fig2.suptitle("Coverage Increase: " + str(cov))
-                for i in range(len(B_new[0:64])):
-                    fig2_plots[i].set_data(B_new[i].reshape((28, 28)))
-                fig2.canvas.flush_events()
-
-            if CoverageGain(cov):
-                coverage.step(B_new, update_state=True, coverage_state=last_coverage_state)
-                print("coverage:", coverage.get_current_coverage())
-                B_c, Bs = T
-                B_c += [0]
-                Bs += [B_new]
-                BatchPrioritize(T, B_id)
-
-        B, B_id = SelectNext(T)
-
-
-def Preprocess(I, batch_size=batch1):
-    _I = np.random.permutation(I)
-    Bs = np.array_split(_I, range(64, len(_I), 64))
-    return list(np.zeros(len(Bs))), Bs
-
-
-def calc_priority(B_ci, p_min=0.01, gamma=5):
-    if B_ci < (1 - p_min) * gamma:
-        return 1 - B_ci / gamma
-    else:
-        return p_min
-
-
-def SelectNext(T):
-    B_c, Bs = T
-    B_p = [calc_priority(B_c[i]) for i in range(len(B_c))]
-    c = np.random.choice(len(Bs), p=B_p / np.sum(B_p))
-    return Bs[c], c
-
-
-def Sample(B, batch_size=batch2):
-    c = np.random.choice(len(B), size=batch_size, replace=False)
-    return B[c]
-
+from src.utility import init_image_plots, update_image_plots
 
 class INFO:
     def __init__(self):
@@ -122,102 +19,160 @@ class INFO:
         return self.dict[_i]
 
 
-info = INFO()
+class DeepHunter:
+    def __init__(self, params, experiment):
+        self.params = params
+        self.experiment = experiment
+        self.info = INFO()
+        self.last_coverage_state = None
+        self.input_shape = params.input_shape
+        
+    def run(self):
+        I = self.experiment.dataset["test_inputs"]
+        if self.params.image_verbose:
+            self.f_current = init_image_plots(1, 1, I.shape)
+            self.f_best = init_image_plots(8, 8, I.shape)
+        
+
+        F = np.array([]).reshape(0, *(self.input_shape[1:]))
+        T = self.Preprocess(I)
+        B, B_id = self.SelectNext(T)
+
+        counter = 0
+        while B is not None:
+            S = self.Sample(B)
+            if self.params.save_batch:
+                counter += 1
+                np.save("data/deephunter_{}".format(counter), S)
+
+            Ps = self.PowerSchedule(S, self.params.K)
+            B_new = np.array([]).reshape(0, *(self.input_shape[1:]))
+            for s_i in range(len(S)):
+                I = S[s_i]
+                for i in range(1, Ps(s_i) + 1):
+                    I_new = self.Mutate(I)
+                    if self.isFailedTest(I_new):
+                        F += np.concatenate((F, [I_new]))
+                    elif self.isChanged(I, I_new):
+                        B_new = np.concatenate((B_new, [I_new]))
+
+            if len(B_new) > 0:
+                cov = self.Predict(B_new)
+                
+                if self.params.verbose:
+                    print("coverage increase:", cov)
+
+                if self.params.image_verbose:
+                    title = "Coverage Increase: " + str(cov)
+                    update_image_plots(self.f_best, B_new, title)
+
+                if self.CoverageGain(cov):
+                    self.experiment.coverage.step(B_new, update_state=True, coverage_state=self.last_coverage_state)
+                    print("coverage:", self.experiment.coverage.get_current_coverage())
+                    B_c, Bs = T
+                    B_c += [0]
+                    Bs += [B_new]
+                    self.BatchPrioritize(T, B_id)
+
+            B, B_id = self.SelectNext(T)
 
 
-def PowerSchedule(S, K, beta=beta):
-    global info
-    potentials = []
-    for i in range(len(S)):
-        I = S[i]
-        I0, I0_new, state = info[I]
-        p = beta * 255 * np.sum(I > 0) - np.sum(np.abs(I - I0_new))
-        potentials.append(p)
-    potentials = np.array(potentials) / np.sum(potentials)
-
-    def Ps(I_id):
-        p = potentials[I_id]
-        return int(np.ceil(p * K))
-
-    return Ps
+    def Preprocess(self, I):
+        _I = np.random.permutation(I)
+        Bs = np.array_split(_I, range(self.params.batch1, len(_I), self.params.batch1))
+        return list(np.zeros(len(Bs))), Bs
 
 
-def isFailedTest(I_new):
-    return False
-
-
-def isChanged(I, I_new):
-    return np.any(I != I_new)
-
-
-def Predict(coverage, B_new):
-    global last_coverage_state
-    print("Predict B_new.shape", np.array(B_new).shape)
-    last_coverage_state, cov = coverage.step(B_new, update_state=False)
-    return cov
-
-
-def CoverageGain(cov):
-    return cov > 0
-
-
-def BatchPrioritize(T, B_id):
-    B_c, Bs = T
-    B_c[B_id] += 1
-
-
-# translation = list(itertools.product([getattr(image_transforms,"image_translation")], [(10+10*k,10+10*k) for k in range(10)]))
-# scale = list(itertools.product([getattr(image_transforms, "image_scale")], [(1.5+0.5*k,1.5+0.5*k) for k in range(10)]))
-# shear = list(itertools.product([getattr(image_transforms, "image_shear")], [(-1.0+0.1*k,0) for k in range(10)]))
-# rotation = list(itertools.product([getattr(image_transforms, "image_rotation")], [3+3*k for k in range(10)]))
-# contrast = list(itertools.product([getattr(image_transforms, "image_contrast")], [1.2+0.2*k for k in range(10)]))
-# brightness = list(itertools.product([getattr(image_transforms, "image_brightness")], [10+10*k for k in range(10)]))
-# blur = list(itertools.product([getattr(image_transforms, "image_blur")], [k+1 for k in range(10)]))
-
-translation = list(itertools.product([getattr(image_transforms, "image_translation")],
-                                     [(-5, -5), (-5, 0), (0, -5), (0, 0), (5, 0), (0, 5), (5, 5)]))
-rotation = list(
-    itertools.product([getattr(image_transforms, "image_rotation")], [-15, -12, -9, -6, -3, 3, 6, 9, 12, 15]))
-contrast = list(itertools.product([getattr(image_transforms, "image_contrast")], [1.2 + 0.2 * k for k in range(10)]))
-brightness = list(itertools.product([getattr(image_transforms, "image_brightness")], [10 + 10 * k for k in range(10)]))
-blur = list(itertools.product([getattr(image_transforms, "image_blur")], [k + 1 for k in range(10)]))
-
-G = translation + rotation
-P = contrast + brightness + blur
-
-
-def Mutate(I, TRY_NUM=TRY_NUM):
-    global info
-    I0, I0_new, state = info[I]
-    for i in range(1, TRY_NUM):
-        if state == 0:
-            t, p = randomPick(G + P)
+    def calc_priority(self, B_ci):
+        if B_ci < (1 - self.params.p_min) * self.params.gamma:
+            return 1 - B_ci / self.params.gamma
         else:
-            t, p = randomPick(P)
+            return self.params.p_min
 
-        I_new = t(np.copy(I), p).reshape(28, 28, 1)
-        I_new = np.clip(I_new, 0, 255)
-        if verbose_image:
-            plt.figure(1)
-            ax.set_data(I_new.reshape((28, 28)))
-            fig.canvas.flush_events()
-        if f(I0_new, I_new):
-            if (t, p) in G:
-                state = 1
-                I0_new = t(np.copy(I0), p)
-            info[I_new] = (np.copy(I0), np.copy(I0_new), state)
-            return I_new
-
-    return I
+    def SelectNext(self, T):
+        B_c, Bs = T
+        B_p = [self.calc_priority(B_c[i]) for i in range(len(B_c))]
+        c = np.random.choice(len(Bs), p=B_p / np.sum(B_p))
+        return Bs[c], c
 
 
-def randomPick(A):
-    c = np.random.randint(0, len(A))
-    return A[c]
+    def Sample(self, B):
+        c = np.random.choice(len(B), size=self.params.batch2, replace=False)
+        return B[c]
 
 
-def f(I, I_new, beta=beta, alpha=alpha):
-    if (np.sum((I - I_new) != 0) < alpha * np.sum(I > 0)):
-        return np.max(np.abs(I - I_new)) <= 255
-    else:
-        return np.max(np.abs(I - I_new)) <= beta * 255
+    def PowerSchedule(self, S, K):
+        potentials = []
+        for i in range(len(S)):
+            I = S[i]
+            I0, I0_new, state = self.info[I]
+            p = self.params.beta * 255 * np.sum(I > 0) - np.sum(np.abs(I - I0_new))
+            potentials.append(p)
+        potentials = np.array(potentials) / np.sum(potentials)
+
+        def Ps(I_id):
+            p = potentials[I_id]
+            return int(np.ceil(p * K))
+
+        return Ps
+
+
+    def isFailedTest(self, I_new):
+        return False
+
+
+    def isChanged(self, I, I_new):
+        return np.any(I != I_new)
+
+
+    def Predict(self, B_new):
+        print("Predict B_new.shape", np.array(B_new).shape)
+        self.last_coverage_state, cov = self.experiment.coverage.step(B_new, update_state=False)
+        return cov
+
+
+    def CoverageGain(self, cov):
+        return cov > 0
+
+
+    def BatchPrioritize(self, T, B_id):
+        B_c, Bs = T
+        B_c[B_id] += 1
+
+
+    def Mutate(self, I):
+        G, P = self.params.G, self.params.P
+        I0, I0_new, state = self.info[I]
+        for i in range(1, self.params.TRY_NUM):
+            if state == 0:
+                t, p = self.randomPick(G + P)
+            else:
+                t, p = self.randomPick(P)
+
+            I_new = t(np.copy(I), p).reshape(*(self.input_shape[1:]))
+            I_new = np.clip(I_new, 0, 255)
+
+            if self.params.image_verbose:
+                title = ""
+                update_image_plots(self.f_current, I_new.reshape(*self.input_shape), title)
+                    
+            if self.f(I0_new, I_new):
+                if (t, p) in G:
+                    state = 1
+                    I0_new = t(np.copy(I0), p)
+                self.info[I_new] = (np.copy(I0), np.copy(I0_new), state)
+                return I_new
+
+        return I
+
+
+    def randomPick(self, A):
+        c = np.random.randint(0, len(A))
+        return A[c]
+
+
+    def f(self, I, I_new):
+        if (np.sum((I - I_new) != 0) < self.params.alpha * np.sum(I > 0)):
+            return np.max(np.abs(I - I_new)) <= 255
+        else:
+            return np.max(np.abs(I - I_new)) <= self.params.beta * 255

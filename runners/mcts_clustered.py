@@ -1,13 +1,17 @@
 import numpy as np
 from src.mcts import MCTS_Node, run_mcts
 from src.RLforDL import RLforDL, RLforDL_State, Reward_Status
+import glob, os
 
 def mcts_clustered(params, experiment):
     if params.input_chooser != "clustered_random":
         raise Exception("Incompatible Runner:mcts_clustered_batch and Input Chooser:" + str(params.input_chooser))
 
-    game = RLforDL(experiment.coverage, params.input_shape, params.input_lower_limit, params.input_upper_limit,\
-        params.action_division_p1, params.actions_p2, params.tc3, with_implicit_reward=params.implicit_reward)
+    game = RLforDL(params, experiment)
+
+    fileList = glob.glob('data/mcts*', recursive=True)
+    for f in fileList:
+        os.remove(f)
 
     mcts_roots = [None] * len(experiment.input_chooser)
 
@@ -19,13 +23,14 @@ def mcts_clustered(params, experiment):
         
         root_state = RLforDL_State(test_input, 0, game=game)
         root = MCTS_Node(root_state, game)
-        run_mcts(root, params.tc1, params.tc2)
+        run_mcts(root, params.tc1, params.tc2, verbose=params.verbose, image_verbose=params.image_verbose)
         
         best_coverage, best_input = game.get_stat()
         game.reset_stat()
         if best_coverage > 0:
             experiment.coverage.step(best_input, update_state=True)
-            np.save("data/mcts_{}.npy".format(i+1), best_input)
+            if params.save_batch:
+                np.save("data/mcts_{}.npy".format(i+1), best_input)
             print("IMAGE %g SUCCEED" % (i))
             print("found coverage increase", best_coverage)
             print("found different input", np.any(best_input-test_input != 0))

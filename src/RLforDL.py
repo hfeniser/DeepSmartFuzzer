@@ -41,15 +41,17 @@ class RLforDL_State:
             self.reward_status = Reward_Status.VISITED
 
 class RLforDL:
-    def __init__(self, coverage, input_shape, input_lower_limit, input_upper_limit, action_division_p1, actions_p2, ending_condition, with_implicit_reward=False, distance_in_reward=False, verbose=True, verbose_image=True):
-        self.coverage = coverage
-        self.input_shape = input_shape
-        self.input_lower_limit = input_lower_limit
-        self.input_upper_limit = input_upper_limit
+    def __init__(self, params, experiment):
+        self.params = params
+        self.experiment = experiment
+        self.coverage = experiment.coverage
+        self.input_shape = params.input_shape
+        self.input_lower_limit = params.input_lower_limit
+        self.input_upper_limit = params.input_upper_limit
         options_p1 = []
         self.actions_p1_spacing = []
-        for i in range(len(action_division_p1)):
-            spacing = int(self.input_shape[i] / action_division_p1[i])
+        for i in range(len(params.action_division_p1)):
+            spacing = int(self.input_shape[i] / params.action_division_p1[i])
             if self.input_shape[i] == 1:
                 options_p1.append([0])
             else:
@@ -60,7 +62,7 @@ class RLforDL:
         actions_p1_upper_limit = np.add(actions_p1_lower_limit, self.actions_p1_spacing)
 
         # round upper_limits of end/edge section to input_shape (NO EXACT DIVISION)
-        for i in range(len(action_division_p1)):
+        for i in range(len(params.action_division_p1)):
             if self.input_shape[i] != 1:
                round_up = actions_p1_upper_limit[:,i] > (self.input_shape[i] - self.actions_p1_spacing[i])
                actions_p1_upper_limit[:,i] = round_up * self.input_shape[i] + np.logical_not(round_up) * actions_p1_upper_limit[:,i]
@@ -72,12 +74,11 @@ class RLforDL:
                 "upper_limits": actions_p1_upper_limit[i]
             })
         
-        self.actions_p2 = actions_p2
-        self.ending_condition = ending_condition
-        self.with_implicit_reward = with_implicit_reward
-        self.distance_in_reward = distance_in_reward
-        self.verbose = verbose
-        self.verbose_image = verbose_image
+        self.actions_p2 = params.actions_p2
+        self.ending_condition = params.tc3
+        self.with_implicit_reward = params.implicit_reward
+        self.verbose = params.verbose
+        self.image_verbose = params.image_verbose
 
         self.best_reward = 0
         self.best_input = None
@@ -88,7 +89,7 @@ class RLforDL:
             print("self.actions_p2")
             pp.pprint(self.actions_p2)
 
-        if self.verbose_image:
+        if self.image_verbose:
             self.f_current = init_image_plots(8, 8, self.input_shape)
             self.f_best = init_image_plots(8, 8, self.input_shape) 
     
@@ -168,14 +169,14 @@ class RLforDL:
             if self.verbose:
                 print("Reward:", new_state.reward)
             
-            if self.verbose_image:
+            if self.image_verbose:
                 title = "level:" + str(new_state.level) + " Action: " + str((action1,action2)) + " Reward: " + str(new_state.reward)
                 update_image_plots(self.f_current, new_state.mutated_input, title)
 
             if new_state.reward > self.best_reward:
                 self.best_input, self.best_reward = copy.deepcopy(new_state.mutated_input), new_state.reward
 
-                if self.verbose_image:
+                if self.image_verbose:
                     title = "Best Reward: " + str(self.best_reward)
                     update_image_plots(self.f_best, self.best_input, title)
 

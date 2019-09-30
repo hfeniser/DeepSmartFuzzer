@@ -1,8 +1,6 @@
 import numpy as np
 import itertools
-
-class Parameters:
-    pass
+from params.parameters import Parameters
 
 cifar10 = Parameters()
 
@@ -57,3 +55,5 @@ def calc_implicit_reward(activation_values, covered_positions):
     return np.max(activation_values * np.logical_not(covered_positions))
 
 cifar10.calc_implicit_reward = calc_implicit_reward
+
+cifar10.save_batch = False

@@ -190,7 +190,7 @@ class MCTS_Node:
 
 
 
-def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True):
+def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True, image_verbose=True):
     while not tc1(root.state):                
         if root.isLeaf() and root.state.game_finished:
             if verbose:
@@ -232,7 +232,8 @@ def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True):
             
                 # Backpropagation
                 if not final_node.state.game_finished and reward != None:
-                    final_node.showPathVisual()
+                    if image_verbose:
+                        final_node.showPathVisual()
                     final_node.backprop(reward)
             
             if verbose:

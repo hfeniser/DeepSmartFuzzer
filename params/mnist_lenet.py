@@ -1,8 +1,7 @@
 import numpy as np
 import itertools
 
-class Parameters:
-    pass
+from params.parameters import Parameters
 
 mnist_lenet = Parameters()
 
@@ -57,3 +56,4 @@ def calc_implicit_reward(activation_values, covered_positions):
     return np.max(activation_values * np.logical_not(covered_positions))
 
 mnist_lenet.calc_implicit_reward = calc_implicit_reward
+mnist_lenet.save_batch = False

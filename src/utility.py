@@ -17,7 +17,7 @@ def find_the_distance(mutated_input, last_node):
     #print("dist", dist)
     return dist
 
-figure_count = 1
+figure_count = 0
 def init_image_plots(rows, columns, input_shape, figsize=(8, 8)):
     global figure_count
     import matplotlib.pyplot as plt
@@ -31,14 +31,14 @@ def init_image_plots(rows, columns, input_shape, figsize=(8, 8)):
         subplot = plt.imshow(np.random.randint(0,256,size=image_size))
         fig_plots.append(subplot)
     plt.show()
-    return (fig, fig_plots)
+    return (fig, fig_plots, rows, columns)
 
 def update_image_plots(f, images, title):
-    (fig, fig_plots) = f
+    (fig, fig_plots, rows, columns) = f
     if images.shape[-1] == 1:
         images = images.reshape(images.shape[:-1])
     fig.suptitle(title)
-    for j in range(len(images)):
+    for j in range(len(images[:rows*columns])):
         fig_plots[j].set_data(images[j])
     fig.canvas.draw()
     fig.canvas.flush_events()
