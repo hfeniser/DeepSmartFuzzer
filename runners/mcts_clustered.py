@@ -18,11 +18,8 @@ def mcts_clustered(params, experiment):
             print("cluster_index", cluster_index)
         
         root_state = RLforDL_State(test_input, 0, game=game)
-        if mcts_roots[cluster_index] == None:
-            mcts_roots[cluster_index] = MCTS_Node(root_state, game)
-        else:
-            mcts_roots[cluster_index].updateRootWithNewInput(root_state)
-        run_mcts(mcts_roots[cluster_index], params.tc1, params.tc2)
+        root = MCTS_Node(root_state, game)
+        run_mcts(root, params.tc1, params.tc2)
         
         best_coverage, best_input = game.get_stat()
         game.reset_stat()

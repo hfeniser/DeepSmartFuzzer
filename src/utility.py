@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import signal
 import sys
@@ -21,6 +20,7 @@ def find_the_distance(mutated_input, last_node):
 figure_count = 1
 def init_image_plots(rows, columns, input_shape, figsize=(8, 8)):
     global figure_count
+    import matplotlib.pyplot as plt
     image_size = get_image_size(input_shape)
     plt.ion()
     figure_count += 1

@@ -2,11 +2,9 @@ import numpy as np
 import itertools
 
 from src.reward import Reward_Status
-from src.utility import plt, figure_count, get_image_size
+from src.utility import figure_count, get_image_size
 
 import copy
-
-import matplotlib.patches as patches
 
 visual_path_fig = None
 
@@ -142,8 +140,10 @@ class MCTS_Node:
             print("root", end=end)
 
     def showPathVisual(self, columns=None):
-        global visual_path_fig, figure_count, plt
-        
+        global visual_path_fig, figure_count
+        import matplotlib.patches as patches
+        import matplotlib.pyplot as plt
+
         image_size = get_image_size(self.game.input_shape)
 
         if visual_path_fig == None:

@@ -3,6 +3,12 @@ import importlib
 from src.utility import str2bool, merge_object
 from src.experiment_builder import get_experiment
 
+import signal
+import sys
+def signal_handler(sig, frame):
+        print('You pressed Ctrl+C!')
+        sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
 
 def run_experiment(params):
     params = load_params(params)

@@ -12,7 +12,6 @@ from coverages.utils import save_max_comb, load_max_comb, get_layer_outs_new
 from lrp_toolbox.model_io import write, read
 
 from scipy.spatial.distance import cdist
-import matplotlib.pyplot as plt
 
 experiment_folder = 'experiments'
 model_folder      = 'neural_networks'
