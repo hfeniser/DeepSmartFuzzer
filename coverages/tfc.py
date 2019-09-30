@@ -34,9 +34,6 @@ class TFCoverage(AbstractCoverage):
         for plo in pen_layer_outs:
             if len(self.distant_vectors) > 0:
                 _, dists = flann.nn(np.array(self.distant_vectors), plo, 1)
-                print(dists)
-                print(self.distant_vectors)
-                print(plo)
                 if dists > self.distance_threshold:
                   self.distant_vectors.append(plo)
             else:

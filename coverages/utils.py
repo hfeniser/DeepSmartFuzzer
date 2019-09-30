@@ -95,11 +95,12 @@ def get_layer_outs(model, test_input, skip=[]):
 
 
 def get_layer_outs_new(model, test_input, skip=[]):
-    evaluater = models.Model(inputs=model.input,
+    print(model.input.shape)
+    evaluator = models.Model(inputs=model.input,
                              outputs=[layer.output for index, layer in enumerate(model.layers)
-                                      if index not in skip])
+                                      if index not in skip][1:])
 
-    return evaluater.predict(test_input)
+    return evaluator.predict(test_input) #np.expand_dims( test_input, axis=0))
 
 
 def calc_major_func_regions(model, train_inputs, skip=None):
