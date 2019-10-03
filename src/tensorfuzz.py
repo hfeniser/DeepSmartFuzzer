@@ -1,12 +1,34 @@
-from src.deephunter import f
-import time
-import pyflann
 import random
 import numpy as np
 
 # TODO: Take below parameters from user
 glob_num_iteration = 1000
 glob_num_mutations = 100
+
+
+class CorpusElement(object):
+    """Class representing a single element of a corpus."""
+
+    def __init__(self, data, parent):
+        """Inits the object.
+
+        Args:
+          data: a list of numpy arrays representing the mutated data.
+          parent: a reference to the CorpusElement this element is a mutation of.
+        Returns:
+          Initialized object.
+        """
+        self.data = data
+        self.parent = parent
+
+    def oldest_ancestor(self):
+        """Returns the least recently created ancestor of this corpus item."""
+        current_element = self
+        generations = 0
+        while current_element.parent is not None:
+            current_element = current_element.parent
+            generations += 1
+        return current_element, generations
 
 
 class Tensorfuzz:
@@ -17,9 +39,9 @@ class Tensorfuzz:
         self.last_coverage_state = None
 
     def fuzz(self):
+
         for iteration in range(self.num_iteration):
             if iteration % 100 == 0:
-                print("FUZZING YEY!")
                 print("fuzzing iteration: %s", iteration)
 
             inp = uniform_sample_function(self.corpus)
@@ -52,15 +74,21 @@ def recent_sample_function(corpus):
     return choice
 
 
-def do_basic_mutations(inp, mutations_count, constraint=None, a_min=-1.0, a_max=1.0):
-    inp_batch = np.tile(inp, [mutations_count] + list(inp.shape))
+def do_basic_mutations(corpus_element, mutations_count, constraint=None, a_min=0, a_max=255):
+    if len(corpus_element.data) > 1:
+        inputs = corpus_element.data
+        inp_batch = np.tile(inputs, [mutations_count, 1, 1, 1])
+    else:
+        inputs = corpus_element.data[0]
+        inp_batch = np.tile(inputs, [mutations_count] + list(inputs.shape))
+
     sigma = 0.2
     noise = np.random.normal(size=inp_batch.shape, scale=sigma)
 
     if constraint is not None:
         # (image - original_image) is a single image. it gets broadcast into a batch
         # when added to 'noise'
-        ancestor, _ = inp.oldest_ancestor()
+        ancestor = corpus_element.oldest_ancestor()
         original_image = ancestor.data[0]
         original_image_batch = np.tile(
             original_image, [mutations_count, 1, 1, 1]
