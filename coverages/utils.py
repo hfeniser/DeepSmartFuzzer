@@ -95,7 +95,6 @@ def get_layer_outs(model, test_input, skip=[]):
 
 
 def get_layer_outs_new(model, test_input, skip=[]):
-    print(model.input.shape)
     evaluator = models.Model(inputs=model.input,
                              outputs=[layer.output for index, layer in enumerate(model.layers)
                                       if index not in skip][1:])
