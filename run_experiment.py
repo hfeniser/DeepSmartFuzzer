@@ -19,11 +19,17 @@ def run_experiment(params):
 
     experiment.coverage.step(experiment.dataset["test_inputs"])
 
+    inital_coverage = experiment.coverage.get_current_coverage()
     if params.verbose:
-        print("initial coverage: %g" % (experiment.coverage.get_current_coverage()))
+        print("initial coverage: %g" % (inital_coverage))
 
     experiment.runner = load_runner(params)
     experiment.runner(params, experiment)
+
+    final_coverage = experiment.coverage.get_current_coverage()
+    if params.verbose:
+        print("final coverage: %g" % (final_coverage))
+        print("total coverage increase: %g" % (final_coverage - inital_coverage))
 
 def load_params(params):
     m = importlib.import_module("params." + params.params_set)
@@ -45,7 +51,7 @@ if __name__ == "__main__":
     parser.add_argument("--input_chooser", type=str, default="random", choices=["random", "clustered_random"])
     parser.add_argument("--runner", type=str, default="mcts", choices=["mcts", "mcts_clustered", "mcts_selected", "deephunter", "tensorfuzz"])
     parser.add_argument("--batch_size", type=int, default=64)
-    parser.add_argument("--nb_iterations", type=int, default=30)
+    parser.add_argument("--nb_iterations", type=int, default=50)
     parser.add_argument("--verbose", type=str2bool, nargs='?', const=True, default=True)
     parser.add_argument("--image_verbose", type=str2bool, nargs='?', const=True, default=True)
     params = parser.parse_args()
