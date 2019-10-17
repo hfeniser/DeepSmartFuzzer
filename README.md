@@ -9,30 +9,33 @@ pip install -r requirements.txt
 
 ### 2) Usage
 ```
-usage: run_experiment.py [-h] [--params_set {mnist_lenet,cifar10}]
+usage: run_experiment.py [-h] [--params_set [PARAMS_SET [PARAMS_SET ...]]]
                          [--dataset {MNIST,CIFAR10}]
                          [--model {LeNet1,LeNet4,LeNet5,CIFAR_ORIGINAL}]
                          [--implicit_reward [IMPLICIT_REWARD]]
-                         [--coverage {neuron,kmn,nbc,snac}]
+                         [--coverage {neuron,kmn,nbc,snac,tfc}]
                          [--input_chooser {random,clustered_random}]
-                         [--runner {mcts,mcts_clustered,mcts_selected,deephunter}]
+                         [--runner {mcts,mcts_clustered,deephunter,tensorfuzz}]
                          [--batch_size BATCH_SIZE]
-                         [--nb_iterations NB_ITERATIONS] [--verbose [VERBOSE]]
+                         [--nb_iterations NB_ITERATIONS]
+                         [--random_seed RANDOM_SEED] [--verbose [VERBOSE]]
                          [--image_verbose [IMAGE_VERBOSE]]
 
 Experiments Script For RLforDL
 
 optional arguments:
   -h, --help            show this help message and exit
-  --params_set {mnist_lenet,cifar10}
+  --params_set [PARAMS_SET [PARAMS_SET ...]]
+                        see params folder
   --dataset {MNIST,CIFAR10}
   --model {LeNet1,LeNet4,LeNet5,CIFAR_ORIGINAL}
   --implicit_reward [IMPLICIT_REWARD]
-  --coverage {neuron,kmn,nbc,snac}
+  --coverage {neuron,kmn,nbc,snac,tfc}
   --input_chooser {random,clustered_random}
-  --runner {mcts,mcts_clustered,mcts_selected,deephunter}
+  --runner {mcts,mcts_clustered,deephunter,tensorfuzz}
   --batch_size BATCH_SIZE
   --nb_iterations NB_ITERATIONS
+  --random_seed RANDOM_SEED
   --verbose [VERBOSE]
   --image_verbose [IMAGE_VERBOSE]
 ```
