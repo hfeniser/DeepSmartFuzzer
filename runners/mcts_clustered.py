@@ -1,7 +1,7 @@
 import numpy as np
 from src.mcts import MCTS_Node, run_mcts
 from src.RLforDL import RLforDL, RLforDL_State, Reward_Status
-import glob, os
+import glob, os, time
 
 def mcts_clustered(params, experiment):
     if params.input_chooser != "clustered_random":
@@ -15,7 +15,8 @@ def mcts_clustered(params, experiment):
 
     mcts_roots = [None] * len(experiment.input_chooser)
 
-    for i in range(params.nb_iterations):
+    experiment.iteration = 0
+    while not experiment.termination_condition():
         cluster_index, (test_input, _) = experiment.input_chooser(batch_size=params.batch_size)
         
         if params.verbose:
@@ -29,11 +30,9 @@ def mcts_clustered(params, experiment):
         game.reset_stat()
         if best_coverage > 0:
             experiment.coverage.step(best_input, update_state=True)
-            if params.save_batch:
-                np.save("data/mcts_{}.npy".format(i+1), best_input)
-            print("IMAGE %g SUCCEED" % (i))
+        if params.verbose:
+            print("iteration: %g" % (experiment.iteration))
             print("found coverage increase", best_coverage)
-            print("found different input", np.any(best_input-test_input != 0))
             print("Current Total Coverage", experiment.coverage.get_current_coverage())
-        else:
-            print("IMAGE %g FAILED" % (i))
+        
+        experiment.iteration += 1

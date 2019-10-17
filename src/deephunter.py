@@ -38,13 +38,9 @@ class DeepHunter:
         T = self.Preprocess(I)
         B, B_id = self.SelectNext(T)
 
-        counter = 0
-        for i in range(self.params.nb_iterations):
+        self.experiment.iteration = 0
+        while not self.experiment.termination_condition():
             S = self.Sample(B)
-            if self.params.save_batch:
-                counter += 1
-                np.save("data/deephunter_{}".format(counter), S)
-
             Ps = self.PowerSchedule(S, self.params.K)
             B_new = np.array([]).reshape(0, *(self.input_shape[1:]))
             for s_i in range(len(S)):
@@ -75,6 +71,7 @@ class DeepHunter:
                     self.BatchPrioritize(T, B_id)
 
             B, B_id = self.SelectNext(T)
+            self.experiment.iteration += 1
 
 
     def Preprocess(self, I):

@@ -6,6 +6,7 @@ class InputChooser:
         self.labels = initial_test_labels.copy()
         self.size = len(self.labels)
         self.weights = np.ones(self.size)
+        self.initial_nb_inputs = self.size
     
     def sample(self, batch_size):
         selected_indices = np.random.choice(self.size, size=batch_size, p=self.weights/np.sum(self.weights))

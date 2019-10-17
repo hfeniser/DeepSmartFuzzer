@@ -1,5 +1,8 @@
 import argparse
 import importlib
+import numpy as np
+import random
+import time
 from src.utility import str2bool, merge_object
 from src.experiment_builder import get_experiment
 
@@ -14,6 +17,11 @@ def run_experiment(params):
     params = load_params(params)
     experiment = get_experiment(params)
 
+    if params.random_seed is not None:
+        random.seed(params.random_seed)
+        np.random.seed(params.random_seed)
+
+
     if params.verbose:
         print("Parameters:", params)
 
@@ -25,16 +33,23 @@ def run_experiment(params):
 
     experiment.runner = load_runner(params)
     experiment.runner(params, experiment)
-
+    
     final_coverage = experiment.coverage.get_current_coverage()
     if params.verbose:
+        print("initial coverage: %g" % (inital_coverage))
+        time_passed_min = (time.time() - experiment.start_time) / 60
+        print("time passed (minutes): %g" % time_passed_min)
+        print("iterations: %g" % experiment.iteration)
+        print("number of new inputs: %g" % (len(experiment.input_chooser) - experiment.input_chooser.initial_nb_inputs))
         print("final coverage: %g" % (final_coverage))
         print("total coverage increase: %g" % (final_coverage - inital_coverage))
 
 def load_params(params):
-    m = importlib.import_module("params." + params.params_set)
-    new_params = getattr(m, params.params_set)
-    return merge_object(params, new_params)
+    for params_set in params.params_set:
+        m = importlib.import_module("params." + params_set)
+        new_params = getattr(m, params_set)
+        params = merge_object(params, new_params)
+    return params
     
 def load_runner(params):
     m = importlib.import_module("runners." + params.runner)
@@ -43,15 +58,16 @@ def load_runner(params):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Experiments Script For RLforDL")
-    parser.add_argument("--params_set", type=str, default="mnist_lenet", choices=["mnist_lenet", "cifar10", "deephunter_mnist"])
+    parser.add_argument("--params_set", nargs='*', type=str, default=["mnist", "mcts", "tfc"], help="see params folder")
     parser.add_argument("--dataset", type=str, default="MNIST", choices=["MNIST", "CIFAR10"])
     parser.add_argument("--model", type=str, default="LeNet1", choices=["LeNet1", "LeNet4", "LeNet5", "CIFAR_ORIGINAL"])
     parser.add_argument("--implicit_reward", type=str2bool, nargs='?', const=True, default=False)
     parser.add_argument("--coverage", type=str, default="neuron", choices=["neuron", "kmn", "nbc", "snac", "tfc"])
     parser.add_argument("--input_chooser", type=str, default="random", choices=["random", "clustered_random"])
-    parser.add_argument("--runner", type=str, default="mcts", choices=["mcts", "mcts_clustered", "mcts_selected", "deephunter", "tensorfuzz"])
+    parser.add_argument("--runner", type=str, default="mcts", choices=["mcts", "mcts_clustered", "deephunter", "tensorfuzz"])
     parser.add_argument("--batch_size", type=int, default=64)
-    parser.add_argument("--nb_iterations", type=int, default=30)
+    parser.add_argument("--nb_iterations", type=int, default=None)
+    parser.add_argument("--random_seed", type=int, default=None)
     parser.add_argument("--verbose", type=str2bool, nargs='?', const=True, default=True)
     parser.add_argument("--image_verbose", type=str2bool, nargs='?', const=True, default=True)
     params = parser.parse_args()

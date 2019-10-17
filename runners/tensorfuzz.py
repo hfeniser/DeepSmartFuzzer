@@ -2,7 +2,8 @@ from src.tensorfuzz import Tensorfuzz, CorpusElement
 
 
 def tensorfuzz(params, experiment):
-    tf = Tensorfuzz(seed_corpus_from_numpy_arrays(experiment.dataset["test_inputs"]), experiment.coverage)
+    experiment.corpus = seed_corpus_from_numpy_arrays(experiment.dataset["test_inputs"])
+    tf = Tensorfuzz(params, experiment)
     tf.fuzz()
 
 

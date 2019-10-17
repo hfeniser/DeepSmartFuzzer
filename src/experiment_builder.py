@@ -1,9 +1,9 @@
 import numpy as np
+import time
 
 
 class Experiment:
     pass
-
 
 def get_experiment(params):
     experiment = Experiment()
@@ -11,8 +11,25 @@ def get_experiment(params):
     experiment.model = _get_model(params, experiment)
     experiment.coverage = _get_coverage(params, experiment)
     experiment.input_chooser = _get_input_chooser(params, experiment)
+    experiment.start_time = time.time()
+    experiment.iteration = 0
+    experiment.termination_condition = generate_termination_condition(experiment, params)
     return experiment
 
+def generate_termination_condition(experiment, params):
+    input_chooser = experiment.input_chooser
+    nb_new_inputs = params.nb_new_inputs
+    start_time = experiment.start_time
+    time_period = params.time_period
+    coverage = experiment.coverage
+    nb_iterations = params.nb_iterations
+    def termination_condition():
+        c1 = len(input_chooser) - input_chooser.initial_nb_inputs > nb_new_inputs
+        c2 = time.time() - start_time > time_period
+        c3 = coverage.get_current_coverage() == 100
+        c4 = nb_iterations is not None and experiment.iteration > nb_iterations
+        return c1 or c2 or c3 or c4
+    return termination_condition
 
 def _get_dataset(params, experiment):
     if params.dataset == "MNIST":
@@ -87,8 +104,7 @@ def _get_coverage(params, experiment):
                                             calc_implicit_reward=params.calc_implicit_reward)  # 0:input, 5:flatten
     elif params.coverage == "tfc":
         from coverages.tfc import TFCoverage
-        # TODO: Subject layer and distance threshold can be taken as parameters from the user
-        coverage = TFCoverage(experiment.model, -3, 35000000)
+        coverage = TFCoverage(experiment.model, params.tfc_subject_layer, params.tfc_threshold)
     else:
         raise Exception("Unknown Coverage" + str(params.coverage))
 

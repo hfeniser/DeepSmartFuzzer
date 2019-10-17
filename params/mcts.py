@@ -3,23 +3,19 @@ import itertools
 
 from params.parameters import Parameters
 
-mnist_lenet = Parameters()
-
-mnist_lenet.input_shape = (1, 28, 28, 1)
-mnist_lenet.input_lower_limit = 0
-mnist_lenet.input_upper_limit = 255
+mcts = Parameters()
 
 def tc1(state): 
     # limit the level/depth of root
     return state.level > 8
 
-mnist_lenet.tc1 = tc1
+mcts.tc1 = tc1
 
 def tc2(iterations):
     # limit the number of iterations on root
     return iterations > 25
 
-mnist_lenet.tc2 = tc2
+mcts.tc2 = tc2
 
 def tc3(state):
     original_input = state.original_input
@@ -31,9 +27,9 @@ def tc3(state):
     else:
         return not np.max(np.abs(mutated_input-original_input)) <= beta*255
 
-mnist_lenet.tc3 = tc3
+mcts.tc3 = tc3
 
-mnist_lenet.action_division_p1 = (1,3,3,1)
+mcts.action_division_p1 = (1,3,3,1)
 
 translation = list(itertools.product(["translation"], [(-5,-5), (-5,0), (0,-5), (0,0), (5,0), (0,5), (5,5)]))
 rotation = list(itertools.product(["rotation"], [-15,-12,-9,-6,-3,3,6,9,12,15]))
@@ -41,7 +37,7 @@ contrast = list(itertools.product(["contrast"], [1.2+0.2*k for k in range(10)]))
 brightness = list(itertools.product(["brightness"], [10+10*k for k in range(10)]))
 blur = list(itertools.product(["blur"], [k+1 for k in range(10)]))
 
-mnist_lenet.actions_p2 = contrast + brightness + blur
+mcts.actions_p2 = contrast + brightness + blur
 
 def calc_implicit_reward_neuron(p1, p2):
     distance = np.abs(p1-p2)
@@ -49,11 +45,11 @@ def calc_implicit_reward_neuron(p1, p2):
     #print("p1, p2, distance, implicit_reward:", p1, p2, distance, implicit_reward)
     return implicit_reward
 
-mnist_lenet.calc_implicit_reward_neuron = calc_implicit_reward_neuron
+mcts.calc_implicit_reward_neuron = calc_implicit_reward_neuron
 
 def calc_implicit_reward(activation_values, covered_positions):
     #print("activation_values, covered_positions", activation_values, covered_positions)
     return np.max(activation_values * np.logical_not(covered_positions))
 
-mnist_lenet.calc_implicit_reward = calc_implicit_reward
-mnist_lenet.save_batch = False
+mcts.calc_implicit_reward = calc_implicit_reward
+mcts.save_batch = False
