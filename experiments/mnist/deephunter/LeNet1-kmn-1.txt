@@ -1,0 +1,74 @@
+Parameters: Namespace(G=[(<function image_translation at 0x10c3ea2f0>, (-5, -5)), (<function image_translation at 0x10c3ea2f0>, (-5, 0)), (<function image_translation at 0x10c3ea2f0>, (0, -5)), (<function image_translation at 0x10c3ea2f0>, (0, 0)), (<function image_translation at 0x10c3ea2f0>, (5, 0)), (<function image_translation at 0x10c3ea2f0>, (0, 5)), (<function image_translation at 0x10c3ea2f0>, (5, 5)), (<function image_rotation at 0x10c3ea510>, -15), (<function image_rotation at 0x10c3ea510>, -12), (<function image_rotation at 0x10c3ea510>, -9), (<function image_rotation at 0x10c3ea510>, -6), (<function image_rotation at 0x10c3ea510>, -3), (<function image_rotation at 0x10c3ea510>, 3), (<function image_rotation at 0x10c3ea510>, 6), (<function image_rotation at 0x10c3ea510>, 9), (<function image_rotation at 0x10c3ea510>, 12), (<function image_rotation at 0x10c3ea510>, 15)], K=64, P=[(<function image_contrast at 0x10c3ea620>, 1.2), (<function image_contrast at 0x10c3ea620>, 1.4), (<function image_contrast at 0x10c3ea620>, 1.6), (<function image_contrast at 0x10c3ea620>, 1.8), (<function image_contrast at 0x10c3ea620>, 2.0), (<function image_contrast at 0x10c3ea620>, 2.2), (<function image_contrast at 0x10c3ea620>, 2.4000000000000004), (<function image_contrast at 0x10c3ea620>, 2.6), (<function image_contrast at 0x10c3ea620>, 2.8), (<function image_contrast at 0x10c3ea620>, 3.0), (<function image_brightness at 0x10c3ea6a8>, 10), (<function image_brightness at 0x10c3ea6a8>, 20), (<function image_brightness at 0x10c3ea6a8>, 30), (<function image_brightness at 0x10c3ea6a8>, 40), (<function image_brightness at 0x10c3ea6a8>, 50), (<function image_brightness at 0x10c3ea6a8>, 60), (<function image_brightness at 0x10c3ea6a8>, 70), (<function image_brightness at 0x10c3ea6a8>, 80), (<function image_brightness at 0x10c3ea6a8>, 90), (<function image_brightness at 0x10c3ea6a8>, 100), (<function image_blur at 0x10c3ea730>, 1), (<function image_blur at 0x10c3ea730>, 2), (<function image_blur at 0x10c3ea730>, 3), (<function image_blur at 0x10c3ea730>, 4), (<function image_blur at 0x10c3ea730>, 5), (<function image_blur at 0x10c3ea730>, 6), (<function image_blur at 0x10c3ea730>, 7), (<function image_blur at 0x10c3ea730>, 8), (<function image_blur at 0x10c3ea730>, 9), (<function image_blur at 0x10c3ea730>, 10)], TRY_NUM=100, alpha=0.1, batch1=64, batch2=16, batch_size=64, beta=0.5, calc_implicit_reward=None, calc_implicit_reward_neuron=None, coverage='kmn', dataset='MNIST', gamma=5, image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet1', nb_iterations=30, p_min=0.01, params_set='deephunter_mnist', runner='deephunter', save_batch=False, verbose=True)
+initial coverage: 79.2708
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 2.8125
+coverage: 82.08333333333333
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.8333333333333428
+coverage: 82.91666666666667
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.5208333333333286
+coverage: 83.4375
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.1041666666666714
+coverage: 83.54166666666667
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.7291666666666572
+coverage: 84.27083333333333
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.3125
+coverage: 84.58333333333333
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.1041666666666714
+coverage: 84.6875
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.8333333333333286
+coverage: 85.52083333333333
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.1041666666666714
+coverage: 85.625
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 1.0416666666666714
+coverage: 86.66666666666667
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 7.083333333333329
+coverage: 93.75
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.1041666666666714
+coverage: 93.85416666666667
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.2083333333333286
+coverage: 94.0625
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 2.1875
+coverage: 96.25
+final coverage: 96.25
+total coverage increase: 16.9792

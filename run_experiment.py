@@ -19,11 +19,17 @@ def run_experiment(params):
 
     experiment.coverage.step(experiment.dataset["test_inputs"])
 
+    inital_coverage = experiment.coverage.get_current_coverage()
     if params.verbose:
-        print("initial coverage: %g" % (experiment.coverage.get_current_coverage()))
+        print("initial coverage: %g" % (inital_coverage))
 
     experiment.runner = load_runner(params)
     experiment.runner(params, experiment)
+
+    final_coverage = experiment.coverage.get_current_coverage()
+    if params.verbose:
+        print("final coverage: %g" % (final_coverage))
+        print("total coverage increase: %g" % (final_coverage - inital_coverage))
 
 def load_params(params):
     m = importlib.import_module("params." + params.params_set)

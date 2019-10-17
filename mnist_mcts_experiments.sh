@@ -1,12 +1,8 @@
 #!/bin/bash
 
-rm -rf experiments/mnist
-mkdir experiments
-mkdir experiments/mnist
-echo "cleaned experiments and created experiments directory"
-
-mkdir experiments/mnist/mcts
-echo "created experiments/mnist/mcts"
+rm -rf experiments/mnist/mcts
+mkdir -p experiments/mnist/mcts
+echo "cleaned and created experiments/mnist/mcts"
 
 models=( "LeNet1" "LeNet4" "LeNet5" )
 covs=( "neuron" "kmn" "nbc" "tfc" )
@@ -24,9 +20,9 @@ do
     done
 done
 
-
-mkdir experiments/mnist/mcts_clustered
-echo "created experiments/mnist/mcts_clustered"
+rm -rf experiments/mnist/mcts_clustered
+mkdir -p experiments/mnist/mcts_clustered
+echo "cleaned and created experiments/mnist/mcts_clustered"
 for model in "${models[@]}"
 do
     for cov in "${covs[@]}"

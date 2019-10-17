@@ -39,7 +39,7 @@ class DeepHunter:
         B, B_id = self.SelectNext(T)
 
         counter = 0
-        while B is not None:
+        for i in range(self.params.nb_iterations):
             S = self.Sample(B)
             if self.params.save_batch:
                 counter += 1
