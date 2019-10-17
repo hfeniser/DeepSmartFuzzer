@@ -16,7 +16,7 @@ mkdir -p experiments/mnist/tensorfuzz
 echo "cleaned experiments and created experiments directory"
 
 models=( "LeNet1" "LeNet4" "LeNet5" )
-covs=( "tfc" )
+covs=( "neuron" "kmn" "nbc" "tfc" )
 
 for model in "${models[@]}"
 do

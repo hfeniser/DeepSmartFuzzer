@@ -71,7 +71,10 @@ class Tensorfuzz:
             for inpa in inputs_to_add:
                 corpus_element = CorpusElement(inpa, inp)
                 self.corpus.append(corpus_element)
-
+            
+            if len(inputs_to_add) > 0:
+                self.experiment.input_chooser.append(np.array(inputs_to_add), np.array([-1]*len(inputs_to_add)))
+            
             self.experiment.iteration += 1
 
         return None

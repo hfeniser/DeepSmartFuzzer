@@ -70,6 +70,8 @@ class DeepHunter:
                     Bs += [B_new]
                     self.BatchPrioritize(T, B_id)
 
+                    self.experiment.input_chooser.append(np.array(B_new), np.array([-1]*len(B_new)))
+
             B, B_id = self.SelectNext(T)
             self.experiment.iteration += 1
 

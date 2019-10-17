@@ -9,15 +9,9 @@ def mcts_clustered(params, experiment):
 
     game = RLforDL(params, experiment)
 
-    fileList = glob.glob('data/mcts*', recursive=True)
-    for f in fileList:
-        os.remove(f)
-
-    mcts_roots = [None] * len(experiment.input_chooser)
-
     experiment.iteration = 0
     while not experiment.termination_condition():
-        cluster_index, (test_input, _) = experiment.input_chooser(batch_size=params.batch_size)
+        cluster_index, (test_input, test_label) = experiment.input_chooser(batch_size=params.batch_size)
         
         if params.verbose:
             print("cluster_index", cluster_index)
@@ -30,6 +24,7 @@ def mcts_clustered(params, experiment):
         game.reset_stat()
         if best_coverage > 0:
             experiment.coverage.step(best_input, update_state=True)
+            experiment.input_chooser.append(best_input, test_label)
         if params.verbose:
             print("iteration: %g" % (experiment.iteration))
             print("found coverage increase", best_coverage)

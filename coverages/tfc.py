@@ -4,7 +4,7 @@ import numpy as np
 from coverages.coverage import AbstractCoverage
 from coverages.utils import get_layer_outs_new
 
-_BUFFER_SIZE = 50
+_BUFFER_SIZE = 100
 
 class TFCoverage(AbstractCoverage):
 
@@ -17,10 +17,16 @@ class TFCoverage(AbstractCoverage):
         self.flann = FLANN()
 
     def get_measure_state(self):
-        return self.distant_vectors
+        s = []
+        s.append(self.distant_vectors)
+        s.append(self.distant_vectors_buffer)
+        return s
 
-    def set_measure_state(self, vectors):
-        self.distant_vectors = vectors
+    def set_measure_state(self, s):
+        self.distant_vectors = s[0]
+        self.distant_vectors_buffer = s[1]
+        if len(self.distant_vectors_buffer) > _BUFFER_SIZE:
+            self.build_index_and_flush_buffer()
 
     def reset_measure_state(self):
         self.flann.delete_index()
@@ -49,8 +55,6 @@ class TFCoverage(AbstractCoverage):
                 if nearest_distance > self.distance_threshold:
                     self.distant_vectors_buffer.append(plo)
                     self.distant_vectors.append(plo)
-                    if len(self.distant_vectors_buffer) >= _BUFFER_SIZE:
-                        self.build_index_and_flush_buffer()
             else:
                 self.flann.build_index(plo)
                 self.distant_vectors.append(plo)

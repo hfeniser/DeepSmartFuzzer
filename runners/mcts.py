@@ -15,6 +15,7 @@ def mcts(params, experiment):
         game.reset_stat()
         if best_coverage > 0:
             experiment.coverage.step(best_input, update_state=True)
+            experiment.input_chooser.append(best_input, test_label)
         if params.verbose:
             print("iteration: %g" % (experiment.iteration))
             print("found coverage increase", best_coverage)

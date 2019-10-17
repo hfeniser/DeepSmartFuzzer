@@ -11,12 +11,12 @@ function trap_ctrlc ()
 trap "trap_ctrlc" 2
 
 
-#rm -rf experiments/mnist/deephunter
-#mkdir -p experiments/mnist/deephunter
+rm -rf experiments/mnist/deephunter
+mkdir -p experiments/mnist/deephunter
 echo "cleaned experiments and created experiments directory"
 
 models=( "LeNet1" "LeNet4" "LeNet5" )
-covs=( "tfc" )
+covs=( "neuron" "kmn" "nbc" "tfc" )
 
 for model in "${models[@]}"
 do
