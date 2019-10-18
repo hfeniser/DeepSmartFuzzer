@@ -26,7 +26,7 @@ do
         for (( counter=1; counter<=3; counter++ )) 
         do
             echo "mnist - deephunter - $model - $cov iteration: $counter"
-            python run_experiment.py --params_set mnist $model deephunter $cov --dataset MNIST --model $model --coverage $cov --runner deephunter --random_seed $counter --image_verbose False > "experiments/mnist/deephunter/$model-$cov-$counter.txt" 
+            python3 run_experiment.py --params_set mnist $model deephunter $cov --dataset MNIST --model $model --coverage $cov --runner deephunter --random_seed $counter --image_verbose False > "experiments/mnist/deephunter/$model-$cov-$counter.txt" 
         done
     done
 done

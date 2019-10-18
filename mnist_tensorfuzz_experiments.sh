@@ -26,7 +26,7 @@ do
         for (( counter=1; counter<=3; counter++ )) 
         do
             echo "mnist - tensorfuzz - $model - $cov iteration: $counter"
-            python run_experiment.py --dataset MNIST --params_set mnist $model tensorfuzz $cov --model $model --coverage $cov --runner tensorfuzz --random_seed $counter --image_verbose False > "experiments/mnist/tensorfuzz/$model-$cov-$counter.txt" 
+            python3 run_experiment.py --dataset MNIST --params_set mnist $model tensorfuzz $cov --model $model --coverage $cov --runner tensorfuzz --random_seed $counter --image_verbose False > "experiments/mnist/tensorfuzz/$model-$cov-$counter.txt" 
         done
     done
 done
