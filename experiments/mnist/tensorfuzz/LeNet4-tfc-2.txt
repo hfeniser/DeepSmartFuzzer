@@ -1,5 +1,5 @@
-Parameters: Namespace(batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, constraint=None, coverage='kmn', dataset='MNIST', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet4', nb_iterations=None, nb_new_inputs=1000, params_set=['mnist', 'LeNet4', 'tensorfuzz', 'kmn'], random_seed=2, runner='tensorfuzz', tf_num_mutations=64, tf_sigma=25.5, tfc_threshold=3300000, time_period=3600, verbose=True)
-initial coverage: 89.4014
+Parameters: Namespace(batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, constraint=None, coverage='tfc', dataset='MNIST', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet4', nb_iterations=None, nb_new_inputs=1000, params_set=['mnist', 'LeNet4', 'tensorfuzz', 'tfc'], random_seed=2, runner='tensorfuzz', tf_num_mutations=64, tf_sigma=25.5, tfc_subject_layer=-3, tfc_threshold=3300000, time_period=3600, verbose=True)
+initial coverage: 4144
 fuzzing iteration: 0
 Input batch shape:
 (64, 28, 28, 1)
@@ -50,6 +50,7 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
+coverage increase: 1.00
 fuzzing iteration: 9
 Input batch shape:
 (64, 28, 28, 1)
@@ -208,7 +209,6 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-coverage increase: 0.04
 fuzzing iteration: 37
 Input batch shape:
 (64, 28, 28, 1)
@@ -592,190 +592,4 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-coverage_call_count 6700
-fuzzing iteration: 105
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 106
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 6800
-fuzzing iteration: 107
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 6900
-fuzzing iteration: 108
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 109
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7000
-fuzzing iteration: 110
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7100
-fuzzing iteration: 111
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 112
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7200
-fuzzing iteration: 113
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 114
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7300
-fuzzing iteration: 115
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7400
-fuzzing iteration: 116
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 117
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7500
-fuzzing iteration: 118
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7600
-fuzzing iteration: 119
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 120
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7700
-fuzzing iteration: 121
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7800
-fuzzing iteration: 122
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 123
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 7900
-fuzzing iteration: 124
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 8000
-fuzzing iteration: 125
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 126
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 8100
-fuzzing iteration: 127
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 128
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 8200
-fuzzing iteration: 129
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 8300
-fuzzing iteration: 130
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 131
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 8400
-fuzzing iteration: 132
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 8500
-fuzzing iteration: 133
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-fuzzing iteration: 134
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 8600
-fuzzing iteration: 135
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-coverage_call_count 8700
-fuzzing iteration: 136
-Input batch shape:
-(64, 28, 28, 1)
-Mutated img batch shape:
-(64, 28, 28, 1)
-initial coverage: 89.4014
-time passed (minutes): 60.1529
-iterations: 137
-number of new inputs: 1
-final coverage: 89.4366
-total coverage increase: 0.0352113
+You pressed Ctrl+C!
