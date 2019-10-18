@@ -43,7 +43,9 @@ def _get_dataset(params, experiment):
         from keras.datasets import cifar10
         (train_images, train_labels), (test_images, test_labels) = cifar10.load_data()
         train_images = train_images.reshape(-1, 32, 32, 3).astype(np.int16)
+        train_labels = train_labels.reshape(-1,)
         test_images = test_images.reshape(-1, 32, 32, 3).astype(np.int16)
+        test_labels = test_labels.reshape(-1,)
     else:
         raise Exception("Unknown Dataset:" + str(params.dataset))
 
@@ -74,9 +76,9 @@ def _get_model(params, experiment):
         from keras.layers import Input
         model = LeNet5(Input((28, 28, 1)))
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    elif params.model == "CIFAR_ORIGINAL":
+    elif params.model == "CIFAR_CNN":
         from keras.models import load_model
-        model = load_model("src/CIFAR10/cifar_original.h5")
+        model = load_model("src/CIFAR10/cifar_cnn.h5")
     else:
         raise Exception("Unknown Model:" + str(params.model))
 
@@ -107,6 +109,19 @@ def _get_coverage(params, experiment):
         coverage = TFCoverage(experiment.model, params.tfc_subject_layer, params.tfc_threshold)
     else:
         raise Exception("Unknown Coverage" + str(params.coverage))
+    
+    # handle input scaling before giving input to model
+    def input_scaler(test_inputs):
+        model_lower_bound = params.model_input_scale[0]
+        model_upper_bound = params.model_input_scale[1]
+        input_lower_bound = params.input_lower_limit
+        input_upper_bound = params.input_upper_limit
+        scaled_input =  (test_inputs - input_lower_bound) / (input_upper_bound - input_lower_bound)
+        scaled_input = scaled_input * (model_upper_bound - model_lower_bound) + model_lower_bound
+        return scaled_input
+
+    coverage._step = coverage.step
+    coverage.step = lambda test_inputs, *a, **kwa: coverage._step(input_scaler(test_inputs), *a, **kwa)
 
     return coverage
 
