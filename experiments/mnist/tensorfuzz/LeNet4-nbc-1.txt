@@ -1,5 +1,5 @@
-Parameters: Namespace(batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, constraint=None, coverage='nbc', dataset='MNIST', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet4', nb_iterations=None, nb_new_inputs=1000, params_set=['mnist', 'LeNet4', 'tensorfuzz', 'nbc'], random_seed=1, runner='tensorfuzz', tf_num_mutations=64, tf_sigma=25.5, tfc_threshold=3300000, time_period=3600, verbose=True)
-initial coverage: 8.4507
+Parameters: Namespace(batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, constraint=None, coverage='nbc', dataset='MNIST', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet4', model_input_scale=[0, 1], nb_iterations=None, nb_new_inputs=1000, params_set=['mnist', 'LeNet4', 'tensorfuzz', 'nbc'], random_seed=1, runner='tensorfuzz', tf_num_mutations=64, tf_sigma=25.5, tfc_threshold=169, time_period=3600, verbose=True)
+initial coverage: 13.3803
 fuzzing iteration: 0
 Input batch shape:
 (64, 28, 28, 1)
@@ -772,9 +772,37 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-initial coverage: 8.4507
-time passed (minutes): 60.2933
-iterations: 137
+fuzzing iteration: 137
+Input batch shape:
+(64, 28, 28, 1)
+Mutated img batch shape:
+(64, 28, 28, 1)
+coverage_call_count 8800
+fuzzing iteration: 138
+Input batch shape:
+(64, 28, 28, 1)
+Mutated img batch shape:
+(64, 28, 28, 1)
+fuzzing iteration: 139
+Input batch shape:
+(64, 28, 28, 1)
+Mutated img batch shape:
+(64, 28, 28, 1)
+coverage_call_count 8900
+fuzzing iteration: 140
+Input batch shape:
+(64, 28, 28, 1)
+Mutated img batch shape:
+(64, 28, 28, 1)
+coverage_call_count 9000
+fuzzing iteration: 141
+Input batch shape:
+(64, 28, 28, 1)
+Mutated img batch shape:
+(64, 28, 28, 1)
+initial coverage: 13.3803
+time passed (minutes): 61.0299
+iterations: 142
 number of new inputs: 0
-final coverage: 8.4507
+final coverage: 13.3803
 total coverage increase: 0

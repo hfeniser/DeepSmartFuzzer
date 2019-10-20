@@ -1,5 +1,5 @@
-Parameters: Namespace(batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, constraint=None, coverage='nbc', dataset='MNIST', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet1', nb_iterations=None, nb_new_inputs=1000, params_set=['mnist', 'LeNet1', 'tensorfuzz', 'nbc'], random_seed=3, runner='tensorfuzz', tf_num_mutations=64, tf_sigma=25.5, tfc_threshold=33000000, time_period=3600, verbose=True)
-initial coverage: 5.20833
+Parameters: Namespace(batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, constraint=None, coverage='nbc', dataset='MNIST', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet1', model_input_scale=[0, 1], nb_iterations=None, nb_new_inputs=1000, params_set=['mnist', 'LeNet1', 'tensorfuzz', 'nbc'], random_seed=3, runner='tensorfuzz', tf_num_mutations=64, tf_sigma=25.5, tfc_threshold=900, time_period=3600, verbose=True)
+initial coverage: 29.1667
 fuzzing iteration: 0
 Input batch shape:
 (64, 28, 28, 1)
@@ -823,9 +823,9 @@ Input batch shape:
 Mutated img batch shape:
 (64, 28, 28, 1)
 coverage_call_count 9300
-initial coverage: 5.20833
-time passed (minutes): 60.1506
+initial coverage: 29.1667
+time passed (minutes): 60.0807
 iterations: 146
 number of new inputs: 0
-final coverage: 5.20833
+final coverage: 29.1667
 total coverage increase: 0

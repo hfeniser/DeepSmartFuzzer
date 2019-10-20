@@ -1,5 +1,5 @@
-Parameters: Namespace(batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, constraint=None, coverage='tfc', dataset='MNIST', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet1', nb_iterations=None, nb_new_inputs=1000, params_set=['mnist', 'LeNet1', 'tensorfuzz', 'tfc'], random_seed=3, runner='tensorfuzz', tf_num_mutations=64, tf_sigma=25.5, tfc_subject_layer=-3, tfc_threshold=33000000, time_period=3600, verbose=True)
-initial coverage: 1742
+Parameters: Namespace(batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, constraint=None, coverage='tfc', dataset='MNIST', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet1', model_input_scale=[0, 1], nb_iterations=None, nb_new_inputs=1000, params_set=['mnist', 'LeNet1', 'tensorfuzz', 'tfc'], random_seed=3, runner='tensorfuzz', tf_num_mutations=64, tf_sigma=25.5, tfc_subject_layer=-3, tfc_threshold=900, time_period=3600, verbose=True)
+initial coverage: 370
 fuzzing iteration: 0
 Input batch shape:
 (64, 28, 28, 1)
@@ -61,7 +61,6 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-coverage increase: 1.00
 coverage_call_count 700
 fuzzing iteration: 11
 Input batch shape:
@@ -85,7 +84,6 @@ Input batch shape:
 Mutated img batch shape:
 (64, 28, 28, 1)
 coverage_call_count 900
-coverage increase: 1.00
 fuzzing iteration: 15
 Input batch shape:
 (64, 28, 28, 1)
@@ -210,7 +208,6 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-coverage increase: 1.00
 fuzzing iteration: 37
 Input batch shape:
 (64, 28, 28, 1)
@@ -222,12 +219,12 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-coverage_call_count 2500
 fuzzing iteration: 39
 Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
+coverage_call_count 2500
 fuzzing iteration: 40
 Input batch shape:
 (64, 28, 28, 1)
@@ -363,12 +360,12 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-coverage_call_count 4100
 fuzzing iteration: 64
 Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
+coverage_call_count 4100
 fuzzing iteration: 65
 Input batch shape:
 (64, 28, 28, 1)
@@ -409,7 +406,6 @@ Input batch shape:
 Mutated img batch shape:
 (64, 28, 28, 1)
 coverage_call_count 4600
-coverage increase: 1.00
 fuzzing iteration: 72
 Input batch shape:
 (64, 28, 28, 1)
@@ -505,12 +501,12 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-coverage_call_count 5700
 fuzzing iteration: 89
 Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
+coverage_call_count 5700
 fuzzing iteration: 90
 Input batch shape:
 (64, 28, 28, 1)
@@ -556,6 +552,7 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
+coverage increase: 1.00
 fuzzing iteration: 98
 Input batch shape:
 (64, 28, 28, 1)
@@ -618,7 +615,6 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-coverage increase: 1.00
 fuzzing iteration: 109
 Input batch shape:
 (64, 28, 28, 1)
@@ -647,12 +643,12 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-coverage_call_count 7300
 fuzzing iteration: 114
 Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
+coverage_call_count 7300
 fuzzing iteration: 115
 Input batch shape:
 (64, 28, 28, 1)
@@ -749,6 +745,7 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
+coverage increase: 1.00
 coverage_call_count 8400
 fuzzing iteration: 132
 Input batch shape:
@@ -795,9 +792,15 @@ Input batch shape:
 (64, 28, 28, 1)
 Mutated img batch shape:
 (64, 28, 28, 1)
-initial coverage: 1742
-time passed (minutes): 60.3143
-iterations: 140
-number of new inputs: 6
-final coverage: 1748
-total coverage increase: 6
+fuzzing iteration: 140
+Input batch shape:
+(64, 28, 28, 1)
+Mutated img batch shape:
+(64, 28, 28, 1)
+coverage_call_count 9000
+initial coverage: 370
+time passed (minutes): 60.6533
+iterations: 141
+number of new inputs: 3
+final coverage: 373
+total coverage increase: 3

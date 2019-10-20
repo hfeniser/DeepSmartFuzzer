@@ -1,76 +1,846 @@
-Parameters: Namespace(G=[(<function image_translation at 0x7f26fb8e2048>, (-5, -5)), (<function image_translation at 0x7f26fb8e2048>, (-5, 0)), (<function image_translation at 0x7f26fb8e2048>, (0, -5)), (<function image_translation at 0x7f26fb8e2048>, (0, 0)), (<function image_translation at 0x7f26fb8e2048>, (5, 0)), (<function image_translation at 0x7f26fb8e2048>, (0, 5)), (<function image_translation at 0x7f26fb8e2048>, (5, 5)), (<function image_rotation at 0x7f26fb8e2268>, -15), (<function image_rotation at 0x7f26fb8e2268>, -12), (<function image_rotation at 0x7f26fb8e2268>, -9), (<function image_rotation at 0x7f26fb8e2268>, -6), (<function image_rotation at 0x7f26fb8e2268>, -3), (<function image_rotation at 0x7f26fb8e2268>, 3), (<function image_rotation at 0x7f26fb8e2268>, 6), (<function image_rotation at 0x7f26fb8e2268>, 9), (<function image_rotation at 0x7f26fb8e2268>, 12), (<function image_rotation at 0x7f26fb8e2268>, 15)], K=64, P=[(<function image_contrast at 0x7f26fb8e22f0>, 1.2), (<function image_contrast at 0x7f26fb8e22f0>, 1.4), (<function image_contrast at 0x7f26fb8e22f0>, 1.6), (<function image_contrast at 0x7f26fb8e22f0>, 1.8), (<function image_contrast at 0x7f26fb8e22f0>, 2.0), (<function image_contrast at 0x7f26fb8e22f0>, 2.2), (<function image_contrast at 0x7f26fb8e22f0>, 2.4000000000000004), (<function image_contrast at 0x7f26fb8e22f0>, 2.6), (<function image_contrast at 0x7f26fb8e22f0>, 2.8), (<function image_contrast at 0x7f26fb8e22f0>, 3.0), (<function image_brightness at 0x7f26fb8e2378>, 10), (<function image_brightness at 0x7f26fb8e2378>, 20), (<function image_brightness at 0x7f26fb8e2378>, 30), (<function image_brightness at 0x7f26fb8e2378>, 40), (<function image_brightness at 0x7f26fb8e2378>, 50), (<function image_brightness at 0x7f26fb8e2378>, 60), (<function image_brightness at 0x7f26fb8e2378>, 70), (<function image_brightness at 0x7f26fb8e2378>, 80), (<function image_brightness at 0x7f26fb8e2378>, 90), (<function image_brightness at 0x7f26fb8e2378>, 100), (<function image_blur at 0x7f26fb8e2400>, 1), (<function image_blur at 0x7f26fb8e2400>, 2), (<function image_blur at 0x7f26fb8e2400>, 3), (<function image_blur at 0x7f26fb8e2400>, 4), (<function image_blur at 0x7f26fb8e2400>, 5), (<function image_blur at 0x7f26fb8e2400>, 6), (<function image_blur at 0x7f26fb8e2400>, 7), (<function image_blur at 0x7f26fb8e2400>, 8), (<function image_blur at 0x7f26fb8e2400>, 9), (<function image_blur at 0x7f26fb8e2400>, 10)], TRY_NUM=100, alpha=0.1, batch1=64, batch2=16, batch_size=64, beta=0.5, calc_implicit_reward=None, calc_implicit_reward_neuron=None, coverage='kmn', dataset='MNIST', gamma=5, image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet4', nb_iterations=None, nb_new_inputs=1000, p_min=0.01, params_set=['mnist', 'LeNet4', 'deephunter', 'kmn'], random_seed=3, runner='deephunter', save_batch=False, tfc_threshold=3300000, time_period=3600, verbose=True)
-initial coverage: 89.4014
+Parameters: Namespace(G=[(<function image_translation at 0x7f13500b9048>, (-5, -5)), (<function image_translation at 0x7f13500b9048>, (-5, 0)), (<function image_translation at 0x7f13500b9048>, (0, -5)), (<function image_translation at 0x7f13500b9048>, (0, 0)), (<function image_translation at 0x7f13500b9048>, (5, 0)), (<function image_translation at 0x7f13500b9048>, (0, 5)), (<function image_translation at 0x7f13500b9048>, (5, 5)), (<function image_rotation at 0x7f13500b9268>, -15), (<function image_rotation at 0x7f13500b9268>, -12), (<function image_rotation at 0x7f13500b9268>, -9), (<function image_rotation at 0x7f13500b9268>, -6), (<function image_rotation at 0x7f13500b9268>, -3), (<function image_rotation at 0x7f13500b9268>, 3), (<function image_rotation at 0x7f13500b9268>, 6), (<function image_rotation at 0x7f13500b9268>, 9), (<function image_rotation at 0x7f13500b9268>, 12), (<function image_rotation at 0x7f13500b9268>, 15)], K=64, P=[(<function image_contrast at 0x7f13500b92f0>, 1.2), (<function image_contrast at 0x7f13500b92f0>, 1.4), (<function image_contrast at 0x7f13500b92f0>, 1.6), (<function image_contrast at 0x7f13500b92f0>, 1.8), (<function image_contrast at 0x7f13500b92f0>, 2.0), (<function image_contrast at 0x7f13500b92f0>, 2.2), (<function image_contrast at 0x7f13500b92f0>, 2.4000000000000004), (<function image_contrast at 0x7f13500b92f0>, 2.6), (<function image_contrast at 0x7f13500b92f0>, 2.8), (<function image_contrast at 0x7f13500b92f0>, 3.0), (<function image_brightness at 0x7f13500b9378>, 10), (<function image_brightness at 0x7f13500b9378>, 20), (<function image_brightness at 0x7f13500b9378>, 30), (<function image_brightness at 0x7f13500b9378>, 40), (<function image_brightness at 0x7f13500b9378>, 50), (<function image_brightness at 0x7f13500b9378>, 60), (<function image_brightness at 0x7f13500b9378>, 70), (<function image_brightness at 0x7f13500b9378>, 80), (<function image_brightness at 0x7f13500b9378>, 90), (<function image_brightness at 0x7f13500b9378>, 100), (<function image_blur at 0x7f13500b9400>, 1), (<function image_blur at 0x7f13500b9400>, 2), (<function image_blur at 0x7f13500b9400>, 3), (<function image_blur at 0x7f13500b9400>, 4), (<function image_blur at 0x7f13500b9400>, 5), (<function image_blur at 0x7f13500b9400>, 6), (<function image_blur at 0x7f13500b9400>, 7), (<function image_blur at 0x7f13500b9400>, 8), (<function image_blur at 0x7f13500b9400>, 9), (<function image_blur at 0x7f13500b9400>, 10)], TRY_NUM=100, alpha=0.1, batch1=64, batch2=16, batch_size=64, beta=0.5, calc_implicit_reward=None, calc_implicit_reward_neuron=None, coverage='kmn', dataset='MNIST', gamma=5, image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet4', model_input_scale=[0, 1], nb_iterations=None, nb_new_inputs=1000, p_min=0.01, params_set=['mnist', 'LeNet4', 'deephunter', 'kmn'], random_seed=3, runner='deephunter', save_batch=False, tfc_threshold=169, time_period=3600, verbose=True)
+initial coverage: 11.7254
 Predict B_new.shape (64, 28, 28, 1)
-coverage increase: 0.7746478873239369
-coverage: 90.17605633802816
+coverage increase: 0.0
 Predict B_new.shape (56, 28, 28, 1)
-coverage increase: 0.07042253521127861
-coverage: 90.24647887323944
-Predict B_new.shape (65, 28, 28, 1)
-coverage increase: 0.1056338028168966
-coverage: 90.35211267605634
-Predict B_new.shape (65, 28, 28, 1)
-coverage increase: 0.1056338028168966
-coverage: 90.45774647887323
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.03521126760563398
+coverage: 11.76056338028169
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
 Predict B_new.shape (56, 28, 28, 1)
-coverage increase: 0.14084507042254302
-coverage: 90.59859154929578
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.03521126760563398
+coverage: 11.795774647887324
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.03521126760563398
+coverage: 11.830985915492958
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0352112676056322
+coverage: 11.86619718309859
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.03521126760563398
+coverage: 11.901408450704224
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.03521126760563398
+coverage: 11.936619718309858
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.03521126760563398
+coverage: 11.971830985915492
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
 Predict B_new.shape (58, 28, 28, 1)
 coverage increase: 0.0
 Predict B_new.shape (65, 28, 28, 1)
-coverage increase: 0.1056338028168966
-coverage: 90.70422535211267
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (199, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage_call_count 100
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (51, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (39, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (50, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (51, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.035211267605635754
+coverage: 12.007042253521128
+Predict B_new.shape (48, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (52, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (46, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (49, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (50, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (51, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (52, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (52, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage_call_count 200
+coverage increase: 0.0
+Predict B_new.shape (47, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (52, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (53, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (51, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (43, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (53, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (53, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
 Predict B_new.shape (69, 28, 28, 1)
 coverage increase: 0.0
 Predict B_new.shape (71, 28, 28, 1)
-coverage increase: 0.0352112676056322
-coverage: 90.7394366197183
-Predict B_new.shape (65, 28, 28, 1)
-coverage increase: 0.10563380281691082
-coverage: 90.84507042253522
-Predict B_new.shape (55, 28, 28, 1)
-coverage increase: 0.2816901408450718
-coverage: 91.12676056338029
-Predict B_new.shape (70, 28, 28, 1)
-coverage increase: 0.03521126760561799
-coverage: 91.1619718309859
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (53, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (51, 28, 28, 1)
+coverage increase: 0.0
 Predict B_new.shape (69, 28, 28, 1)
 coverage increase: 0.0
-Predict B_new.shape (52, 28, 28, 1)
-coverage increase: 0.03521126760564641
-coverage: 91.19718309859155
-Predict B_new.shape (65, 28, 28, 1)
+Predict B_new.shape (57, 28, 28, 1)
 coverage increase: 0.0
-Predict B_new.shape (55, 28, 28, 1)
+Predict B_new.shape (149, 28, 28, 1)
 coverage increase: 0.0
-Predict B_new.shape (62, 28, 28, 1)
-coverage increase: 0.0352112676056322
-coverage: 91.23239436619718
-Predict B_new.shape (68, 28, 28, 1)
-coverage increase: 2.042253521126767
-coverage: 93.27464788732395
-Predict B_new.shape (63, 28, 28, 1)
-coverage increase: 0.03521126760561799
-coverage: 93.30985915492957
-Predict B_new.shape (64, 28, 28, 1)
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
 coverage increase: 0.0
 Predict B_new.shape (67, 28, 28, 1)
 coverage increase: 0.0
 Predict B_new.shape (57, 28, 28, 1)
 coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (53, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (255, 28, 28, 1)
+coverage increase: 0.0
 Predict B_new.shape (67, 28, 28, 1)
 coverage increase: 0.0
 Predict B_new.shape (60, 28, 28, 1)
-coverage increase: 0.03521126760564641
-coverage: 93.34507042253522
-Predict B_new.shape (63, 28, 28, 1)
 coverage increase: 0.0
 Predict B_new.shape (68, 28, 28, 1)
-coverage increase: 0.1056338028168966
-coverage: 93.45070422535211
-initial coverage: 89.4014
-time passed (minutes): 1.71419
-iterations: 26
-number of new inputs: 1005
-final coverage: 93.4507
-total coverage increase: 4.0493
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (215, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage_call_count 300
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (57, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (51, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (53, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (73, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (60, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (69, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (51, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (70, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (64, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (68, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (66, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (61, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage_call_count 400
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (55, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (74, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (62, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (59, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (58, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (53, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (63, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (54, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (51, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (72, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (65, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (71, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (67, 28, 28, 1)
+coverage increase: 0.0
+Predict B_new.shape (56, 28, 28, 1)
+coverage increase: 0.0
+initial coverage: 11.7254
+time passed (minutes): 60.0013
+iterations: 1338
+number of new inputs: 538
+final coverage: 12.007
+total coverage increase: 0.28169
