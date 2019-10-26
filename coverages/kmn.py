@@ -54,7 +54,7 @@ class DeepGaugePercentCoverage(AbstractCoverage):
         elif self.coverage_name == "snac":
             if upper_activated == 0:
                 return 0
-            percent(upper_activated, total) # snac
+            return percent(upper_activated, total) # snac
         else:
             raise Exception("Unknown coverage: " + str(self.coverage_name))
     

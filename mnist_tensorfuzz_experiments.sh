@@ -11,12 +11,12 @@ function trap_ctrlc ()
 trap "trap_ctrlc" 2
 
 
-rm -rf experiments/mnist/tensorfuzz
+# rm -rf experiments/mnist/tensorfuzz
 mkdir -p experiments/mnist/tensorfuzz
 echo "cleaned experiments and created experiments directory"
 
 models=( "LeNet1" "LeNet4" "LeNet5" )
-covs=( "neuron" "kmn" "nbc" "tfc" )
+covs=( "kmn" "nbc" "snac" )
 
 for model in "${models[@]}"
 do
