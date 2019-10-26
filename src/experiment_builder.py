@@ -90,26 +90,6 @@ def _get_coverage(params, experiment):
         params.calc_implicit_reward_neuron = None
         params.calc_implicit_reward = None
 
-    if params.coverage == "neuron":
-        from coverages.neuron_cov import NeuronCoverage
-        # TODO: Skip layers should be determined autoamtically
-        coverage = NeuronCoverage(experiment.model, skip_layers=[0, 5],
-                                  calc_implicit_reward_neuron=params.calc_implicit_reward_neuron,
-                                  calc_implicit_reward=params.calc_implicit_reward)  # 0:input, 5:flatten
-    elif params.coverage == "kmn" or params.coverage == "nbc" or params.coverage == "snac":
-        from coverages.kmn import DeepGaugePercentCoverage
-        k = 20
-        # TODO: Skip layers should be determined autoamtically
-        coverage = DeepGaugePercentCoverage(experiment.model, k, experiment.dataset["train_inputs"], skip_layers=[0, 5],
-                                            coverage_name=params.coverage,
-                                            calc_implicit_reward_neuron=params.calc_implicit_reward_neuron,
-                                            calc_implicit_reward=params.calc_implicit_reward)  # 0:input, 5:flatten
-    elif params.coverage == "tfc":
-        from coverages.tfc import TFCoverage
-        coverage = TFCoverage(experiment.model, params.tfc_subject_layer, params.tfc_threshold)
-    else:
-        raise Exception("Unknown Coverage" + str(params.coverage))
-    
     # handle input scaling before giving input to model
     def input_scaler(test_inputs):
         model_lower_bound = params.model_input_scale[0]
@@ -119,6 +99,24 @@ def _get_coverage(params, experiment):
         scaled_input =  (test_inputs - input_lower_bound) / (input_upper_bound - input_lower_bound)
         scaled_input = scaled_input * (model_upper_bound - model_lower_bound) + model_lower_bound
         return scaled_input
+
+    if params.coverage == "neuron":
+        from coverages.neuron_cov import NeuronCoverage
+        # TODO: Skip layers should be determined autoamtically
+        coverage = NeuronCoverage(experiment.model, skip_layers=[0, 5],
+                                  calc_implicit_reward_neuron=params.calc_implicit_reward_neuron,
+                                  calc_implicit_reward=params.calc_implicit_reward)  # 0:input, 5:flatten
+    elif params.coverage == "kmn" or params.coverage == "nbc" or params.coverage == "snac":
+        from coverages.kmn import DeepGaugePercentCoverage
+        # TODO: Skip layers should be determined autoamtically
+        train_inputs_scaled = input_scaler(experiment.dataset["train_inputs"])
+        coverage = DeepGaugePercentCoverage(experiment.model, getattr(params, 'kmn_k', 1000), train_inputs_scaled, skip_layers=[0, 5],
+                                            coverage_name=params.coverage)  # 0:input, 5:flatten
+    elif params.coverage == "tfc":
+        from coverages.tfc import TFCoverage
+        coverage = TFCoverage(experiment.model, params.tfc_subject_layer, params.tfc_threshold)
+    else:
+        raise Exception("Unknown Coverage" + str(params.coverage))
 
     coverage._step = coverage.step
     coverage.step = lambda test_inputs, *a, **kwa: coverage._step(input_scaler(test_inputs), *a, **kwa)
