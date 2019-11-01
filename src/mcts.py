@@ -18,7 +18,7 @@ class MCTS_Node:
         self.state = state
         self.game = game
 
-    def potential(self, value=None, visit_count=None, parent_visit_count=None, C=np.sqrt(2)):
+    def potential(self, value=None, visit_count=None, parent_visit_count=None, scaler=1, C=np.sqrt(2)):
         # Upper Confidence Bound (UCB)
         # C: hyperparammer
         # See following for details on UCB:
@@ -29,15 +29,24 @@ class MCTS_Node:
         elif value == None or visit_count == None or parent_visit_count == None:
             raise Exception("set all value, visit_count and parent_visit_count parameters or leave all None")
 
-        return (100 * value/visit_count) + C*np.sqrt(np.log(parent_visit_count)/visit_count)
+        return (value/visit_count)/scaler + C*np.sqrt(np.log(parent_visit_count)/visit_count)
 
     def get_potential_array(self, C=np.sqrt(2)):
         p = []
+        max_value = 0
+        for child in self.child_nodes:
+            if child != None and child.value/child.visit_count > max_value:
+                max_value = child.value/child.visit_count
+
+        # avoid division with zero
+        if max_value == 0:
+            max_value = 1
+
         for child in self.child_nodes:
             if child != None:
-                potential = child.potential(C=C)
+                potential = child.potential(scaler=max_value, C=C)
             else:
-                potential = self.potential(value=0,visit_count=1,parent_visit_count=self.visit_count, C=C)
+                potential = self.potential(value=0,visit_count=1,parent_visit_count=self.visit_count, scaler=max_value, C=C)
             p.append(potential)
 
         p = np.array(p)
