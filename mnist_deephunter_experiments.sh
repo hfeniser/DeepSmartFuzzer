@@ -16,7 +16,7 @@ mkdir -p experiments/mnist/deephunter
 echo "cleaned experiments and created experiments directory"
 
 models=( "LeNet1" "LeNet4" "LeNet5" )
-covs=( "kmn" "nbc" "snac" )
+covs=( "neuron" "kmn" "nbc" "snac" "tfc" )
 
 for model in "${models[@]}"
 do

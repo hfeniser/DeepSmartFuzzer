@@ -16,7 +16,7 @@ mkdir -p experiments/mnist/mcts
 echo "cleaned and created experiments/mnist/mcts"
 
 models=( "LeNet1" "LeNet4" "LeNet5" )
-covs=( "kmn" "nbc" "snac" )
+covs=( "neuron" "kmn" "nbc" "snac" "tfc" )
 
 for model in "${models[@]}"
 do
