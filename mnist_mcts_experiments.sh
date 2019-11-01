@@ -26,7 +26,7 @@ do
         for (( counter=1; counter<=3; counter++ )) 
         do
             echo "mnist - mcts - $model - $cov iteration: $counter"
-            python3 run_experiment.py --params_set mnist $model mcts $cov --dataset MNIST --model $model --coverage $cov --input_chooser random --runner mcts --image_verbose False > "experiments/mnist/mcts/$model-$cov-$counter.txt" 
+            python3 run_experiment.py --params_set mnist $model mcts $cov --dataset MNIST --model $model --coverage $cov --input_chooser random --runner mcts --random_seed $counter --image_verbose False > "experiments/mnist/mcts/$model-$cov-$counter.txt" 
         done
     done
 done
