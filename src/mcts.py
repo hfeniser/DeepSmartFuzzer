@@ -29,7 +29,7 @@ class MCTS_Node:
         elif value == None or visit_count == None or parent_visit_count == None:
             raise Exception("set all value, visit_count and parent_visit_count parameters or leave all None")
 
-        return (value/visit_count)/scaler + C*np.sqrt(np.log(parent_visit_count)/visit_count)
+        return 100*(value/visit_count)/scaler + C*np.sqrt(np.log(parent_visit_count)/visit_count)
 
     def get_potential_array(self, C=np.sqrt(2)):
         p = []
@@ -251,15 +251,6 @@ def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True, image_verbose=True):
             print("No reward. Abort.")
             return root
         else:
-            player = root_new.game.player(root_new.state.level)
-            previous_reward = None
-            if root_new.parent.parent != None:
-                previous_reward = root_new.parent.parent.state.reward
-            new_reward = root_new.state.reward
-            if player == 2 and previous_reward == new_reward:
-                print("No reward increase. Abort.")
-                return root
-            else:
-                root = root_new
+            root = root_new
 
     return root
