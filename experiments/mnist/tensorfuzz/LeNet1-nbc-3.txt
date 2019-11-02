@@ -610,7 +610,7 @@ Mutated img batch shape:
 (64, 28, 28, 1)
 coverage_call_count 6900
 initial coverage: 6.25
-time passed (minutes): 60.1065
+time passed (minutes): 60.3163
 iterations: 108
 number of new inputs: 0
 final coverage: 6.25

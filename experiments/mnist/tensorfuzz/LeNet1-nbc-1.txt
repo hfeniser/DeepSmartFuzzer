@@ -609,9 +609,14 @@ Input batch shape:
 Mutated img batch shape:
 (64, 28, 28, 1)
 coverage_call_count 6900
+fuzzing iteration: 108
+Input batch shape:
+(64, 28, 28, 1)
+Mutated img batch shape:
+(64, 28, 28, 1)
 initial coverage: 6.25
-time passed (minutes): 60.9071
-iterations: 108
+time passed (minutes): 60.0283
+iterations: 109
 number of new inputs: 0
 final coverage: 6.25
 total coverage increase: 0

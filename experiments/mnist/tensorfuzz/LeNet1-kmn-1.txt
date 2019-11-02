@@ -1125,7 +1125,7 @@ coverage increase: 0.00
 coverage increase: 0.00
 coverage increase: 0.00
 initial coverage: 37.786
-time passed (minutes): 58.6502
+time passed (minutes): 56.9042
 iterations: 16
 number of new inputs: 1024
 final coverage: 39.6029
