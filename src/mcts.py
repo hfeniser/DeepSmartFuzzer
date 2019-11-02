@@ -195,6 +195,7 @@ class MCTS_Node:
 
 
 def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True, image_verbose=True):
+    previous_reward = 0
     while not tc1(root.state):                
         if root.isLeaf() and root.state.game_finished:
             if verbose:
@@ -252,13 +253,14 @@ def run_mcts(root, tc1, tc2, C=np.sqrt(2), verbose=True, image_verbose=True):
             return root
         else:
             player = root_new.game.player(root_new.state.level)
-            previous_reward = None
-            if root_new.parent.parent != None:
-                previous_reward = root_new.parent.parent.state.reward
-            new_reward = root_new.state.reward
-            if player == 2 and previous_reward == new_reward:
-                print("No reward increase. Abort.")
-                return root
+            if player == 2:
+                new_reward = root_new.game.best_reward
+                if previous_reward == new_reward:
+                    print("No reward increase. Abort.")
+                    return root
+                else:
+                    previous_reward = new_reward
+                    root = root_new
             else:
                 root = root_new
 
