@@ -1,0 +1,2975 @@
+Parameters: Namespace(action_division_p1=(1, 3, 3, 1), actions_p2=[('contrast', 1.2), ('contrast', 1.4), ('contrast', 1.6), ('contrast', 1.8), ('contrast', 2.0), ('contrast', 2.2), ('contrast', 2.4000000000000004), ('contrast', 2.6), ('contrast', 2.8), ('contrast', 3.0), ('brightness', 10), ('brightness', 20), ('brightness', 30), ('brightness', 40), ('brightness', 50), ('brightness', 60), ('brightness', 70), ('brightness', 80), ('brightness', 90), ('brightness', 100), ('blur', 1), ('blur', 2), ('blur', 3), ('blur', 4), ('blur', 5), ('blur', 6), ('blur', 7), ('blur', 8), ('blur', 9), ('blur', 10)], batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, coverage='tfc', dataset='MNIST', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 28, 28, 1), input_upper_limit=255, model='LeNet4', model_input_scale=[0, 1], nb_iterations=None, nb_new_inputs=1000, params_set=['mnist', 'LeNet4', 'mcts', 'tfc'], random_seed=2, runner='mcts', save_batch=False, skip_layers=[0, 5], tc1=<function tc1 at 0x7f4618edaf28>, tc2=<function tc2 at 0x7f4618eec048>, tc3=<function tc3 at 0x7f4618eec158>, tfc_subject_layer=-3, tfc_threshold=169, time_period=3600, verbose=True)
+initial coverage: 345
+self.actions_p1
+[{'lower_limits': array([0, 0, 0, 0]), 'upper_limits': array([1, 9, 9, 1])},
+ {'lower_limits': array([0, 0, 9, 0]), 'upper_limits': array([ 1,  9, 18,  1])},
+ {'lower_limits': array([ 0,  0, 18,  0]),
+  'upper_limits': array([ 1,  9, 28,  1])},
+ {'lower_limits': array([0, 9, 0, 0]), 'upper_limits': array([ 1, 18,  9,  1])},
+ {'lower_limits': array([0, 9, 9, 0]), 'upper_limits': array([ 1, 18, 18,  1])},
+ {'lower_limits': array([ 0,  9, 18,  0]),
+  'upper_limits': array([ 1, 18, 28,  1])},
+ {'lower_limits': array([ 0, 18,  0,  0]),
+  'upper_limits': array([ 1, 28,  9,  1])},
+ {'lower_limits': array([ 0, 18,  9,  0]),
+  'upper_limits': array([ 1, 28, 18,  1])},
+ {'lower_limits': array([ 0, 18, 18,  0]),
+  'upper_limits': array([ 1, 28, 28,  1])}]
+self.actions_p2
+[('contrast', 1.2),
+ ('contrast', 1.4),
+ ('contrast', 1.6),
+ ('contrast', 1.8),
+ ('contrast', 2.0),
+ ('contrast', 2.2),
+ ('contrast', 2.4000000000000004),
+ ('contrast', 2.6),
+ ('contrast', 2.8),
+ ('contrast', 3.0),
+ ('brightness', 10),
+ ('brightness', 20),
+ ('brightness', 30),
+ ('brightness', 40),
+ ('brightness', 50),
+ ('brightness', 60),
+ ('brightness', 70),
+ ('brightness', 80),
+ ('brightness', 90),
+ ('brightness', 100),
+ ('blur', 1),
+ ('blur', 2),
+ ('blur', 3),
+ ('blur', 4),
+ ('blur', 5),
+ ('blur', 6),
+ ('blur', 7),
+ ('blur', 8),
+ ('blur', 9),
+ ('blur', 10)]
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134438> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134390> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 2
+Completed Iteration #0
+Best Reward: 0
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134be0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134b70> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 3
+Completed Iteration #2
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134978> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134908> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 4
+Completed Iteration #3
+Best Reward: 0
+Completed Iteration #4
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca390> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134cf8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 5
+Completed Iteration #5
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca4a8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b320> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 6
+Completed Iteration #6
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b41343c8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134b70> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 7
+Completed Iteration #7
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134c18> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134390> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 8
+Completed Iteration #8
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134f28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca3c8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 9
+Completed Iteration #9
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134898> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134390> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 10
+Completed Iteration #10
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134b00> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b320> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 11
+Completed Iteration #11
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134dd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134cf8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 12
+Completed Iteration #12
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134fd0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413ba90> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 13
+Completed Iteration #13
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40cac18> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca3c8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 14
+Completed Iteration #14
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b41349e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134908> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 15
+Completed Iteration #15
+Best Reward: 0
+Completed Iteration #16
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b400> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca358> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 16
+Completed Iteration #17
+Best Reward: 0
+Completed Iteration #18
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b860> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413ba90> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 17
+Completed Iteration #19
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134ba8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413ba90> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 18
+Completed Iteration #20
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caa58> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b320> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 19
+Completed Iteration #21
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca7b8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca358> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 20
+Completed Iteration #22
+Best Reward: 0
+Completed Iteration #23
+Best Reward: 0
+Completed Iteration #24
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134860> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca3c8> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45e509fbe0> 0 21
+Completed Iteration #25
+Best Reward: 0
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 0
+No reward. Abort.
+iteration: 0
+found coverage increase 0
+Current Total Coverage 345
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40cac50> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5320> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 0 2
+Completed Iteration #0
+Best Reward: 0
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134518> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5160> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 0 3
+Completed Iteration #2
+Best Reward: 0
+Completed Iteration #3
+Best Reward: 0
+Completed Iteration #4
+Best Reward: 0
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca0f0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40cab38> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 1 4
+Completed Iteration #5
+Best Reward: 1
+Completed Iteration #6
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b630> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b940> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 1 5
+Completed Iteration #7
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b550> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f53c8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 2 6
+Completed Iteration #8
+Best Reward: 1
+Completed Iteration #9
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134240> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b940> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 2 7
+Completed Iteration #10
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134278> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134128> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 2 8
+Completed Iteration #11
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bc50> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41349b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 3 9
+Completed Iteration #12
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5358> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134128> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 4 10
+Completed Iteration #13
+Best Reward: 1
+Completed Iteration #14
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5048> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b940> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 5 11
+Completed Iteration #15
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b198> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41349b0> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 5 12
+Completed Iteration #16
+Best Reward: 1
+Completed Iteration #17
+Best Reward: 1
+Completed Iteration #18
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b2b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f53c8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 5 13
+Completed Iteration #19
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca400> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5320> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 5 14
+Completed Iteration #20
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca278> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40cab38> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 5 15
+Completed Iteration #21
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca5c0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5320> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 5 16
+Completed Iteration #22
+Best Reward: 1
+Completed Iteration #23
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40cafd0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40965f8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f57f0> 5 17
+Completed Iteration #24
+Best Reward: 1
+Completed Iteration #25
+Best Reward: 1
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 1
+No reward increase. Abort.
+iteration: 1
+found coverage increase 1
+Current Total Coverage 346
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca6d8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096438> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40965c0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 3
+Completed Iteration #1
+Best Reward: 0
+Completed Iteration #2
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca0b8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096438> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 4
+Completed Iteration #3
+Best Reward: 0
+Completed Iteration #4
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b2e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40965c0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 5
+Completed Iteration #5
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134470> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096d68> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 6
+Completed Iteration #6
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b41afd68> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41346d8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 7
+Completed Iteration #7
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b41af208> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40965c0> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 8
+Completed Iteration #8
+Best Reward: 0
+Completed Iteration #9
+Best Reward: 0
+Completed Iteration #10
+Best Reward: 0
+Completed Iteration #11
+Best Reward: 0
+Completed Iteration #12
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bc18> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad1d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 9
+Completed Iteration #13
+Best Reward: 0
+Completed Iteration #14
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b128> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad1d0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 10
+Completed Iteration #15
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bf98> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41346d8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 11
+Completed Iteration #16
+Best Reward: 0
+Completed Iteration #17
+Best Reward: 0
+Completed Iteration #18
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41346d8> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 12
+Completed Iteration #19
+Best Reward: 0
+Completed Iteration #20
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096a58> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096438> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 13
+Completed Iteration #21
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413beb8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40965c0> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5400> 0 14
+Completed Iteration #22
+Best Reward: 0
+Completed Iteration #23
+Best Reward: 0
+Completed Iteration #24
+Best Reward: 0
+Completed Iteration #25
+Best Reward: 0
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 0
+No reward. Abort.
+iteration: 2
+found coverage increase 0
+Current Total Coverage 346
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096ac8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf080> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad940> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf080> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 0 3
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b41af080> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf1d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 0 4
+Completed Iteration #2
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b9b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad5f8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 0 5
+Completed Iteration #3
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b208> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf550> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 0 6
+Completed Iteration #4
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b7f0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf518> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 0 7
+Completed Iteration #5
+Best Reward: 0
+Completed Iteration #6
+Best Reward: 0
+Completed Iteration #7
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40969b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adf98> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 0 8
+Completed Iteration #8
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096f28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad390> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 0 9
+Completed Iteration #9
+Best Reward: 0
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134b38> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adf98> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 2 10
+Completed Iteration #10
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b41342b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adf98> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 3 11
+Completed Iteration #11
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134c88> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca2e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 3 12
+Completed Iteration #12
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adeb8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad5f8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 4 13
+Completed Iteration #13
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096ef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adf98> 3 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 4 14
+Completed Iteration #14
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ade48> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf550> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 4 15
+Completed Iteration #15
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096978> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad400> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adeb8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad5f8> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 4 16
+Completed Iteration #16
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096048> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad5f8> 2 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 5 17
+Completed Iteration #17
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca828> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfda0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 6 18
+Completed Iteration #18
+Best Reward: 2
+Completed Iteration #19
+Best Reward: 2
+coverage_call_count 100
+Completed Iteration #20
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf390> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca2e8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 6 19
+Completed Iteration #21
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfd30> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf080> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 7 20
+Completed Iteration #22
+Best Reward: 2
+Completed Iteration #23
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca438> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad390> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 7 21
+Completed Iteration #24
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad5c0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca2e8> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 7 22
+Completed Iteration #25
+Best Reward: 2
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 2
+No reward increase. Abort.
+iteration: 3
+found coverage increase 2
+Current Total Coverage 348
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096cc0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfba8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40969e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfba8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 0 3
+Completed Iteration #1
+Best Reward: 0
+Completed Iteration #2
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096a20> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfba8> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 0 4
+Completed Iteration #3
+Best Reward: 0
+Completed Iteration #4
+Best Reward: 0
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40604e0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060be0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 1 5
+Completed Iteration #5
+Best Reward: 1
+Completed Iteration #6
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad438> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060a20> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 2 6
+Completed Iteration #7
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b748> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad470> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 2 7
+Completed Iteration #8
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b160> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b5c0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 2 8
+Completed Iteration #9
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf710> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bfd0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 2 9
+Completed Iteration #10
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096128> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060748> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 2 10
+Completed Iteration #11
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060978> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060a20> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 2 11
+Completed Iteration #12
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060518> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060be0> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 2 12
+Completed Iteration #13
+Best Reward: 1
+Completed Iteration #14
+Best Reward: 1
+Completed Iteration #15
+Best Reward: 1
+Completed Iteration #16
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096d30> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfba8> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 2 13
+Completed Iteration #17
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096710> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad470> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 3 14
+Completed Iteration #18
+Best Reward: 1
+Completed Iteration #19
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5898> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060be0> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 3 15
+Completed Iteration #20
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40609b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060748> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 4 16
+Completed Iteration #21
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060668> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074518> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 5 17
+Completed Iteration #22
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5b38> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074518> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 5 18
+Completed Iteration #23
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40600f0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060be0> 1 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 5 19
+Completed Iteration #24
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40cacc0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074518> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 5 20
+Completed Iteration #25
+Best Reward: 1
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 1
+No reward increase. Abort.
+iteration: 4
+found coverage increase 1
+Current Total Coverage 349
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf860> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf358> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f56a0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfe80> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 0 3
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bd30> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060dd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 0 4
+Completed Iteration #2
+Best Reward: 0
+Completed Iteration #3
+Best Reward: 0
+Completed Iteration #4
+Best Reward: 0
+Completed Iteration #5
+Best Reward: 0
+Completed Iteration #6
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074ef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074c50> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 0 5
+Completed Iteration #7
+Best Reward: 0
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413be80> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf358> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 1 6
+Completed Iteration #8
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060c88> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074080> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 1 7
+Completed Iteration #9
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060c50> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074080> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 2 8
+Completed Iteration #10
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134358> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40601d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 2 9
+Completed Iteration #11
+Best Reward: 1
+Completed Iteration #12
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074470> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074c50> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 2 10
+Completed Iteration #13
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bdd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008908> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 2 11
+Completed Iteration #14
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b668> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008cf8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 2 12
+Completed Iteration #15
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bcf8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060dd8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 3 13
+Completed Iteration #16
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b048> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40601d0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 3 14
+Completed Iteration #17
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060550> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40601d0> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 3 15
+Completed Iteration #18
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40749b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf358> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 3 16
+Completed Iteration #19
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b0b8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008908> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 3 17
+Completed Iteration #20
+Best Reward: 1
+Reward: 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060b70> 3 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008908> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 6 18
+Completed Iteration #21
+Best Reward: 3
+Completed Iteration #22
+Best Reward: 3
+Completed Iteration #23
+Best Reward: 3
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40742e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf358> 1 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 6 19
+Completed Iteration #24
+Best Reward: 3
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40086d8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40601d0> 1 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf748> 7 20
+Completed Iteration #25
+Best Reward: 3
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 3
+No reward increase. Abort.
+iteration: 5
+found coverage increase 3
+Current Total Coverage 352
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b3c8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008ba8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b5f8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40272b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 1 3
+Completed Iteration #1
+Best Reward: 1
+Completed Iteration #2
+Best Reward: 1
+Completed Iteration #3
+Best Reward: 1
+Completed Iteration #4
+Best Reward: 1
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027b00> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40272b0> 3 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 3 4
+Completed Iteration #5
+Best Reward: 2
+Completed Iteration #6
+Best Reward: 2
+Completed Iteration #7
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027e80> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40086a0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 4 5
+Completed Iteration #8
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40271d0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40270f0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 5 6
+Completed Iteration #9
+Best Reward: 2
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027c88> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40272b0> 5 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 7 7
+Completed Iteration #10
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027da0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027ba8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 8 8
+Completed Iteration #11
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027470> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027e48> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 9 9
+Completed Iteration #12
+Best Reward: 2
+Completed Iteration #13
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad240> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40086a0> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 10 10
+Completed Iteration #14
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adc88> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027e48> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 11 11
+Completed Iteration #15
+Best Reward: 2
+Completed Iteration #16
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ada90> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b908> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 12 12
+Completed Iteration #17
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ade80> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027ba8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 12 13
+Completed Iteration #18
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bda0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40272b0> 6 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 13 14
+Completed Iteration #19
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008ac8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 14 15
+Completed Iteration #20
+Best Reward: 2
+Completed Iteration #21
+Best Reward: 2
+Completed Iteration #22
+Best Reward: 2
+Completed Iteration #23
+Best Reward: 2
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027668> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40272b0> 8 6
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 16 16
+Completed Iteration #24
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027f60> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40080b8> 16 17
+Completed Iteration #25
+Best Reward: 2
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 2
+No reward increase. Abort.
+iteration: 6
+found coverage increase 2
+Current Total Coverage 354
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5dd8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bc18> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 2
+Completed Iteration #0
+Best Reward: 1
+Completed Iteration #1
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5ba8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bc18> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 3
+Completed Iteration #2
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f59b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e51de9e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 4
+Completed Iteration #3
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5cf8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e51de9e8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 5
+Completed Iteration #4
+Best Reward: 1
+Completed Iteration #5
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027f28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bc18> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 6
+Completed Iteration #6
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027be0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e51de9e8> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 7
+Completed Iteration #7
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008128> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027860> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 8
+Completed Iteration #8
+Best Reward: 1
+Completed Iteration #9
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027ef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060630> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 9
+Completed Iteration #10
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b898> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027400> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 10
+Completed Iteration #11
+Best Reward: 1
+coverage_call_count 200
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060a58> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3240> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 11
+Completed Iteration #12
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b390> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3780> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 12
+Completed Iteration #13
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008668> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3240> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 13
+Completed Iteration #14
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40082b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e51de9e8> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 14
+Completed Iteration #15
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40089b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bdd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 15
+Completed Iteration #16
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008828> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3780> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 16
+Completed Iteration #17
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008198> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060630> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 17
+Completed Iteration #18
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b4a8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bc18> 1 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 18
+Completed Iteration #19
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008438> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027400> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 19
+Completed Iteration #20
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008978> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3780> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 20
+Completed Iteration #21
+Best Reward: 1
+Completed Iteration #22
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b438> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3240> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 21
+Completed Iteration #23
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027c18> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bdd8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 22
+Completed Iteration #24
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d37f0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45e51de9e8> 0 6
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff28> 1 23
+Completed Iteration #25
+Best Reward: 1
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 1
+No reward increase. Abort.
+iteration: 7
+found coverage increase 1
+Current Total Coverage 355
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3be0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3ba8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008048> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3a90> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 0 3
+Completed Iteration #1
+Best Reward: 0
+Completed Iteration #2
+Best Reward: 0
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008a58> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3588> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 1 4
+Completed Iteration #3
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008a90> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3a90> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 2 5
+Completed Iteration #4
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008e48> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3a90> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 2 6
+Completed Iteration #5
+Best Reward: 1
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008898> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3dd8> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 4 7
+Completed Iteration #6
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40084e0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3588> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 5 8
+Completed Iteration #7
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3828> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3dd8> 3 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 6 9
+Completed Iteration #8
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008860> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf668> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 7 10
+Completed Iteration #9
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b403ba90> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf668> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 8 11
+Completed Iteration #10
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008dd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3a90> 1 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 8 12
+Completed Iteration #11
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008be0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3a90> 1 6
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 8 13
+Completed Iteration #12
+Best Reward: 2
+Completed Iteration #13
+Best Reward: 2
+Completed Iteration #14
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3518> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bfd0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 9 14
+Completed Iteration #15
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074438> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3588> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 10 15
+Completed Iteration #16
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008080> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3588> 4 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 11 16
+Completed Iteration #17
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008940> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e34e0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 12 17
+Completed Iteration #18
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3358> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3ef0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 13 18
+Completed Iteration #19
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3668> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3ba8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 14 19
+Completed Iteration #20
+Best Reward: 2
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3748> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3dd8> 5 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 16 20
+Completed Iteration #21
+Best Reward: 2
+Completed Iteration #22
+Best Reward: 2
+Completed Iteration #23
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45e51de9e8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3dd8> 6 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d30f0> 17 21
+Completed Iteration #24
+Best Reward: 2
+Completed Iteration #25
+Best Reward: 2
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 2
+No reward increase. Abort.
+iteration: 8
+found coverage increase 2
+Current Total Coverage 357
+Completed Iteration #0
+Best Reward: 0
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3278> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027a58> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 2
+Completed Iteration #2
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3f60> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027a58> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 3
+Completed Iteration #3
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bd68> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d32e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 4
+Completed Iteration #4
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3898> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3080> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 5
+Completed Iteration #5
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3630> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027b38> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 6
+Completed Iteration #6
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3ef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3da0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 7
+Completed Iteration #7
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3860> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027b38> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 8
+Completed Iteration #8
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bba8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3080> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 9
+Completed Iteration #9
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b7f0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027a58> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 10
+Completed Iteration #10
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3550> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027a58> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 11
+Completed Iteration #11
+Best Reward: 0
+Completed Iteration #12
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b208> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bc50> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 12
+Completed Iteration #13
+Best Reward: 0
+Completed Iteration #14
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027cc0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027f28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 13
+Completed Iteration #15
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027080> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027f28> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 14
+Completed Iteration #16
+Best Reward: 0
+Completed Iteration #17
+Best Reward: 0
+Completed Iteration #18
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008eb8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d32e8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 15
+Completed Iteration #19
+Best Reward: 0
+Completed Iteration #20
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027cf8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bc50> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 16
+Completed Iteration #21
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b8d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d32e8> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 17
+Completed Iteration #22
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3e10> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bc50> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027dd8> 0 18
+Completed Iteration #23
+Best Reward: 0
+Completed Iteration #24
+Best Reward: 0
+Completed Iteration #25
+Best Reward: 0
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 0
+No reward. Abort.
+iteration: 9
+found coverage increase 0
+Current Total Coverage 357
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b2b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060e48> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 2
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b4a8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b1d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 3
+Completed Iteration #2
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074208> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060e48> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 4
+Completed Iteration #3
+Best Reward: 0
+Completed Iteration #4
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008630> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40086a0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 5
+Completed Iteration #5
+Best Reward: 0
+Completed Iteration #6
+Best Reward: 0
+Completed Iteration #7
+Best Reward: 0
+Completed Iteration #8
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074ba8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074908> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 6
+Completed Iteration #9
+Best Reward: 0
+Completed Iteration #10
+Best Reward: 0
+Completed Iteration #11
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3c18> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060240> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 7
+Completed Iteration #12
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074860> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40086a0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 8
+Completed Iteration #13
+Best Reward: 0
+Completed Iteration #14
+Best Reward: 0
+Completed Iteration #15
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008e10> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074908> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 9
+Completed Iteration #16
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3cc0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40605c0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 10
+Completed Iteration #17
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b908> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40086a0> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 11
+Completed Iteration #18
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b940> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074c88> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 12
+Completed Iteration #19
+Best Reward: 0
+Completed Iteration #20
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027978> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40605c0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 13
+Completed Iteration #21
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b403b438> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074e10> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 14
+Completed Iteration #22
+Best Reward: 0
+Completed Iteration #23
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027438> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40086a0> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 15
+Completed Iteration #24
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027c50> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060e48> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060908> 0 16
+Completed Iteration #25
+Best Reward: 0
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 0
+No reward. Abort.
+iteration: 10
+found coverage increase 0
+Current Total Coverage 357
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40606a0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad438> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 1 2
+Completed Iteration #0
+Best Reward: 1
+Completed Iteration #1
+Best Reward: 1
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfc88> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40609e8> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 3 3
+Completed Iteration #2
+Best Reward: 2
+Completed Iteration #3
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40741d0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad710> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 4 4
+Completed Iteration #4
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074b00> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40609e8> 3 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 5 5
+Completed Iteration #5
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060748> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060710> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 6 6
+Completed Iteration #6
+Best Reward: 2
+coverage_call_count 300
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3668> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad748> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 6 7
+Completed Iteration #7
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bb70> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3eb8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 7 8
+Completed Iteration #8
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3a90> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4008198> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 8 9
+Completed Iteration #9
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40add30> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096470> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 9 10
+Completed Iteration #10
+Best Reward: 2
+Completed Iteration #11
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3cc0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096dd8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 10 11
+Completed Iteration #12
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adf60> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3eb8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 10 12
+Completed Iteration #13
+Best Reward: 2
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad358> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3eb8> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 12 13
+Completed Iteration #14
+Best Reward: 2
+Completed Iteration #15
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3550> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40609e8> 4 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 13 14
+Completed Iteration #16
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfac8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3eb8> 4 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 14 15
+Completed Iteration #17
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7d3860> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096dd8> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 15 16
+Completed Iteration #18
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060f98> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad438> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 16 17
+Completed Iteration #19
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060860> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad438> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 17 18
+Completed Iteration #20
+Best Reward: 2
+Completed Iteration #21
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074a20> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060710> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 18 19
+Completed Iteration #22
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e30b8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096470> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 19 20
+Completed Iteration #23
+Best Reward: 2
+Completed Iteration #24
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027a90> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad2e8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40606a0> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad438> 4 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad978> 20 21
+Completed Iteration #25
+Best Reward: 2
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 2
+No reward increase. Abort.
+iteration: 11
+found coverage increase 2
+Current Total Coverage 359
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf860> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfba8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 1 2
+Completed Iteration #0
+Best Reward: 1
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf6d8> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad0f0> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 3 3
+Completed Iteration #1
+Best Reward: 2
+Completed Iteration #2
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096438> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074ac8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 4 4
+Completed Iteration #3
+Best Reward: 2
+Completed Iteration #4
+Best Reward: 2
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7e3940> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad0f0> 4 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 6 5
+Completed Iteration #5
+Best Reward: 2
+Reward: 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b403bef0> 4 2
+backprop <src.mcts.MCTS_Node object at 0x7f4634fbaef0> 4 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 10 6
+Completed Iteration #6
+Best Reward: 4
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027c88> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5240> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 10 7
+Completed Iteration #7
+Best Reward: 4
+Completed Iteration #8
+Best Reward: 4
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfe80> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfba8> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 11 8
+Completed Iteration #9
+Best Reward: 4
+Completed Iteration #10
+Best Reward: 4
+Completed Iteration #11
+Best Reward: 4
+Reward: 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40609b0> 3 2
+backprop <src.mcts.MCTS_Node object at 0x7f4634fbaef0> 7 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 14 9
+Completed Iteration #12
+Best Reward: 4
+Completed Iteration #13
+Best Reward: 4
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf470> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf1d0> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 16 10
+Completed Iteration #14
+Best Reward: 4
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad4e0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad0f0> 5 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 17 11
+Completed Iteration #15
+Best Reward: 4
+Completed Iteration #16
+Best Reward: 4
+Completed Iteration #17
+Best Reward: 4
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074518> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bfba8> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 18 12
+Completed Iteration #18
+Best Reward: 4
+Reward: 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40962e8> 4 2
+backprop <src.mcts.MCTS_Node object at 0x7f4634fbaef0> 11 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 22 13
+Completed Iteration #19
+Best Reward: 4
+Completed Iteration #20
+Best Reward: 4
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f58d0> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4074ac8> 3 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 24 14
+Completed Iteration #21
+Best Reward: 4
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f50f0> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5240> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 26 15
+Completed Iteration #22
+Best Reward: 4
+Completed Iteration #23
+Best Reward: 4
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060588> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf1d0> 4 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 28 16
+Completed Iteration #24
+Best Reward: 4
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5eb8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad0f0> 6 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bff98> 29 17
+Completed Iteration #25
+Best Reward: 4
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 4
+No reward increase. Abort.
+iteration: 12
+found coverage increase 4
+Current Total Coverage 363
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf0f0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca0f0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 1 2
+Completed Iteration #0
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad1d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4027ef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 1 3
+Completed Iteration #1
+Best Reward: 1
+Completed Iteration #2
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ada58> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40600f0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 2 4
+Completed Iteration #3
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ade80> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca438> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 3 5
+Completed Iteration #4
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096550> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca438> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 4 6
+Completed Iteration #5
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40086d8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca0f0> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 5 7
+Completed Iteration #6
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b128> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca438> 2 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 5 8
+Completed Iteration #7
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b048> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40600f0> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 5 9
+Completed Iteration #8
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40960b8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b358> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 5 10
+Completed Iteration #9
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4096940> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b358> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 5 11
+Completed Iteration #10
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca6d8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134278> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 6 12
+Completed Iteration #11
+Best Reward: 1
+Completed Iteration #12
+Best Reward: 1
+Completed Iteration #13
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40cab70> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adac8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 7 13
+Completed Iteration #14
+Best Reward: 1
+Completed Iteration #15
+Best Reward: 1
+Completed Iteration #16
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b860> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca0f0> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 8 14
+Completed Iteration #17
+Best Reward: 1
+Completed Iteration #18
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b898> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca438> 3 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 9 15
+Completed Iteration #19
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b2b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca438> 4 6
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 10 16
+Completed Iteration #20
+Best Reward: 1
+Completed Iteration #21
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b940> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40600f0> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 10 17
+Completed Iteration #22
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca550> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca0f0> 4 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 11 18
+Completed Iteration #23
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b418bc18> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134278> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 11 19
+Completed Iteration #24
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b418bdd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134278> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caf28> 11 20
+Completed Iteration #25
+Best Reward: 1
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 1
+No reward increase. Abort.
+iteration: 13
+found coverage increase 1
+Current Total Coverage 364
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40964e0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060550> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 1 2
+Completed Iteration #0
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40bf5c0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060550> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 2 3
+Completed Iteration #1
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca6a0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4060550> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 3 4
+Completed Iteration #2
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40adcf8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41afd68> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 4 5
+Completed Iteration #3
+Best Reward: 1
+Completed Iteration #4
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f52b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f59b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 5 6
+Completed Iteration #5
+Best Reward: 1
+Completed Iteration #6
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5518> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bb38> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 6 7
+Completed Iteration #7
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ad6d8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134da0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 7 8
+Completed Iteration #8
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b828> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41afd68> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 8 9
+Completed Iteration #9
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bf60> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f59b0> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 9 10
+Completed Iteration #10
+Best Reward: 1
+Completed Iteration #11
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bc18> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41afd68> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 10 11
+Completed Iteration #12
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b41af7f0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7820f0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 11 12
+Completed Iteration #13
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413ba58> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7822e8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 12 13
+Completed Iteration #14
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134b00> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7829b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 13 14
+Completed Iteration #15
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b6d8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7829b0> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 14 15
+Completed Iteration #16
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b9b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7822e8> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 15 16
+Completed Iteration #17
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b198> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134da0> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 16 17
+Completed Iteration #18
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134748> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7820f0> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 17 18
+Completed Iteration #19
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134e48> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41afd68> 3 5
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 17 19
+Completed Iteration #20
+Best Reward: 1
+Completed Iteration #21
+Best Reward: 1
+Completed Iteration #22
+Best Reward: 1
+Completed Iteration #23
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782320> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bb38> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45b418b390> 18 20
+Completed Iteration #24
+Best Reward: 1
+Completed Iteration #25
+Best Reward: 1
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 1
+No reward increase. Abort.
+coverage_call_count 400
+iteration: 14
+found coverage increase 1
+Current Total Coverage 365
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b160> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7356d8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7826d8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bd68> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 3
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782cc0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7354a8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 4
+Completed Iteration #2
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782cf8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735978> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 5
+Completed Iteration #3
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782c50> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735b38> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 6
+Completed Iteration #4
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134d68> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735908> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 7
+Completed Iteration #5
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b208> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7356d8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 8
+Completed Iteration #6
+Best Reward: 0
+Completed Iteration #7
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f51d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7354a8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 9
+Completed Iteration #8
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7354e0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bd68> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 10
+Completed Iteration #9
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735588> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bd68> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 11
+Completed Iteration #10
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735518> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf550> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 12
+Completed Iteration #11
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40caef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735978> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 13
+Completed Iteration #12
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5da0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf550> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 14
+Completed Iteration #13
+Best Reward: 0
+Completed Iteration #14
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782278> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735908> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 15
+Completed Iteration #15
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782860> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735b38> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 16
+Completed Iteration #16
+Best Reward: 0
+Completed Iteration #17
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b413b278> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b413bd68> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 17
+Completed Iteration #18
+Best Reward: 0
+Completed Iteration #19
+Best Reward: 0
+Completed Iteration #20
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b418bbe0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735e80> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 18
+Completed Iteration #21
+Best Reward: 0
+Completed Iteration #22
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b41343c8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735978> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 19
+Completed Iteration #23
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40cab00> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7354a8> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 20
+Completed Iteration #24
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40ca7b8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735978> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735828> 0 21
+Completed Iteration #25
+Best Reward: 0
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 0
+No reward. Abort.
+iteration: 15
+found coverage increase 0
+Current Total Coverage 365
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134438> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfa20> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134f98> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfb00> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 0 3
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782eb8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfcc0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 0 4
+Completed Iteration #2
+Best Reward: 0
+Completed Iteration #3
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5198> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfa20> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 0 5
+Completed Iteration #4
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735ac8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfa90> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 0 6
+Completed Iteration #5
+Best Reward: 0
+Completed Iteration #6
+Best Reward: 0
+Completed Iteration #7
+Best Reward: 0
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cff60> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0550> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 1 7
+Completed Iteration #8
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf860> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfcc0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 1 8
+Completed Iteration #9
+Best Reward: 1
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b41346d8> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfa90> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 3 9
+Completed Iteration #10
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf278> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfcc0> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 3 10
+Completed Iteration #11
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfd68> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0550> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 3 11
+Completed Iteration #12
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfda0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735048> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 3 12
+Completed Iteration #13
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfe80> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfa20> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 3 13
+Completed Iteration #14
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782dd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0b38> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 3 14
+Completed Iteration #15
+Best Reward: 2
+Completed Iteration #16
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735f60> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0cf8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134f98> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfb00> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 4 15
+Completed Iteration #17
+Best Reward: 2
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735a90> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0b38> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 5 16
+Completed Iteration #18
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782ef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f5fd0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 5 17
+Completed Iteration #19
+Best Reward: 2
+Completed Iteration #20
+Best Reward: 2
+Completed Iteration #21
+Best Reward: 2
+Completed Iteration #22
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735dd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0550> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 5 18
+Completed Iteration #23
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7352b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0b38> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 5 19
+Completed Iteration #24
+Best Reward: 2
+Completed Iteration #25
+Best Reward: 2
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 2
+No reward increase. Abort.
+iteration: 16
+found coverage increase 2
+Current Total Coverage 367
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0c88> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689b00> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 2
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7352e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689c88> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 3
+Completed Iteration #2
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735630> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689b00> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 4
+Completed Iteration #3
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cff28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6899b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 5
+Completed Iteration #4
+Best Reward: 0
+Completed Iteration #5
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40f54e0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf668> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 6
+Completed Iteration #6
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a20> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a04e0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 7
+Completed Iteration #7
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f09e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689b00> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 8
+Completed Iteration #8
+Best Reward: 0
+Completed Iteration #9
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782e48> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689908> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 9
+Completed Iteration #10
+Best Reward: 0
+Completed Iteration #11
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac782ac8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689198> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 10
+Completed Iteration #12
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735c18> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a04e0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 11
+Completed Iteration #13
+Best Reward: 0
+Completed Iteration #14
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0e10> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf668> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 0 12
+Completed Iteration #15
+Best Reward: 0
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0198> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689908> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 2 13
+Completed Iteration #16
+Best Reward: 2
+Completed Iteration #17
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b4134828> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf128> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 2 14
+Completed Iteration #18
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689c18> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6899b0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 2 15
+Completed Iteration #19
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735f98> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf128> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 2 16
+Completed Iteration #20
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7355c0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689b00> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 2 17
+Completed Iteration #21
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689828> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6899b0> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 2 18
+Completed Iteration #22
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689518> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689c88> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 2 19
+Completed Iteration #23
+Best Reward: 2
+Reward: 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689eb8> 2 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689908> 4 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 4 20
+Completed Iteration #24
+Best Reward: 2
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689320> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf128> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a58> 4 21
+Completed Iteration #25
+Best Reward: 2
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 2
+No reward increase. Abort.
+iteration: 17
+found coverage increase 2
+Current Total Coverage 369
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735cf8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0d68> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b40cae48> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0cf8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 0 3
+Completed Iteration #1
+Best Reward: 0
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfc18> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0ac8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 1 4
+Completed Iteration #2
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf0b8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0ac8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 1 5
+Completed Iteration #3
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfc50> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0cf8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 1 6
+Completed Iteration #4
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0eb8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643550> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 1 7
+Completed Iteration #5
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0a58> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0ef0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 2 8
+Completed Iteration #6
+Best Reward: 1
+Completed Iteration #7
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0c88> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643710> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 2 9
+Completed Iteration #8
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a02e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6438d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 2 10
+Completed Iteration #9
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0080> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643a90> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 2 11
+Completed Iteration #10
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0f28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0d68> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 2 12
+Completed Iteration #11
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0160> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0ef0> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 13
+Completed Iteration #12
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0fd0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0ef0> 2 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 14
+Completed Iteration #13
+Best Reward: 1
+Completed Iteration #14
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689d68> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0cf8> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 15
+Completed Iteration #15
+Best Reward: 1
+Completed Iteration #16
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735668> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6436d8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 16
+Completed Iteration #17
+Best Reward: 1
+Completed Iteration #18
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643da0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6438d0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 17
+Completed Iteration #19
+Best Reward: 1
+coverage_call_count 500
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfe48> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0ac8> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 18
+Completed Iteration #20
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643dd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0d68> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 19
+Completed Iteration #21
+Best Reward: 1
+Completed Iteration #22
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643978> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6436d8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 20
+Completed Iteration #23
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735ba8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643550> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 21
+Completed Iteration #24
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0128> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6438d0> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a90> 3 22
+Completed Iteration #25
+Best Reward: 1
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 1
+No reward increase. Abort.
+iteration: 18
+found coverage increase 1
+Current Total Coverage 370
+Completed Iteration #0
+Best Reward: 0
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0940> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0710> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 0 2
+Completed Iteration #2
+Best Reward: 0
+Completed Iteration #3
+Best Reward: 0
+Completed Iteration #4
+Best Reward: 0
+Completed Iteration #5
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735f28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0710> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 0 3
+Completed Iteration #6
+Best Reward: 0
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7359e8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a518> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 1 4
+Completed Iteration #7
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac735358> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0710> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 1 5
+Completed Iteration #8
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643e80> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63ad68> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 1 6
+Completed Iteration #9
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643ac8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63af98> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 1 7
+Completed Iteration #10
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f02b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643e10> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 2 8
+Completed Iteration #11
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6898d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0630> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 2 9
+Completed Iteration #12
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f07b8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643e10> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 3 10
+Completed Iteration #13
+Best Reward: 1
+Completed Iteration #14
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0b00> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45847bc5f8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 3 11
+Completed Iteration #15
+Best Reward: 1
+Completed Iteration #16
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63aeb8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0748> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 3 12
+Completed Iteration #17
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63aef0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0710> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 3 13
+Completed Iteration #18
+Best Reward: 1
+Completed Iteration #19
+Best Reward: 1
+Completed Iteration #20
+Best Reward: 1
+Completed Iteration #21
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0f28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63af98> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0470> 3 14
+Completed Iteration #22
+Best Reward: 1
+Completed Iteration #23
+Best Reward: 1
+Completed Iteration #24
+Best Reward: 1
+Completed Iteration #25
+Best Reward: 1
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 1
+No reward increase. Abort.
+iteration: 19
+found coverage increase 1
+Current Total Coverage 371
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6439b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643eb8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 2
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a02b0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6431d0> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 3
+Completed Iteration #1
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a2e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689a20> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 4
+Completed Iteration #2
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0e80> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0940> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 5
+Completed Iteration #3
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a048> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689400> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 6
+Completed Iteration #4
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63aa90> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689400> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 7
+Completed Iteration #5
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0dd8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689898> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 8
+Completed Iteration #6
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0908> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689898> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 9
+Completed Iteration #7
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a20> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0940> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 10
+Completed Iteration #8
+Best Reward: 0
+Completed Iteration #9
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689588> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689400> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 11
+Completed Iteration #10
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689ac8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689898> 0 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 12
+Completed Iteration #11
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0a58> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0898> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 13
+Completed Iteration #12
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643518> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0cf8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 14
+Completed Iteration #13
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a390> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689438> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 15
+Completed Iteration #14
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0198> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689400> 0 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 16
+Completed Iteration #15
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0f28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643eb8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 17
+Completed Iteration #16
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0668> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6431d0> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 18
+Completed Iteration #17
+Best Reward: 0
+Completed Iteration #18
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0470> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0cf8> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 19
+Completed Iteration #19
+Best Reward: 0
+Completed Iteration #20
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45b41ff080> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0898> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643828> 0 20
+Completed Iteration #21
+Best Reward: 0
+Completed Iteration #22
+Best Reward: 0
+Completed Iteration #23
+Best Reward: 0
+Completed Iteration #24
+Best Reward: 0
+Completed Iteration #25
+Best Reward: 0
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 0
+No reward. Abort.
+iteration: 20
+found coverage increase 0
+Current Total Coverage 371
+Completed Iteration #0
+Best Reward: 0
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0048> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f02e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 0 2
+Completed Iteration #1
+Best Reward: 0
+Completed Iteration #2
+Best Reward: 0
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f00b8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63aa58> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 1 3
+Completed Iteration #3
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f0978> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cff28> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 1 4
+Completed Iteration #4
+Best Reward: 1
+Completed Iteration #5
+Best Reward: 1
+Completed Iteration #6
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf390> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf9e8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 1 5
+Completed Iteration #7
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf5f8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63aa58> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 2 6
+Completed Iteration #8
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfc50> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cff28> 0 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 2 7
+Completed Iteration #9
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a668> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cff28> 1 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 3 8
+Completed Iteration #10
+Best Reward: 1
+Completed Iteration #11
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf668> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f02e8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 4 9
+Completed Iteration #12
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfd68> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a470> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 5 10
+Completed Iteration #13
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643668> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf9b0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 6 11
+Completed Iteration #14
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643710> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6a0588> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 7 12
+Completed Iteration #15
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6437b8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f02e8> 2 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 8 13
+Completed Iteration #16
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643e48> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63aa58> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 9 14
+Completed Iteration #17
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7352e8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf9e8> 1 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 10 15
+Completed Iteration #18
+Best Reward: 1
+Completed Iteration #19
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63ac88> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f02e8> 2 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 10 16
+Completed Iteration #20
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cfeb8> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cff28> 2 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 11 17
+Completed Iteration #21
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac689d68> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf9b0> 2 3
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 12 18
+Completed Iteration #22
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f08d0> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6f02e8> 3 6
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 13 19
+Completed Iteration #23
+Best Reward: 1
+Reward: 1
+backprop <src.mcts.MCTS_Node object at 0x7f45ac643f60> 1 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac6cf9b0> 3 4
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 14 20
+Completed Iteration #24
+Best Reward: 1
+Reward: 0
+backprop <src.mcts.MCTS_Node object at 0x7f45ac7355f8> 0 2
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63aa58> 3 5
+backprop <src.mcts.MCTS_Node object at 0x7f45ac63a898> 14 21
+Completed Iteration #25
+Best Reward: 1
+Completed MCTS Level/Depth: #0
+root
+Best Reward: 1
+No reward increase. Abort.
+iteration: 21
+found coverage increase 1
+Current Total Coverage 372
+initial coverage: 345
+time passed (minutes): 1.17798
+iterations: 22
+number of new inputs: 1024
+final coverage: 372
+total coverage increase: 27
