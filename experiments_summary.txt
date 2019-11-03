@@ -1,130 +1,74 @@
 EXPERIMENT: experiments/cifar/deephunter/CIFAR_CNN-kmn 
-Coverage Increase: 0.01 ± 0.00 
-Inital Coverage: 5.38 ± 0.00 
-Final Coverage: 5.39 ± 0.00 
-Number of New Inputs: 245.67 ± 83.72 
-Number of Iterations: 183.33 ± 5.03 
-Time Passed (Minutes): 60.18 ± 0.16 
+Coverage Increase: 0.98 ± 0.03 
+Inital Coverage: 25.42 ± 0.00 
+Final Coverage: 26.39 ± 0.03 
+Number of New Inputs: 1035.67 ± 13.58 
+Number of Iterations: 14.00 ± 0.00 
+Time Passed (Minutes): 15.82 ± 0.16 
 
 EXPERIMENT: experiments/cifar/deephunter/CIFAR_CNN-nbc 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 2.02 ± 0.00 
-Final Coverage: 2.02 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 185.00 ± 1.73 
-Time Passed (Minutes): 60.07 ± 0.07 
+Coverage Increase: 2.39 ± 0.64 
+Inital Coverage: 4.89 ± 0.00 
+Final Coverage: 7.28 ± 0.64 
+Number of New Inputs: 1031.67 ± 12.34 
+Number of Iterations: 30.67 ± 12.66 
+Time Passed (Minutes): 10.20 ± 1.32 
 
 EXPERIMENT: experiments/cifar/deephunter/CIFAR_CNN-neuron 
-Coverage Increase: 0.83 ± 0.11 
-Inital Coverage: 25.74 ± 0.00 
-Final Coverage: 26.58 ± 0.11 
-Number of New Inputs: 1043.67 ± 1.53 
-Number of Iterations: 219.67 ± 62.29 
-Time Passed (Minutes): 37.12 ± 6.95 
+Coverage Increase: 1.99 ± 0.19 
+Inital Coverage: 26.02 ± 0.00 
+Final Coverage: 28.00 ± 0.19 
+Number of New Inputs: 1047.00 ± 6.24 
+Number of Iterations: 218.00 ± 61.58 
+Time Passed (Minutes): 10.29 ± 1.71 
 
 EXPERIMENT: experiments/cifar/deephunter/CIFAR_CNN-tfc 
-Coverage Increase: 16.00 ± 2.00 
+Coverage Increase: 16.00 ± 2.65 
 Inital Coverage: 120.00 ± 0.00 
-Final Coverage: 136.00 ± 2.00 
-Number of New Inputs: 1043.00 ± 5.00 
-Number of Iterations: 65.33 ± 13.32 
-Time Passed (Minutes): 0.81 ± 0.01 
+Final Coverage: 136.00 ± 2.65 
+Number of New Inputs: 1042.67 ± 5.51 
+Number of Iterations: 64.00 ± 8.00 
+Time Passed (Minutes): 0.83 ± 0.04 
 
 EXPERIMENT: experiments/cifar/mcts/CIFAR_CNN-kmn 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 5.38 ± 0.00 
-Final Coverage: 5.38 ± 0.00 
-Number of New Inputs: 42.67 ± 36.95 
-Number of Iterations: 5.67 ± 3.51 
-Time Passed (Minutes): 68.53 ± 10.49 
-
-EXPERIMENT: experiments/cifar/mcts/CIFAR_CNN-nbc 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 2.02 ± 0.00 
-Final Coverage: 2.02 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 9.00 ± 0.00 
-Time Passed (Minutes): 60.98 ± 0.61 
+Coverage Increase: 0.18 ± 0.02 
+Inital Coverage: 25.42 ± 0.00 
+Final Coverage: 25.60 ± 0.02 
+Number of New Inputs: 128.00 ± 0.00 
+Number of Iterations: 2.00 ± 0.00 
+Time Passed (Minutes): 168.09 ± 3.59 
 
 EXPERIMENT: experiments/cifar/mcts/CIFAR_CNN-neuron 
-Coverage Increase: 0.33 ± 0.10 
-Inital Coverage: 25.74 ± 0.00 
-Final Coverage: 26.07 ± 0.10 
-Number of New Inputs: 234.67 ± 36.95 
-Number of Iterations: 5.33 ± 2.31 
-Time Passed (Minutes): 69.57 ± 7.90 
-
-EXPERIMENT: experiments/cifar/mcts/CIFAR_CNN-tfc 
-Coverage Increase: 47.00 ± 5.29 
-Inital Coverage: 120.00 ± 0.00 
-Final Coverage: 167.00 ± 5.29 
+Coverage Increase: 3.51 ± 0.48 
+Inital Coverage: 26.02 ± 0.00 
+Final Coverage: 29.53 ± 0.48 
 Number of New Inputs: 1024.00 ± 0.00 
-Number of Iterations: 29.00 ± 7.21 
-Time Passed (Minutes): 18.12 ± 0.86 
-
-EXPERIMENT: experiments/cifar/mcts_clustered/CIFAR_CNN-kmn 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 5.38 ± 0.00 
-Final Coverage: 5.38 ± 0.00 
-Number of New Inputs: 64.00 ± 0.00 
-Number of Iterations: 5.67 ± 3.51 
-Time Passed (Minutes): 77.54 ± 14.76 
-
-EXPERIMENT: experiments/cifar/mcts_clustered/CIFAR_CNN-nbc 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 2.02 ± 0.00 
-Final Coverage: 2.02 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 9.00 ± 0.00 
-Time Passed (Minutes): 61.55 ± 0.52 
-
-EXPERIMENT: experiments/cifar/mcts_clustered/CIFAR_CNN-neuron 
-Coverage Increase: 0.31 ± 0.03 
-Inital Coverage: 25.74 ± 0.00 
-Final Coverage: 26.05 ± 0.03 
-Number of New Inputs: 149.33 ± 36.95 
-Number of Iterations: 4.67 ± 0.58 
-Time Passed (Minutes): 66.18 ± 8.17 
-
-EXPERIMENT: experiments/cifar/mcts_clustered/CIFAR_CNN-tfc 
-Coverage Increase: 43.00 ± 5.29 
-Inital Coverage: 120.00 ± 0.00 
-Final Coverage: 163.00 ± 5.29 
-Number of New Inputs: 1024.00 ± 0.00 
-Number of Iterations: 28.33 ± 5.51 
-Time Passed (Minutes): 18.35 ± 2.36 
+Number of Iterations: 39.67 ± 9.81 
+Time Passed (Minutes): 105.68 ± 6.65 
 
 EXPERIMENT: experiments/cifar/tensorfuzz/CIFAR_CNN-kmn 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 5.38 ± 0.00 
-Final Coverage: 5.38 ± 0.00 
-Number of New Inputs: 1.00 ± 1.00 
-Number of Iterations: 78.00 ± 1.00 
-Time Passed (Minutes): 60.31 ± 0.31 
+Coverage Increase: 0.13 ± 0.01 
+Inital Coverage: 25.42 ± 0.00 
+Final Coverage: 25.55 ± 0.01 
+Number of New Inputs: 192.00 ± 0.00 
+Number of Iterations: 3.00 ± 0.00 
+Time Passed (Minutes): 127.19 ± 1.24 
 
 EXPERIMENT: experiments/cifar/tensorfuzz/CIFAR_CNN-nbc 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 2.02 ± 0.00 
-Final Coverage: 2.02 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 78.33 ± 1.53 
-Time Passed (Minutes): 60.46 ± 0.23 
+Coverage Increase: 1.46 ± 0.18 
+Inital Coverage: 4.89 ± 0.00 
+Final Coverage: 6.35 ± 0.18 
+Number of New Inputs: 21.50 ± 3.54 
+Number of Iterations: 30.00 ± 0.00 
+Time Passed (Minutes): 122.85 ± 1.26 
 
 EXPERIMENT: experiments/cifar/tensorfuzz/CIFAR_CNN-neuron 
-Coverage Increase: 0.29 ± 0.08 
-Inital Coverage: 25.74 ± 0.00 
-Final Coverage: 26.04 ± 0.08 
-Number of New Inputs: 5.33 ± 1.53 
-Number of Iterations: 102.33 ± 2.31 
-Time Passed (Minutes): 60.29 ± 0.13 
-
-EXPERIMENT: experiments/cifar/tensorfuzz/CIFAR_CNN-tfc 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 120.00 ± 0.00 
-Final Coverage: 120.00 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 124.67 ± 0.58 
-Time Passed (Minutes): 60.78 ± 0.27 
+Coverage Increase: 0.93 ± 0.15 
+Inital Coverage: 26.02 ± 0.00 
+Final Coverage: 26.95 ± 0.15 
+Number of New Inputs: 7.33 ± 1.15 
+Number of Iterations: 174.67 ± 0.58 
+Time Passed (Minutes): 120.49 ± 0.26 
 
 EXPERIMENT: experiments/mnist/deephunter/LeNet1-kmn 
 Coverage Increase: 2.34 ± 0.03 
@@ -132,231 +76,63 @@ Inital Coverage: 37.79 ± 0.00
 Final Coverage: 40.13 ± 0.03 
 Number of New Inputs: 1051.00 ± 4.00 
 Number of Iterations: 17.00 ± 0.00 
-Time Passed (Minutes): 1.65 ± 0.05 
+Time Passed (Minutes): 1.79 ± 0.14 
 
 EXPERIMENT: experiments/mnist/deephunter/LeNet1-nbc 
-Coverage Increase: 33.68 ± 5.24 
+Coverage Increase: 35.42 ± 2.76 
 Inital Coverage: 6.25 ± 0.00 
-Final Coverage: 39.93 ± 5.24 
-Number of New Inputs: 782.33 ± 255.38 
-Number of Iterations: 875.67 ± 509.68 
-Time Passed (Minutes): 52.01 ± 13.86 
+Final Coverage: 41.67 ± 2.76 
+Number of New Inputs: 847.00 ± 159.74 
+Number of Iterations: 1310.33 ± 438.53 
+Time Passed (Minutes): 99.29 ± 55.76 
 
 EXPERIMENT: experiments/mnist/deephunter/LeNet1-neuron 
 Coverage Increase: 0.00 ± 0.00 
 Inital Coverage: 41.67 ± 0.00 
 Final Coverage: 41.67 ± 0.00 
 Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 1517.33 ± 23.03 
-Time Passed (Minutes): 60.03 ± 0.02 
+Number of Iterations: 2810.00 ± 99.69 
+Time Passed (Minutes): 120.03 ± 0.01 
 
 EXPERIMENT: experiments/mnist/deephunter/LeNet1-snac 
 Coverage Increase: 41.67 ± 4.17 
 Inital Coverage: 6.25 ± 0.00 
 Final Coverage: 47.92 ± 4.17 
 Number of New Inputs: 724.67 ± 180.17 
-Number of Iterations: 1325.00 ± 114.53 
-Time Passed (Minutes): 60.03 ± 0.03 
+Number of Iterations: 2512.00 ± 50.03 
+Time Passed (Minutes): 120.02 ± 0.02 
 
 EXPERIMENT: experiments/mnist/deephunter/LeNet1-tfc 
-Coverage Increase: 30.00 ± 6.00 
+Coverage Increase: 29.00 ± 3.61 
 Inital Coverage: 370.00 ± 0.00 
-Final Coverage: 400.00 ± 6.00 
-Number of New Inputs: 1010.67 ± 7.77 
-Number of Iterations: 23.33 ± 5.51 
-Time Passed (Minutes): 1.16 ± 0.13 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet4-kmn 
-Coverage Increase: 1.91 ± 0.04 
-Inital Coverage: 39.57 ± 0.00 
-Final Coverage: 41.48 ± 0.04 
-Number of New Inputs: 1051.00 ± 4.00 
-Number of Iterations: 17.00 ± 0.00 
-Time Passed (Minutes): 4.26 ± 0.01 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet4-nbc 
-Coverage Increase: 13.15 ± 2.34 
-Inital Coverage: 9.51 ± 0.00 
-Final Coverage: 22.65 ± 2.34 
-Number of New Inputs: 1036.00 ± 12.49 
-Number of Iterations: 173.67 ± 30.83 
-Time Passed (Minutes): 8.90 ± 1.52 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet4-neuron 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 69.01 ± 0.00 
-Final Coverage: 69.01 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 1510.33 ± 20.43 
-Time Passed (Minutes): 60.03 ± 0.01 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet4-snac 
-Coverage Increase: 16.67 ± 0.81 
-Inital Coverage: 14.08 ± 0.00 
-Final Coverage: 30.75 ± 0.81 
-Number of New Inputs: 1033.67 ± 27.50 
-Number of Iterations: 206.67 ± 48.95 
-Time Passed (Minutes): 10.98 ± 2.32 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet4-tfc 
-Coverage Increase: 18.33 ± 0.58 
-Inital Coverage: 345.00 ± 0.00 
-Final Coverage: 363.33 ± 0.58 
-Number of New Inputs: 1021.33 ± 18.77 
-Number of Iterations: 61.33 ± 23.86 
-Time Passed (Minutes): 2.01 ± 0.78 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet5-kmn 
-Coverage Increase: 1.77 ± 0.03 
-Inital Coverage: 36.27 ± 0.00 
-Final Coverage: 38.04 ± 0.03 
-Number of New Inputs: 1051.00 ± 4.00 
-Number of Iterations: 17.00 ± 0.00 
-Time Passed (Minutes): 7.22 ± 0.06 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet5-nbc 
-Coverage Increase: 6.23 ± 0.55 
-Inital Coverage: 8.78 ± 0.00 
-Final Coverage: 15.01 ± 0.55 
-Number of New Inputs: 1021.00 ± 10.54 
-Number of Iterations: 97.00 ± 17.35 
-Time Passed (Minutes): 7.71 ± 1.14 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet5-neuron 
-Coverage Increase: 0.51 ± 0.58 
-Inital Coverage: 66.79 ± 0.00 
-Final Coverage: 67.30 ± 0.58 
-Number of New Inputs: 86.33 ± 96.81 
-Number of Iterations: 1478.00 ± 29.61 
-Time Passed (Minutes): 60.02 ± 0.02 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet5-snac 
-Coverage Increase: 8.40 ± 0.66 
-Inital Coverage: 15.27 ± 0.00 
-Final Coverage: 23.66 ± 0.66 
-Number of New Inputs: 1021.67 ± 19.66 
-Number of Iterations: 149.33 ± 56.52 
-Time Passed (Minutes): 10.58 ± 3.33 
-
-EXPERIMENT: experiments/mnist/deephunter/LeNet5-tfc 
-Coverage Increase: 19.00 ± 1.73 
-Inital Coverage: 320.00 ± 0.00 
-Final Coverage: 339.00 ± 1.73 
-Number of New Inputs: 1038.33 ± 21.01 
-Number of Iterations: 60.67 ± 10.07 
-Time Passed (Minutes): 3.37 ± 2.15 
+Final Coverage: 399.00 ± 3.61 
+Number of New Inputs: 1029.67 ± 29.48 
+Number of Iterations: 27.00 ± 3.00 
+Time Passed (Minutes): 1.28 ± 0.07 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet1-kmn 
-Coverage Increase: 1.54 ± 0.07 
+Coverage Increase: 2.91 ± 0.11 
 Inital Coverage: 37.79 ± 0.00 
-Final Coverage: 39.32 ± 0.07 
-Number of New Inputs: 576.00 ± 0.00 
-Number of Iterations: 9.00 ± 0.00 
-Time Passed (Minutes): 61.43 ± 0.56 
+Final Coverage: 40.69 ± 0.11 
+Number of New Inputs: 1024.00 ± 0.00 
+Number of Iterations: 16.00 ± 0.00 
+Time Passed (Minutes): 118.28 ± 2.97 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet1-nbc 
-Coverage Increase: 36.11 ± 1.59 
+Coverage Increase: 41.67 ± 4.77 
 Inital Coverage: 6.25 ± 0.00 
-Final Coverage: 42.36 ± 1.59 
-Number of New Inputs: 832.00 ± 0.00 
-Number of Iterations: 127.00 ± 4.36 
-Time Passed (Minutes): 60.14 ± 0.05 
+Final Coverage: 47.92 ± 4.77 
+Number of New Inputs: 1002.67 ± 36.95 
+Number of Iterations: 189.33 ± 42.50 
+Time Passed (Minutes): 99.99 ± 20.39 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet1-neuron 
 Coverage Increase: 0.00 ± 0.00 
 Inital Coverage: 41.67 ± 0.00 
 Final Coverage: 41.67 ± 0.00 
 Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 329.33 ± 4.73 
-Time Passed (Minutes): 60.25 ± 0.12 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet1-snac 
-Coverage Increase: 43.06 ± 4.81 
-Inital Coverage: 6.25 ± 0.00 
-Final Coverage: 49.31 ± 4.81 
-Number of New Inputs: 426.67 ± 133.23 
-Number of Iterations: 172.00 ± 15.72 
-Time Passed (Minutes): 60.14 ± 0.10 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet1-tfc 
-Coverage Increase: 201.67 ± 13.58 
-Inital Coverage: 370.00 ± 0.00 
-Final Coverage: 571.67 ± 13.58 
-Number of New Inputs: 1024.00 ± 0.00 
-Number of Iterations: 16.00 ± 0.00 
-Time Passed (Minutes): 12.24 ± 0.29 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet4-kmn 
-Coverage Increase: 0.41 ± 0.02 
-Inital Coverage: 39.57 ± 0.00 
-Final Coverage: 39.98 ± 0.02 
-Number of New Inputs: 192.00 ± 0.00 
-Number of Iterations: 3.00 ± 0.00 
-Time Passed (Minutes): 61.39 ± 0.72 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet4-nbc 
-Coverage Increase: 7.86 ± 0.20 
-Inital Coverage: 9.51 ± 0.00 
-Final Coverage: 17.37 ± 0.20 
-Number of New Inputs: 512.00 ± 64.00 
-Number of Iterations: 40.33 ± 4.62 
-Time Passed (Minutes): 60.95 ± 1.18 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet4-neuron 
-Coverage Increase: 1.17 ± 0.41 
-Inital Coverage: 69.01 ± 0.00 
-Final Coverage: 70.19 ± 0.41 
-Number of New Inputs: 106.67 ± 36.95 
-Number of Iterations: 303.00 ± 5.20 
-Time Passed (Minutes): 60.26 ± 0.09 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet4-snac 
-Coverage Increase: 9.62 ± 2.47 
-Inital Coverage: 14.08 ± 0.00 
-Final Coverage: 23.71 ± 2.47 
-Number of New Inputs: 426.67 ± 73.90 
-Number of Iterations: 46.67 ± 9.29 
-Time Passed (Minutes): 60.48 ± 0.05 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet4-tfc 
-Coverage Increase: 61.00 ± 4.00 
-Inital Coverage: 345.00 ± 0.00 
-Final Coverage: 406.00 ± 4.00 
-Number of New Inputs: 1024.00 ± 0.00 
-Number of Iterations: 17.33 ± 1.53 
-Time Passed (Minutes): 10.36 ± 0.54 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet5-kmn 
-Coverage Increase: 0.25 ± 0.00 
-Inital Coverage: 36.27 ± 0.00 
-Final Coverage: 36.53 ± 0.00 
-Number of New Inputs: 128.00 ± 0.00 
-Number of Iterations: 2.00 ± 0.00 
-Time Passed (Minutes): 69.60 ± 0.43 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet5-nbc 
-Coverage Increase: 4.01 ± 0.66 
-Inital Coverage: 8.78 ± 0.00 
-Final Coverage: 12.79 ± 0.66 
-Number of New Inputs: 405.33 ± 36.95 
-Number of Iterations: 11.67 ± 2.08 
-Time Passed (Minutes): 64.15 ± 3.68 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet5-neuron 
-Coverage Increase: 1.91 ± 0.38 
-Inital Coverage: 66.79 ± 0.00 
-Final Coverage: 68.70 ± 0.38 
-Number of New Inputs: 320.00 ± 64.00 
-Number of Iterations: 248.67 ± 8.62 
-Time Passed (Minutes): 60.17 ± 0.13 
-
-EXPERIMENT: experiments/mnist/mcts/LeNet5-tfc 
-Coverage Increase: 83.33 ± 11.55 
-Inital Coverage: 320.00 ± 0.00 
-Final Coverage: 403.33 ± 11.55 
-Number of New Inputs: 1024.00 ± 0.00 
-Number of Iterations: 19.33 ± 0.58 
-Time Passed (Minutes): 12.09 ± 0.56 
+Number of Iterations: 442.00 ± 3.61 
+Time Passed (Minutes): 120.14 ± 0.15 
 
 EXPERIMENT: experiments/mnist/tensorfuzz/LeNet1-kmn 
 Coverage Increase: 1.83 ± 0.23 
@@ -364,109 +140,21 @@ Inital Coverage: 37.79 ± 0.00
 Final Coverage: 39.61 ± 0.23 
 Number of New Inputs: 1023.33 ± 1.15 
 Number of Iterations: 16.00 ± 0.00 
-Time Passed (Minutes): 58.45 ± 0.85 
+Time Passed (Minutes): 56.93 ± 1.54 
 
 EXPERIMENT: experiments/mnist/tensorfuzz/LeNet1-nbc 
 Coverage Increase: 0.00 ± 0.00 
 Inital Coverage: 6.25 ± 0.00 
 Final Coverage: 6.25 ± 0.00 
 Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 107.00 ± 1.73 
-Time Passed (Minutes): 60.50 ± 0.40 
+Number of Iterations: 156.67 ± 0.58 
+Time Passed (Minutes): 120.81 ± 0.53 
 
 EXPERIMENT: experiments/mnist/tensorfuzz/LeNet1-neuron 
 Coverage Increase: 0.00 ± 0.00 
 Inital Coverage: 41.67 ± 0.00 
 Final Coverage: 41.67 ± 0.00 
 Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 145.67 ± 2.52 
-Time Passed (Minutes): 60.66 ± 0.44 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet1-snac 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 6.25 ± 0.00 
-Final Coverage: 6.25 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 107.00 ± 1.00 
-Time Passed (Minutes): 60.82 ± 0.09 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet1-tfc 
-Coverage Increase: 1.33 ± 1.53 
-Inital Coverage: 370.00 ± 0.00 
-Final Coverage: 371.33 ± 1.53 
-Number of New Inputs: 1.33 ± 1.53 
-Number of Iterations: 141.33 ± 0.58 
-Time Passed (Minutes): 60.61 ± 0.05 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet4-kmn 
-Coverage Increase: 0.71 ± 0.04 
-Inital Coverage: 39.57 ± 0.00 
-Final Coverage: 40.28 ± 0.04 
-Number of New Inputs: 384.00 ± 0.00 
-Number of Iterations: 6.00 ± 0.00 
-Time Passed (Minutes): 64.28 ± 0.79 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet4-nbc 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 9.51 ± 0.00 
-Final Coverage: 9.51 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 54.33 ± 0.58 
-Time Passed (Minutes): 60.49 ± 0.60 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet4-neuron 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 69.01 ± 0.00 
-Final Coverage: 69.01 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 141.67 ± 1.15 
-Time Passed (Minutes): 60.53 ± 0.18 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet4-snac 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 14.08 ± 0.00 
-Final Coverage: 14.08 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 54.33 ± 1.15 
-Time Passed (Minutes): 60.75 ± 0.56 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet4-tfc 
-Coverage Increase: 0.67 ± 0.58 
-Inital Coverage: 345.00 ± 0.00 
-Final Coverage: 345.67 ± 0.58 
-Number of New Inputs: 0.67 ± 0.58 
-Number of Iterations: 139.33 ± 2.31 
-Time Passed (Minutes): 60.22 ± 0.12 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet5-kmn 
-Coverage Increase: 0.46 ± 0.04 
-Inital Coverage: 36.27 ± 0.00 
-Final Coverage: 36.74 ± 0.04 
-Number of New Inputs: 256.00 ± 0.00 
-Number of Iterations: 4.00 ± 0.00 
-Time Passed (Minutes): 73.18 ± 1.25 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet5-nbc 
-Coverage Increase: 0.00 ± 0.00 
-Inital Coverage: 8.78 ± 0.00 
-Final Coverage: 8.78 ± 0.00 
-Number of New Inputs: 0.00 ± 0.00 
-Number of Iterations: 31.67 ± 0.58 
-Time Passed (Minutes): 60.72 ± 0.64 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet5-neuron 
-Coverage Increase: 0.13 ± 0.22 
-Inital Coverage: 66.79 ± 0.00 
-Final Coverage: 66.92 ± 0.22 
-Number of New Inputs: 0.33 ± 0.58 
-Number of Iterations: 141.33 ± 2.08 
-Time Passed (Minutes): 60.49 ± 0.34 
-
-EXPERIMENT: experiments/mnist/tensorfuzz/LeNet5-tfc 
-Coverage Increase: 1.33 ± 0.58 
-Inital Coverage: 320.00 ± 0.00 
-Final Coverage: 321.33 ± 0.58 
-Number of New Inputs: 1.33 ± 0.58 
-Number of Iterations: 138.33 ± 1.15 
-Time Passed (Minutes): 60.74 ± 0.43 
+Number of Iterations: 188.00 ± 2.00 
+Time Passed (Minutes): 121.22 ± 0.95 
 
