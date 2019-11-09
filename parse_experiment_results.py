@@ -17,6 +17,11 @@ for path, subdirs, files in os.walk("experiments"):
             initial_cov = float(lines[-6].split(": ")[-1])
             exp_name = file_path[:-6]
 
+            if nb_new_inputs > 0:
+                cov_inc_per_input = cov_inc/nb_new_inputs
+            else:
+                cov_inc_per_input = 0
+
             if exp_name not in results:
                 results[exp_name] = {
                     'Coverage Increase': [cov_inc],
@@ -24,7 +29,8 @@ for path, subdirs, files in os.walk("experiments"):
                     'Final Coverage': [final_cov],
                     'Number of New Inputs': [nb_new_inputs],
                     'Number of Iterations': [iterations],
-                    'Time Passed (Minutes)': [time_passed_min]
+                    'Time Passed (Minutes)': [time_passed_min],
+                    'Cov. Inc. per 1000 Input': [cov_inc_per_input*1000]
                 }
             else:
                 results[exp_name]['Coverage Increase'].append(cov_inc)
@@ -33,11 +39,12 @@ for path, subdirs, files in os.walk("experiments"):
                 results[exp_name]['Number of New Inputs'].append(nb_new_inputs)
                 results[exp_name]['Number of Iterations'].append(iterations)
                 results[exp_name]['Time Passed (Minutes)'].append(time_passed_min)
+                results[exp_name]['Cov. Inc. per 1000 Input'].append(cov_inc_per_input*1000)
 
 result_str = []
 for exp_name in results:
     experiment_res = "EXPERIMENT: %s \n" % exp_name
-    for f in ['Coverage Increase', 'Inital Coverage', 'Final Coverage', 'Number of New Inputs', 'Number of Iterations', 'Time Passed (Minutes)']:
+    for f in ['Coverage Increase', 'Inital Coverage', 'Final Coverage', 'Number of New Inputs', 'Number of Iterations', 'Time Passed (Minutes)', 'Cov. Inc. per 1000 Input']:
         m = stat.mean(results[exp_name][f])
         std = stat.stdev(results[exp_name][f])
         experiment_res += "%s: %0.2f ± %0.2f \n" % (f, m, std)
