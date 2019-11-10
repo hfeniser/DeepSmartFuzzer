@@ -25,6 +25,15 @@ Number of Iterations: 218.00 ± 61.58
 Time Passed (Minutes): 10.29 ± 1.71 
 Cov. Inc. per 1000 Input: 1.90 ± 0.18 
 
+EXPERIMENT: experiments/cifar/deephunter/CIFAR_CNN-snac 
+Coverage Increase: 4.48 ± 0.90 
+Inital Coverage: 9.14 ± 0.00 
+Final Coverage: 13.62 ± 0.90 
+Number of New Inputs: 1049.00 ± 10.54 
+Number of Iterations: 57.67 ± 43.59 
+Time Passed (Minutes): 12.47 ± 4.64 
+Cov. Inc. per 1000 Input: 4.28 ± 0.89 
+
 EXPERIMENT: experiments/cifar/deephunter/CIFAR_CNN-tfc 
 Coverage Increase: 16.00 ± 2.65 
 Inital Coverage: 120.00 ± 0.00 
@@ -60,6 +69,15 @@ Number of New Inputs: 1024.00 ± 0.00
 Number of Iterations: 39.67 ± 9.81 
 Time Passed (Minutes): 105.68 ± 6.65 
 Cov. Inc. per 1000 Input: 3.43 ± 0.47 
+
+EXPERIMENT: experiments/cifar/mcts/CIFAR_CNN-snac 
+Coverage Increase: 4.91 ± 2.51 
+Inital Coverage: 9.14 ± 0.00 
+Final Coverage: 14.04 ± 2.51 
+Number of New Inputs: 341.33 ± 36.95 
+Number of Iterations: 9.33 ± 2.31 
+Time Passed (Minutes): 131.74 ± 8.63 
+Cov. Inc. per 1000 Input: 14.56 ± 8.16 
 
 EXPERIMENT: experiments/cifar/mcts/CIFAR_CNN-tfc 
 Coverage Increase: 42.33 ± 4.51 
@@ -97,6 +115,15 @@ Number of Iterations: 34.33 ± 2.52
 Time Passed (Minutes): 99.31 ± 3.70 
 Cov. Inc. per 1000 Input: 3.43 ± 0.36 
 
+EXPERIMENT: experiments/cifar/mcts_clustered/CIFAR_CNN-snac 
+Coverage Increase: 8.80 ± 7.11 
+Inital Coverage: 9.14 ± 0.00 
+Final Coverage: 17.94 ± 7.11 
+Number of New Inputs: 341.33 ± 36.95 
+Number of Iterations: 15.33 ± 3.21 
+Time Passed (Minutes): 137.42 ± 2.63 
+Cov. Inc. per 1000 Input: 25.91 ± 22.28 
+
 EXPERIMENT: experiments/cifar/mcts_clustered/CIFAR_CNN-tfc 
 Coverage Increase: 48.67 ± 7.02 
 Inital Coverage: 120.00 ± 0.00 
@@ -132,6 +159,15 @@ Number of New Inputs: 7.33 ± 1.15
 Number of Iterations: 174.67 ± 0.58 
 Time Passed (Minutes): 120.49 ± 0.26 
 Cov. Inc. per 1000 Input: 126.90 ± 0.00 
+
+EXPERIMENT: experiments/cifar/tensorfuzz/CIFAR_CNN-snac 
+Coverage Increase: 2.92 ± 0.34 
+Inital Coverage: 9.14 ± 0.00 
+Final Coverage: 12.06 ± 0.34 
+Number of New Inputs: 20.67 ± 3.21 
+Number of Iterations: 29.67 ± 0.58 
+Time Passed (Minutes): 123.04 ± 1.06 
+Cov. Inc. per 1000 Input: 141.98 ± 8.66 
 
 EXPERIMENT: experiments/cifar/tensorfuzz/CIFAR_CNN-tfc 
 Coverage Increase: 0.00 ± 0.00 
