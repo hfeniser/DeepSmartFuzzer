@@ -10,13 +10,10 @@ function trap_ctrlc ()
 # when signal 2 (SIGINT) is received
 trap "trap_ctrlc" 2
 
-
-rm -rf experiments/cifar/deephunter
 mkdir -p experiments/cifar/deephunter
-echo "cleaned experiments and created experiments directory"
 
 models=( "CIFAR_CNN" )
-covs=( "neuron" "kmn" "nbc" "tfc" )
+covs=( "snac" )
 
 for model in "${models[@]}"
 do

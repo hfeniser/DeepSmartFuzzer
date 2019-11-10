@@ -11,12 +11,10 @@ function trap_ctrlc ()
 trap "trap_ctrlc" 2
 
 
-rm -rf experiments/cifar/tensorfuzz
 mkdir -p experiments/cifar/tensorfuzz
-echo "cleaned experiments and created experiments directory"
 
 models=( "CIFAR_CNN" )
-covs=( "neuron" "kmn" "nbc" "tfc" )
+covs=( "snac" )
 
 for model in "${models[@]}"
 do
