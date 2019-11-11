@@ -11,12 +11,10 @@ function trap_ctrlc ()
 trap "trap_ctrlc" 2
 
 
-rm -rf experiments/cifar/mcts
 mkdir -p experiments/cifar/mcts
-echo "cleaned and created experiments/cifar/mcts"
 
 models=( "CIFAR_CNN" )
-covs=( "neuron" "kmn" "nbc" "tfc" )
+covs=( "snac" )
 
 for model in "${models[@]}"
 do
@@ -31,9 +29,9 @@ do
     done
 done
 
-rm -rf experiments/cifar/mcts_clustered
+
 mkdir -p experiments/cifar/mcts_clustered
-echo "cleaned and created experiments/cifar/mcts_clustered"
+
 for model in "${models[@]}"
 do
     for cov in "${covs[@]}"

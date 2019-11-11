@@ -1,0 +1,200 @@
+Parameters: Namespace(batch_size=64, calc_implicit_reward=None, calc_implicit_reward_neuron=None, constraint=None, coverage='snac', dataset='CIFAR10', image_verbose=False, implicit_reward=False, input_chooser='random', input_lower_limit=0, input_shape=(1, 32, 32, 3), input_upper_limit=255, model='CIFAR_CNN', model_input_scale=[0, 1], nb_iterations=None, nb_new_inputs=1000, params_set=['cifar10', 'CIFAR_CNN', 'tensorfuzz', 'snac'], random_seed=2, runner='tensorfuzz', skip_layers=[0, 2, 5, 6, 8, 11, 12, 13, 15], tf_num_mutations=64, tf_sigma=25.5, tfc_threshold=9, time_period=7200, verbose=True)
+initial coverage: 9.13706
+fuzzing iteration: 0
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+fuzzing iteration: 1
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 100
+fuzzing iteration: 2
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage increase: 0.13
+coverage increase: 0.13
+fuzzing iteration: 3
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 200
+fuzzing iteration: 4
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 300
+fuzzing iteration: 5
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+fuzzing iteration: 6
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 400
+coverage increase: 0.13
+fuzzing iteration: 7
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage increase: 0.13
+coverage increase: 0.13
+coverage increase: 0.13
+coverage increase: 0.13
+coverage increase: 0.13
+coverage increase: 0.13
+coverage_call_count 500
+coverage increase: 0.13
+fuzzing iteration: 8
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+fuzzing iteration: 9
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 600
+coverage increase: 0.13
+coverage increase: 0.13
+coverage increase: 0.13
+fuzzing iteration: 10
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage increase: 0.13
+coverage increase: 0.13
+coverage increase: 0.13
+coverage_call_count 700
+fuzzing iteration: 11
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage increase: 0.13
+fuzzing iteration: 12
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 800
+fuzzing iteration: 13
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage increase: 0.13
+coverage_call_count 900
+fuzzing iteration: 14
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+fuzzing iteration: 15
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage increase: 0.13
+coverage_call_count 1000
+fuzzing iteration: 16
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage increase: 0.13
+coverage increase: 0.13
+coverage_call_count 1100
+fuzzing iteration: 17
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+fuzzing iteration: 18
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 1200
+fuzzing iteration: 19
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 1300
+fuzzing iteration: 20
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+fuzzing iteration: 21
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage increase: 0.13
+coverage_call_count 1400
+fuzzing iteration: 22
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage increase: 0.25
+fuzzing iteration: 23
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 1500
+fuzzing iteration: 24
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 1600
+fuzzing iteration: 25
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+fuzzing iteration: 26
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 1700
+fuzzing iteration: 27
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 1800
+fuzzing iteration: 28
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+fuzzing iteration: 29
+Input batch shape:
+(64, 32, 32, 3)
+Mutated img batch shape:
+(64, 32, 32, 3)
+coverage_call_count 1900
+initial coverage: 9.13706
+time passed (minutes): 123.808
+iterations: 30
+number of new inputs: 23
+final coverage: 12.1827
+total coverage increase: 3.04569
