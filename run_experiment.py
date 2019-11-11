@@ -5,6 +5,7 @@ import random
 import time
 from src.utility import str2bool, merge_object
 from src.experiment_builder import get_experiment
+from src.adversarial import check_adversarial
 
 import signal
 import sys
@@ -44,6 +45,9 @@ def run_experiment(params):
         print("final coverage: %g" % (final_coverage))
         print("total coverage increase: %g" % (final_coverage - inital_coverage))
 
+    if params.check_adversarial:
+        check_adversarial(experiment, params)
+
 def load_params(params):
     for params_set in params.params_set:
         m = importlib.import_module("params." + params_set)
@@ -70,6 +74,7 @@ if __name__ == "__main__":
     parser.add_argument("--random_seed", type=int, default=None)
     parser.add_argument("--verbose", type=str2bool, nargs='?', const=True, default=True)
     parser.add_argument("--image_verbose", type=str2bool, nargs='?', const=True, default=True)
+    parser.add_argument("--check_adversarial", type=str2bool, nargs='?', const=True, default=False)
     params = parser.parse_args()
 
     run_experiment(params)
