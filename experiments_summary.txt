@@ -1,3 +1,47 @@
+EXPERIMENT: experiments/adversarial/mcts/LeNet1-kmn 
+Coverage Increase: 2.63 ± 0.20 
+Inital Coverage: 37.79 ± 0.00 
+Final Coverage: 40.42 ± 0.20 
+Number of New Inputs: 917.33 ± 73.90 
+Number of Iterations: 14.33 ± 1.15 
+Time Passed (Minutes): 126.01 ± 2.06 
+Cov. Inc. per 1000 Input: 2.87 ± 0.11 
+Number of Adversarial: 160.00 ± 22.11 
+Percent of Adversarial: 17.43 ± 1.73 
+
+EXPERIMENT: experiments/adversarial/mcts/LeNet1-nbc 
+Coverage Increase: 41.67 ± 4.77 
+Inital Coverage: 6.25 ± 0.00 
+Final Coverage: 47.92 ± 4.77 
+Number of New Inputs: 1002.67 ± 36.95 
+Number of Iterations: 192.00 ± 46.57 
+Time Passed (Minutes): 100.46 ± 20.32 
+Cov. Inc. per 1000 Input: 41.71 ± 6.35 
+Number of Adversarial: 59.00 ± 3.00 
+Percent of Adversarial: 5.89 ± 0.37 
+
+EXPERIMENT: experiments/adversarial/mcts/LeNet1-snac 
+Coverage Increase: 42.36 ± 6.36 
+Inital Coverage: 6.25 ± 0.00 
+Final Coverage: 48.61 ± 6.36 
+Number of New Inputs: 533.33 ± 73.90 
+Number of Iterations: 287.33 ± 7.57 
+Time Passed (Minutes): 120.28 ± 0.12 
+Cov. Inc. per 1000 Input: 79.40 ± 3.63 
+Number of Adversarial: 32.00 ± 8.54 
+Percent of Adversarial: 5.94 ± 0.92 
+
+EXPERIMENT: experiments/adversarial/mcts/LeNet1-tfc 
+Coverage Increase: 210.33 ± 12.01 
+Inital Coverage: 370.00 ± 0.00 
+Final Coverage: 580.33 ± 12.01 
+Number of New Inputs: 1024.00 ± 0.00 
+Number of Iterations: 16.00 ± 0.00 
+Time Passed (Minutes): 12.00 ± 0.38 
+Cov. Inc. per 1000 Input: 205.40 ± 11.73 
+Number of Adversarial: 183.67 ± 21.78 
+Percent of Adversarial: 17.94 ± 2.13 
+
 EXPERIMENT: experiments/cifar/deephunter/CIFAR_CNN-kmn 
 Coverage Increase: 0.98 ± 0.03 
 Inital Coverage: 25.42 ± 0.00 

@@ -9,7 +9,7 @@ for path, subdirs, files in os.walk("experiments"):
             # parse file
             file = open(file_path, mode="r")
             lines = file.readlines()
-            if lines[-3] != "checking adversarial":
+            if lines[-3] != "checking adversarial\n":
                 percent_adversarial = None
                 nb_adversarial = None
                 cov_inc = float(lines[-1].split(": ")[-1])
@@ -19,7 +19,7 @@ for path, subdirs, files in os.walk("experiments"):
                 time_passed_min = float(lines[-5].split(": ")[-1])
                 initial_cov = float(lines[-6].split(": ")[-1])
             else:
-                percent_adversarial = float(lines[-1].split(": ")[-1])
+                percent_adversarial = float(lines[-1].split(": ")[-1])*100
                 nb_adversarial = float(lines[-2].split(": ")[-1])
                 cov_inc = float(lines[-4].split(": ")[-1])
                 final_cov = float(lines[-5].split(": ")[-1])
