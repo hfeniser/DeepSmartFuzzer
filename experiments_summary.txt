@@ -359,22 +359,22 @@ Time Passed (Minutes): 12.13 ± 0.10
 Cov. Inc. per 1000 Input: 199.87 ± 8.31 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet4-kmn 
-Coverage Increase: 0.84 ± 0.01 
+Coverage Increase: 2.07 ± 0.14 
 Inital Coverage: 39.57 ± 0.00 
-Final Coverage: 40.41 ± 0.01 
-Number of New Inputs: 384.00 ± 0.00 
-Number of Iterations: 6.00 ± 0.00 
-Time Passed (Minutes): 129.10 ± 3.11 
-Cov. Inc. per 1000 Input: 2.18 ± 0.04 
+Final Coverage: 41.64 ± 0.14 
+Number of New Inputs: 981.33 ± 73.90 
+Number of Iterations: 15.33 ± 1.15 
+Time Passed (Minutes): 366.03 ± 8.02 
+Cov. Inc. per 1000 Input: 2.11 ± 0.02 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet4-nbc 
-Coverage Increase: 10.68 ± 1.08 
+Coverage Increase: 11.50 ± 1.13 
 Inital Coverage: 9.51 ± 0.00 
-Final Coverage: 20.19 ± 1.08 
-Number of New Inputs: 917.33 ± 36.95 
-Number of Iterations: 82.00 ± 4.36 
-Time Passed (Minutes): 124.77 ± 1.59 
-Cov. Inc. per 1000 Input: 11.63 ± 0.89 
+Final Coverage: 21.01 ± 1.13 
+Number of New Inputs: 1024.00 ± 0.00 
+Number of Iterations: 96.67 ± 11.06 
+Time Passed (Minutes): 154.57 ± 21.85 
+Cov. Inc. per 1000 Input: 11.23 ± 1.11 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet4-neuron 
 Coverage Increase: 1.41 ± 0.00 
@@ -404,22 +404,22 @@ Time Passed (Minutes): 10.97 ± 0.29
 Cov. Inc. per 1000 Input: 62.83 ± 5.89 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet5-kmn 
-Coverage Increase: 0.52 ± 0.01 
+Coverage Increase: 1.23 ± 0.08 
 Inital Coverage: 36.27 ± 0.00 
-Final Coverage: 36.79 ± 0.01 
-Number of New Inputs: 256.00 ± 0.00 
-Number of Iterations: 4.00 ± 0.00 
-Time Passed (Minutes): 144.23 ± 4.06 
-Cov. Inc. per 1000 Input: 2.03 ± 0.05 
+Final Coverage: 37.51 ± 0.08 
+Number of New Inputs: 618.67 ± 36.95 
+Number of Iterations: 9.67 ± 0.58 
+Time Passed (Minutes): 384.70 ± 9.81 
+Cov. Inc. per 1000 Input: 2.00 ± 0.03 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet5-nbc 
-Coverage Increase: 5.73 ± 0.50 
+Coverage Increase: 7.82 ± 1.06 
 Inital Coverage: 8.78 ± 0.00 
-Final Coverage: 14.50 ± 0.50 
-Number of New Inputs: 725.33 ± 36.95 
-Number of Iterations: 24.67 ± 5.13 
-Time Passed (Minutes): 121.34 ± 1.34 
-Cov. Inc. per 1000 Input: 7.90 ± 0.70 
+Final Coverage: 16.60 ± 1.06 
+Number of New Inputs: 1024.00 ± 0.00 
+Number of Iterations: 34.00 ± 5.29 
+Time Passed (Minutes): 180.52 ± 8.97 
+Cov. Inc. per 1000 Input: 7.64 ± 1.04 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet5-neuron 
 Coverage Increase: 2.16 ± 0.44 
@@ -494,22 +494,22 @@ Time Passed (Minutes): 11.79 ± 0.42
 Cov. Inc. per 1000 Input: 108.40 ± 14.19 
 
 EXPERIMENT: experiments/mnist/mcts_clustered/LeNet4-kmn 
-Coverage Increase: 0.77 ± 0.03 
+Coverage Increase: 2.02 ± 0.07 
 Inital Coverage: 39.57 ± 0.00 
-Final Coverage: 40.35 ± 0.03 
-Number of New Inputs: 384.00 ± 0.00 
-Number of Iterations: 6.00 ± 0.00 
-Time Passed (Minutes): 130.04 ± 2.90 
-Cov. Inc. per 1000 Input: 2.02 ± 0.09 
+Final Coverage: 41.59 ± 0.07 
+Number of New Inputs: 1024.00 ± 0.00 
+Number of Iterations: 16.00 ± 0.00 
+Time Passed (Minutes): 363.53 ± 9.00 
+Cov. Inc. per 1000 Input: 1.97 ± 0.07 
 
 EXPERIMENT: experiments/mnist/mcts_clustered/LeNet4-nbc 
-Coverage Increase: 9.74 ± 0.54 
+Coverage Increase: 11.50 ± 0.54 
 Inital Coverage: 9.51 ± 0.00 
-Final Coverage: 19.25 ± 0.54 
-Number of New Inputs: 810.67 ± 36.95 
-Number of Iterations: 88.67 ± 8.33 
-Time Passed (Minutes): 122.59 ± 2.39 
-Cov. Inc. per 1000 Input: 12.01 ± 0.23 
+Final Coverage: 21.01 ± 0.54 
+Number of New Inputs: 1024.00 ± 0.00 
+Number of Iterations: 103.00 ± 15.13 
+Time Passed (Minutes): 183.03 ± 18.24 
+Cov. Inc. per 1000 Input: 11.23 ± 0.53 
 
 EXPERIMENT: experiments/mnist/mcts_clustered/LeNet4-neuron 
 Coverage Increase: 1.41 ± 0.00 
@@ -539,22 +539,22 @@ Time Passed (Minutes): 11.18 ± 0.50
 Cov. Inc. per 1000 Input: 52.08 ± 8.19 
 
 EXPERIMENT: experiments/mnist/mcts_clustered/LeNet5-kmn 
-Coverage Increase: 0.49 ± 0.02 
+Coverage Increase: 1.19 ± 0.12 
 Inital Coverage: 36.27 ± 0.00 
-Final Coverage: 36.76 ± 0.02 
-Number of New Inputs: 256.00 ± 0.00 
-Number of Iterations: 4.00 ± 0.00 
-Time Passed (Minutes): 144.22 ± 0.85 
-Cov. Inc. per 1000 Input: 1.92 ± 0.06 
+Final Coverage: 37.46 ± 0.12 
+Number of New Inputs: 618.67 ± 36.95 
+Number of Iterations: 9.67 ± 0.58 
+Time Passed (Minutes): 383.77 ± 17.50 
+Cov. Inc. per 1000 Input: 1.92 ± 0.09 
 
 EXPERIMENT: experiments/mnist/mcts_clustered/LeNet5-nbc 
-Coverage Increase: 6.04 ± 0.94 
+Coverage Increase: 7.89 ± 0.72 
 Inital Coverage: 8.78 ± 0.00 
-Final Coverage: 14.82 ± 0.94 
-Number of New Inputs: 704.00 ± 64.00 
-Number of Iterations: 29.33 ± 5.69 
-Time Passed (Minutes): 125.14 ± 2.04 
-Cov. Inc. per 1000 Input: 8.63 ± 1.55 
+Final Coverage: 16.67 ± 0.72 
+Number of New Inputs: 1024.00 ± 0.00 
+Number of Iterations: 47.33 ± 13.80 
+Time Passed (Minutes): 195.91 ± 8.41 
+Cov. Inc. per 1000 Input: 7.70 ± 0.71 
 
 EXPERIMENT: experiments/mnist/mcts_clustered/LeNet5-neuron 
 Coverage Increase: 2.29 ± 0.38 
