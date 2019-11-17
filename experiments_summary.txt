@@ -88,13 +88,13 @@ Time Passed (Minutes): 0.83 ± 0.04
 Cov. Inc. per 1000 Input: 15.35 ± 2.62 
 
 EXPERIMENT: experiments/cifar/mcts/CIFAR_CNN-kmn 
-Coverage Increase: 0.18 ± 0.02 
+Coverage Increase: 0.81 ± 0.06 
 Inital Coverage: 25.42 ± 0.00 
-Final Coverage: 25.60 ± 0.02 
-Number of New Inputs: 128.00 ± 0.00 
-Number of Iterations: 2.00 ± 0.00 
-Time Passed (Minutes): 168.09 ± 3.59 
-Cov. Inc. per 1000 Input: 1.42 ± 0.19 
+Final Coverage: 26.23 ± 0.06 
+Number of New Inputs: 597.33 ± 36.95 
+Number of Iterations: 9.33 ± 0.58 
+Time Passed (Minutes): 752.09 ± 35.88 
+Cov. Inc. per 1000 Input: 1.36 ± 0.02 
 
 EXPERIMENT: experiments/cifar/mcts/CIFAR_CNN-nbc 
 Coverage Increase: 2.39 ± 1.23 
@@ -133,13 +133,13 @@ Time Passed (Minutes): 19.05 ± 0.46
 Cov. Inc. per 1000 Input: 41.34 ± 4.40 
 
 EXPERIMENT: experiments/cifar/mcts_clustered/CIFAR_CNN-kmn 
-Coverage Increase: 0.16 ± 0.01 
+Coverage Increase: 0.84 ± 0.05 
 Inital Coverage: 25.42 ± 0.00 
-Final Coverage: 25.58 ± 0.01 
-Number of New Inputs: 128.00 ± 0.00 
-Number of Iterations: 2.00 ± 0.00 
-Time Passed (Minutes): 163.82 ± 2.20 
-Cov. Inc. per 1000 Input: 1.28 ± 0.09 
+Final Coverage: 26.26 ± 0.05 
+Number of New Inputs: 640.00 ± 0.00 
+Number of Iterations: 10.00 ± 0.00 
+Time Passed (Minutes): 791.54 ± 8.10 
+Cov. Inc. per 1000 Input: 1.32 ± 0.08 
 
 EXPERIMENT: experiments/cifar/mcts_clustered/CIFAR_CNN-nbc 
 Coverage Increase: 3.83 ± 2.66 
@@ -448,13 +448,13 @@ Time Passed (Minutes): 10.97 ± 0.29
 Cov. Inc. per 1000 Input: 62.83 ± 5.89 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet5-kmn 
-Coverage Increase: 1.23 ± 0.08 
+Coverage Increase: 1.99 ± 0.01 
 Inital Coverage: 36.27 ± 0.00 
-Final Coverage: 37.51 ± 0.08 
-Number of New Inputs: 618.67 ± 36.95 
-Number of Iterations: 9.67 ± 0.58 
-Time Passed (Minutes): 384.70 ± 9.81 
-Cov. Inc. per 1000 Input: 2.00 ± 0.03 
+Final Coverage: 38.26 ± 0.01 
+Number of New Inputs: 1024.00 ± 0.00 
+Number of Iterations: 16.00 ± 0.00 
+Time Passed (Minutes): 580.18 ± 9.53 
+Cov. Inc. per 1000 Input: 1.94 ± 0.01 
 
 EXPERIMENT: experiments/mnist/mcts/LeNet5-nbc 
 Coverage Increase: 7.82 ± 1.06 
@@ -583,13 +583,13 @@ Time Passed (Minutes): 11.18 ± 0.50
 Cov. Inc. per 1000 Input: 52.08 ± 8.19 
 
 EXPERIMENT: experiments/mnist/mcts_clustered/LeNet5-kmn 
-Coverage Increase: 1.19 ± 0.12 
+Coverage Increase: 1.92 ± 0.08 
 Inital Coverage: 36.27 ± 0.00 
-Final Coverage: 37.46 ± 0.12 
-Number of New Inputs: 618.67 ± 36.95 
-Number of Iterations: 9.67 ± 0.58 
-Time Passed (Minutes): 383.77 ± 17.50 
-Cov. Inc. per 1000 Input: 1.92 ± 0.09 
+Final Coverage: 38.19 ± 0.08 
+Number of New Inputs: 1024.00 ± 0.00 
+Number of Iterations: 16.00 ± 0.00 
+Time Passed (Minutes): 590.35 ± 4.03 
+Cov. Inc. per 1000 Input: 1.88 ± 0.08 
 
 EXPERIMENT: experiments/mnist/mcts_clustered/LeNet5-nbc 
 Coverage Increase: 7.89 ± 0.72 
