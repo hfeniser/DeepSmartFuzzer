@@ -6,6 +6,9 @@ import time
 from src.utility import str2bool, merge_object
 from src.experiment_builder import get_experiment
 from src.adversarial import check_adversarial
+from matplotlib.pyplot import imsave 
+import os
+import shutil
 
 import signal
 import sys
@@ -48,6 +51,24 @@ def run_experiment(params):
     if params.check_adversarial:
         check_adversarial(experiment, params)
 
+    if params.save_generated_samples:
+        i = experiment.input_chooser.initial_nb_inputs
+        if params.input_chooser == "clustered_random":
+            new_inputs = experiment.input_chooser.test_inputs[i:]
+            new_outputs = experiment.input_chooser.test_outputs[i:]
+        else:
+            new_inputs = experiment.input_chooser.features[i:]
+            new_outputs = experiment.input_chooser.labels[i:]
+
+        shutil.rmtree("generated_samples", ignore_errors=True)
+        os.makedirs("generated_samples")
+        if new_inputs.shape[-1] == 1:
+            new_inputs = new_inputs.reshape(new_inputs.shape[:-1])
+        for i in range(len(new_inputs)):
+            imsave('generated_samples/%g.png'%i, new_inputs[i])
+        np.save('generated_samples/new_inputs', new_inputs)
+        np.save('generated_samples/new_outputs', new_outputs)
+
 def load_params(params):
     for params_set in params.params_set:
         m = importlib.import_module("params." + params_set)
@@ -75,6 +96,7 @@ if __name__ == "__main__":
     parser.add_argument("--verbose", type=str2bool, nargs='?', const=True, default=True)
     parser.add_argument("--image_verbose", type=str2bool, nargs='?', const=True, default=True)
     parser.add_argument("--check_adversarial", type=str2bool, nargs='?', const=True, default=False)
+    parser.add_argument("--save_generated_samples", type=str2bool, nargs='?', const=True, default=False)
     params = parser.parse_args()
 
     run_experiment(params)
