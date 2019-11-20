@@ -62,6 +62,7 @@ def run_experiment(params):
 
         shutil.rmtree("generated_samples", ignore_errors=True)
         os.makedirs("generated_samples")
+        new_inputs = new_inputs.astype(np.uint8)
         if new_inputs.shape[-1] == 1:
             new_inputs = new_inputs.reshape(new_inputs.shape[:-1])
         for i in range(len(new_inputs)):
