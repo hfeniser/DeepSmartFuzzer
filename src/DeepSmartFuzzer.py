@@ -11,7 +11,7 @@ import pprint
 
 pp = pprint.PrettyPrinter()
 
-class RLforDL_State:
+class DeepSmartFuzzer_State:
     def __init__(self, mutated_input, action=0, previous_state=None, reward_status=Reward_Status.NOT_AVAILABLE, reward=None, game=None):
         self.mutated_input = copy.deepcopy(mutated_input)
 
@@ -40,7 +40,7 @@ class RLforDL_State:
         if self.reward_status == Reward_Status.UNVISITED:
             self.reward_status = Reward_Status.VISITED
 
-class RLforDL:
+class DeepSmartFuzzer:
     def __init__(self, params, experiment):
         self.params = params
         self.experiment = experiment
@@ -153,13 +153,13 @@ class RLforDL:
     
     def step(self, state, action, return_reward=True):
         if self.player(state.level) == 1:
-            new_state = RLforDL_State(state.mutated_input, action=action, previous_state=state, reward_status=Reward_Status.NOT_AVAILABLE)
+            new_state = DeepSmartFuzzer_State(state.mutated_input, action=action, previous_state=state, reward_status=Reward_Status.NOT_AVAILABLE)
         else:
             action1 = state.action_history[-1]
             action2 = action
             mutated_input = self.apply_action(state, action1, action2)
             reward = self.calc_reward(mutated_input)
-            new_state = RLforDL_State(mutated_input, action=action, previous_state=state, reward_status=Reward_Status.UNVISITED, reward=reward)
+            new_state = DeepSmartFuzzer_State(mutated_input, action=action, previous_state=state, reward_status=Reward_Status.UNVISITED, reward=reward)
         
         if self.ending_condition(new_state):
             # already an termination node

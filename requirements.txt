@@ -1,11 +1,10 @@
 numpy==1.16.2
 keras==2.2.4
-tensorflow==1.5.0
 sklearn
 scipy
 matplotlib
 absl-py
-pyflann
+pyflann3
 h5py
 cleverhans
 opencv-python

@@ -83,12 +83,12 @@ def load_runner(params):
     return runner
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Experiments Script For RLforDL")
-    parser.add_argument("--params_set", nargs='*', type=str, default=["mnist", "mcts", "tfc"], help="see params folder")
+    parser = argparse.ArgumentParser(description="Experiments Script For DeepSmartFuzzer")
+    parser.add_argument("--params_set", nargs='*', type=str, default=["mnist", "LeNet1", "mcts", "tfc"], help="see params folder")
     parser.add_argument("--dataset", type=str, default="MNIST", choices=["MNIST", "CIFAR10"])
     parser.add_argument("--model", type=str, default="LeNet1", choices=["LeNet1", "LeNet4", "LeNet5", "CIFAR_CNN"])
     parser.add_argument("--implicit_reward", type=str2bool, nargs='?', const=True, default=False)
-    parser.add_argument("--coverage", type=str, default="neuron", choices=["neuron", "kmn", "nbc", "snac", "tfc"])
+    parser.add_argument("--coverage", type=str, default="tfc", choices=["neuron", "kmn", "nbc", "snac", "tfc"])
     parser.add_argument("--input_chooser", type=str, default="random", choices=["random", "clustered_random"])
     parser.add_argument("--runner", type=str, default="mcts", choices=["mcts", "mcts_clustered", "deephunter", "tensorfuzz"])
     parser.add_argument("--batch_size", type=int, default=64)
@@ -99,6 +99,6 @@ if __name__ == "__main__":
     parser.add_argument("--check_adversarial", type=str2bool, nargs='?', const=True, default=False)
     parser.add_argument("--save_generated_samples", type=str2bool, nargs='?', const=True, default=False)
     params = parser.parse_args()
-
+    
     run_experiment(params)
 

@@ -1,14 +1,14 @@
 import numpy as np
 from src.mcts import MCTS_Node, run_mcts
-from src.RLforDL import RLforDL, RLforDL_State, Reward_Status
+from src.DeepSmartFuzzer import DeepSmartFuzzer, DeepSmartFuzzer_State, Reward_Status
 
 def mcts(params, experiment):
-    game = RLforDL(params, experiment)
+    game = DeepSmartFuzzer(params, experiment)
     
     experiment.iteration = 0
     while not experiment.termination_condition():
         test_input, test_label = experiment.input_chooser(batch_size=params.batch_size)
-        root_state = RLforDL_State(test_input, 0, game=game)
+        root_state = DeepSmartFuzzer_State(test_input, 0, game=game)
         root = MCTS_Node(root_state, game)
         run_mcts(root, params.tc1, params.tc2, verbose=params.verbose, image_verbose=params.image_verbose)
         best_coverage, best_input = game.get_stat()
