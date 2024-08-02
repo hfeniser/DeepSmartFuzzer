@@ -1,5 +1,5 @@
 numpy==1.16.2
-keras==2.2.4
+keras==2.13.1
 sklearn
 scipy
 matplotlib
